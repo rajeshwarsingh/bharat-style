@@ -59,12 +59,12 @@ const Home: React.FC = () => {
       "@type": "ListItem",
       "position": 2,
       "name": "Women",
-      "item": "https://bharat.style/#/women"
+      "item": "https://bharat.style/women"
     },{
       "@type": "ListItem",
       "position": 3,
       "name": "Handbags",
-      "item": "https://bharat.style/#/women/handbags"
+      "item": "https://bharat.style/women/handbags"
     },{
       "@type": "ListItem",
       "position": 4,
