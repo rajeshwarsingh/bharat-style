@@ -47,6 +47,11 @@ const AmazonTrust: React.FC = () => {
               href={AMAZON_PRODUCT_URL} 
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                  window.gtag('event', 'amazon_click', { placement: 'amazon_trust', target: 'product' });
+                }
+              }}
               className="flex items-center justify-center gap-2 bg-[#232F3E] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#131921] transition shadow-md whitespace-nowrap"
             >
               <AmazonIcon className="w-5 h-5" />
@@ -56,6 +61,11 @@ const AmazonTrust: React.FC = () => {
               href={AMAZON_STORE_URL} 
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                  window.gtag('event', 'amazon_click', { placement: 'amazon_trust', target: 'store' });
+                }
+              }}
               className="flex items-center justify-center gap-2 bg-white border border-stone-300 text-stone-700 px-6 py-3 rounded-xl font-bold hover:bg-stone-50 transition whitespace-nowrap"
             >
               Visit Store <ExternalLink size={18} />

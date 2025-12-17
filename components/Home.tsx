@@ -73,6 +73,46 @@ const Home: React.FC = () => {
     }]
   };
 
+  // FAQ Schema (Rich Results)
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the bag washable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jute is a natural fiber. We recommend spot cleaning with a damp cloth for stains. Do not machine wash or soak in water."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the strap adjustable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the long strap is fully adjustable, making it perfect for both shoulder and crossbody use for women of all heights."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it have a zip closure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the main compartment has a high-quality zip closure to keep your essentials safe. It also has a small inner pocket."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it eco-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. The bag is made from biodegradable jute and cotton, making it a sustainable choice."
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <SEO 
@@ -81,7 +121,7 @@ const Home: React.FC = () => {
         canonicalUrl="https://bharat.style/"
         type="product"
         image={PRODUCT.colors[0].images[0]}
-        schema={[productSchema, breadcrumbSchema]}
+        schema={[productSchema, breadcrumbSchema, faqSchema]}
       />
       <Hero appliedCoupon={appliedCoupon} setAppliedCoupon={setAppliedCoupon} />
       <Features />

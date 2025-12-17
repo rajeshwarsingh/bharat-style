@@ -11,12 +11,22 @@ const StickyCTA: React.FC<StickyCTAProps> = ({ appliedCoupon }) => {
     : PRODUCT.price;
 
   const handleBuy = () => {
-     let message = `Hi, I want to buy the ${PRODUCT.name}`;
+     let message = `Hi Bharat.style, I want to buy the ${PRODUCT.name}.`;
      if (appliedCoupon) {
        message += ` with coupon ${appliedCoupon} at ₹${currentPrice}`;
+     } else {
+       message += ` Price: ₹${currentPrice}`;
      }
      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-     window.open(url, '_blank');
+     window.open(url, '_blank', 'noopener,noreferrer');
+     if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+       window.gtag('event', 'whatsapp_buy_click', {
+         placement: 'sticky_cta',
+         coupon: appliedCoupon || undefined,
+         value: currentPrice,
+         currency: 'INR',
+       });
+     }
   };
 
   return (
@@ -34,6 +44,7 @@ const StickyCTA: React.FC<StickyCTAProps> = ({ appliedCoupon }) => {
           )}
         </div>
         <button 
+          type="button"
           onClick={handleBuy}
           className="flex-1 bg-brand-green text-white py-3 px-6 rounded-xl font-bold shadow-lg shadow-green-100 active:scale-95 transition-transform"
         >

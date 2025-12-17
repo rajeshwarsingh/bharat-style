@@ -29,11 +29,22 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
     if (!couponInput) return;
     
     if (VALID_COUPONS.includes(couponInput.toUpperCase())) {
-      setAppliedCoupon(couponInput.toUpperCase());
+      const code = couponInput.toUpperCase();
+      setAppliedCoupon(code);
       setCouponError('');
+      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'coupon_apply', {
+          coupon: code,
+        });
+      }
     } else {
       setCouponError('Invalid coupon code');
       setAppliedCoupon(null);
+      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'coupon_invalid', {
+          coupon: couponInput.toUpperCase(),
+        });
+      }
     }
   };
 
@@ -41,15 +52,69 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
     setAppliedCoupon(null);
     setCouponInput('');
     setCouponError('');
+    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'coupon_remove');
+    }
   };
 
   const handleWhatsAppBuy = () => {
     let message = `Hi Bharat.style, I would like to buy the ${PRODUCT.name} in ${selectedColor.name}.`;
     if (appliedCoupon) {
       message += ` I have applied coupon ${appliedCoupon}. Price: ₹${currentPrice}.`;
+    } else {
+      message += ` Price: ₹${currentPrice}.`;
     }
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
+    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'whatsapp_buy_click', {
+        placement: 'hero',
+        color: selectedColor.id,
+        coupon: appliedCoupon || undefined,
+        value: currentPrice,
+        currency: 'INR',
+      });
+    }
+  };
+
+  const handleShare = async () => {
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://bharat.style/';
+    const shareText = `${PRODUCT.name} (${selectedColor.name}) — ₹${currentPrice} on Bharat.style`;
+    const nav = typeof window !== 'undefined' ? window.navigator : undefined;
+
+    try {
+      if (nav && 'share' in nav) {
+        await (nav as any).share({
+          title: PRODUCT.name,
+          text: shareText,
+          url: shareUrl,
+        });
+        if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'share', { method: 'web_share', placement: 'hero' });
+        }
+        return;
+      }
+
+      if (nav?.clipboard?.writeText) {
+        await nav.clipboard.writeText(shareUrl);
+        if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'share', { method: 'copy_link', placement: 'hero' });
+        }
+        alert('Link copied!');
+        return;
+      }
+    } catch {
+      // fall through
+    }
+
+    try {
+      window.prompt('Copy this link:', shareUrl);
+      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'share', { method: 'prompt_copy', placement: 'hero' });
+      }
+    } catch {
+      // ignore
+    }
   };
 
   const scrollToSection = (id: string) => {
@@ -129,7 +194,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                   height="800"
                   // Main product image is critical, so we use eager loading
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
                 
                 {/* Image Overlays */}
@@ -138,7 +203,11 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                     {PRODUCT.discountPercentage}% OFF
                   </span>
                 </div>
-                <button className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-stone-600 hover:text-red-500 transition shadow-sm">
+                <button
+                  type="button"
+                  aria-label="Add to wishlist"
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-stone-600 hover:text-red-500 transition shadow-sm"
+                >
                   <Heart size={20} />
                 </button>
 
@@ -315,12 +384,16 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
             {/* Main CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
+                type="button"
                 onClick={handleWhatsAppBuy}
                 className="flex-1 bg-green-600 border border-transparent rounded-xl py-4 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-lg shadow-green-200 transition-all transform hover:-translate-y-0.5"
               >
                 <span>Buy Now on WhatsApp</span>
               </button>
               <button
+                type="button"
+                aria-label="Share this product"
+                onClick={handleShare}
                 className="flex-0.5 bg-white border border-stone-300 rounded-xl py-4 px-4 flex items-center justify-center text-stone-700 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition"
               >
                 <Share2 size={20} />
