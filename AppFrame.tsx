@@ -7,6 +7,7 @@ import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
 import NotFound from './components/NotFound';
 import GoogleAnalytics from './components/GoogleAnalytics';
+import MetaPixel from './components/MetaPixel';
 
 // Component to ensure page scrolls to top on route change
 const ScrollToTop = () => {
@@ -24,6 +25,7 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
     <>
       <ScrollToTop />
       {enableAnalytics ? <GoogleAnalytics /> : null}
+      {enableAnalytics ? <MetaPixel /> : null}
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow">
