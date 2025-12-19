@@ -3,6 +3,7 @@ import { ArrowLeft, Quote, HeartHandshake, Sprout, Hammer } from 'lucide-react';
 import { ARTISAN_STORY_IMAGE, ARTISAN_SPOTLIGHT_IMAGE, LOGO_URL } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import SEO from './SEO';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const BlogPage: React.FC = () => {
   const navigate = useNavigate();
@@ -51,12 +52,15 @@ const BlogPage: React.FC = () => {
       {/* Header Image */}
       <div className="relative h-[40vh] sm:h-[50vh] w-full overflow-hidden">
         <img 
-          src={ARTISAN_STORY_IMAGE} 
+          src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1600 })}
+          srcSet={cloudinarySrcSet(ARTISAN_STORY_IMAGE, [768, 1200, 1600, 1920])}
+          sizes="100vw"
           alt="Artisan hands working" 
           className="w-full h-full object-cover"
           width="1920"
           height="1080"
           loading="eager"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <div className="text-center px-4">
@@ -94,12 +98,15 @@ const BlogPage: React.FC = () => {
 
             <div className="my-12 bg-stone-50 p-6 sm:p-10 rounded-2xl border-l-4 border-brand-green flex gap-6 flex-col sm:flex-row items-center">
                <img 
-                 src={ARTISAN_SPOTLIGHT_IMAGE} 
+                 src={cloudinaryTransform(ARTISAN_SPOTLIGHT_IMAGE, { w: 256 })}
+                 srcSet={cloudinarySrcSet(ARTISAN_SPOTLIGHT_IMAGE, [128, 192, 256, 384])}
+                 sizes="(min-width: 640px) 128px, 96px"
                  alt="Lakshmi Devi" 
                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-md border-2 border-white"
                  loading="lazy"
                  width="128"
                  height="128"
+                 decoding="async"
                />
                <div>
                  <Quote className="text-brand-green mb-2 opacity-50" size={32} />

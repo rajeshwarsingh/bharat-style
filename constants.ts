@@ -14,6 +14,36 @@ export const GA_TRACKING_ID = "G-6ZVW69DQG4";
 
 export const VALID_COUPONS = ["SANDY5", "OCEAN5", "NEWYEAR5"];
 
+// Header Badge (right side of navbar)
+// Swap this in future for festivals (e.g. "🪔 Diwali", "🎄", "🎉") without changing layout code.
+export const HEADER_BADGE: {
+  enabled: boolean;
+  emoji: string; // emoji (🇮🇳 / 🪔 / 🎉 etc.)
+  variant?: 'emoji' | 'svg_india_flag';
+  label: string; // short text shown in header
+  ariaLabel: string;
+  title?: string;
+  festive?: {
+    enabled: boolean;
+    // For seasonal flair (e.g., "snow" for Christmas)
+    effect?: 'snow' | 'snowfall' | 'snowfall_banner';
+    // Optional height for banner-style snowfall (pixels)
+    bannerHeightPx?: number;
+  };
+} = {
+  enabled: true,
+  emoji: "🇮🇳",
+  variant: 'svg_india_flag',
+  label: "",
+  ariaLabel: "India",
+  title: "India",
+  festive: {
+    enabled: true,
+    effect: 'snowfall_banner',
+    bannerHeightPx: 260,
+  },
+};
+
 /*
   GEMINI IMAGE GENERATION PROMPTS
   -------------------------------

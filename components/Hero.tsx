@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Star, ShieldCheck, Truck, RefreshCcw, Share2, Heart, User, Package, Camera, Tag, X, Check } from 'lucide-react';
+import { Star, ShieldCheck, Truck, RefreshCcw, Share2, Heart, User, Package, Camera, Tag, X, Check, MessageCircle, ClipboardCheck } from 'lucide-react';
 import { PRODUCT, WHATSAPP_NUMBER, VALID_COUPONS } from '../constants';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 interface HeroProps {
   appliedCoupon: string | null;
@@ -12,6 +13,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [couponInput, setCouponInput] = useState('');
   const [couponError, setCouponError] = useState('');
+  const [couponJustApplied, setCouponJustApplied] = useState(false);
 
   // Calculate prices
   const currentPrice = appliedCoupon 
@@ -24,6 +26,13 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
   useEffect(() => {
     setActiveImageIndex(0);
   }, [selectedColor]);
+
+  useEffect(() => {
+    if (!appliedCoupon) return;
+    setCouponJustApplied(true);
+    const t = window.setTimeout(() => setCouponJustApplied(false), 450);
+    return () => window.clearTimeout(t);
+  }, [appliedCoupon]);
 
   const handleApplyCoupon = () => {
     if (!couponInput) return;
@@ -169,12 +178,15 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                          : 'border-transparent opacity-70 hover:opacity-100'}
                      `}
                    >
-                      <img 
-                        src={img} 
+                      <img
+                        src={cloudinaryTransform(img, { w: 160 })} 
+                        srcSet={cloudinarySrcSet(img, [96, 160, 240])}
+                        sizes="96px"
                         className="w-full h-full object-cover" 
                         alt={`${PRODUCT.name} view ${idx + 1}`}
                         width="96"
                         height="96"
+                        loading="lazy"
                       />
                       {/* View Type Label */}
                       <div className="absolute bottom-0 inset-x-0 bg-black/50 text-[10px] text-white text-center py-1 font-medium">
@@ -186,16 +198,21 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
               {/* Main Image Area */}
               <div className="flex-1 relative aspect-square sm:aspect-[4/3] lg:aspect-[1/1] overflow-hidden rounded-2xl bg-stone-200 shadow-xl group">
-                <img
-                  src={selectedColor.images[activeImageIndex]} 
-                  alt={`${PRODUCT.name} - ${selectedColor.name}`}
-                  className="object-cover w-full h-full transform transition duration-700 hover:scale-105"
-                  width="800"
-                  height="800"
-                  // Main product image is critical, so we use eager loading
-                  loading="eager"
-                  fetchpriority="high"
-                />
+                <div className="w-full h-full bs-kenburns motion-reduce:transform-none motion-reduce:animate-none">
+                  <img
+                    src={cloudinaryTransform(selectedColor.images[activeImageIndex], { w: 900 })}
+                    srcSet={cloudinarySrcSet(selectedColor.images[activeImageIndex], [480, 768, 900, 1200])}
+                    sizes="(min-width: 1024px) 42vw, (min-width: 640px) 65vw, 100vw"
+                    alt={`${PRODUCT.name} - ${selectedColor.name}`}
+                    className="object-cover w-full h-full transform transition duration-700 group-hover:scale-[1.02]"
+                    width="800"
+                    height="800"
+                    // Main product image is critical, so we use eager loading
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                  />
+                </div>
                 
                 {/* Image Overlays */}
                 <div className="absolute top-4 left-4 z-10">
@@ -270,7 +287,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
             <p className="mt-2 text-lg text-stone-600 font-medium">{PRODUCT.tagline}</p>
 
             {/* Ratings */}
-            <div className="mt-3 flex items-center">
+            <div className="mt-3 flex items-center bs-rating-shimmer">
               <div className="flex items-center text-yellow-500">
                 {[0, 1, 2, 3, 4].map((rating) => (
                   <Star key={rating} className="flex-shrink-0 h-5 w-5 fill-current" />
@@ -337,7 +354,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                </div>
                
                {appliedCoupon ? (
-                 <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3">
+                 <div className={`flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3 ${couponJustApplied ? 'bs-coupon-pop' : ''}`}>
                     <div className="flex items-center gap-2">
                        <div className="bg-green-100 p-1 rounded-full">
                          <Check size={14} className="text-green-600" />
@@ -382,11 +399,11 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
             </div>
 
             {/* Main CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div id="buy-now" className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
                 onClick={handleWhatsAppBuy}
-                className="flex-1 bg-green-600 border border-transparent rounded-xl py-4 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-lg shadow-green-200 transition-all transform hover:-translate-y-0.5"
+                className="flex-1 bg-green-600 border border-transparent rounded-xl py-4 px-8 flex items-center justify-center text-base font-bold text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-lg shadow-green-200 transition-all transform hover:-translate-y-0.5 active:scale-[0.99]"
               >
                 <span>Buy Now on WhatsApp</span>
               </button>
@@ -398,6 +415,37 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
               >
                 <Share2 size={20} />
               </button>
+            </div>
+
+            {/* WhatsApp Order Steps */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
+                <div className="h-9 w-9 rounded-full bg-green-50 flex items-center justify-center text-green-700">
+                  <MessageCircle size={18} />
+                </div>
+                <div>
+                  <p className="font-bold text-stone-900 leading-tight">Message us</p>
+                  <p className="text-xs text-stone-500">Tap WhatsApp to start</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
+                <div className="h-9 w-9 rounded-full bg-stone-50 flex items-center justify-center text-stone-700">
+                  <ClipboardCheck size={18} />
+                </div>
+                <div>
+                  <p className="font-bold text-stone-900 leading-tight">Confirm details</p>
+                  <p className="text-xs text-stone-500">Address + color</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
+                <div className="h-9 w-9 rounded-full bg-jute-100 flex items-center justify-center text-stone-800">
+                  <Truck size={18} />
+                </div>
+                <div>
+                  <p className="font-bold text-stone-900 leading-tight">Delivered</p>
+                  <p className="text-xs text-stone-500">Fast & tracked</p>
+                </div>
+              </div>
             </div>
 
             {/* Features / Trust Badges */}

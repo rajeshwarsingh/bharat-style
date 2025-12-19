@@ -3,6 +3,7 @@ import { ArrowLeft, Users, Globe, Heart, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ARTISAN_STORY_IMAGE, MISSION_IMAGE, LOGO_URL, WHATSAPP_NUMBER, INSTAGRAM_HANDLE } from '../constants';
 import SEO from './SEO';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const AboutPage: React.FC = () => {
   // Scroll to top handled by ScrollToTop component in App.tsx
@@ -64,11 +65,14 @@ const AboutPage: React.FC = () => {
       <div className="relative bg-stone-900 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
              <img 
-               src={ARTISAN_STORY_IMAGE} 
+               src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1600 })}
+               srcSet={cloudinarySrcSet(ARTISAN_STORY_IMAGE, [768, 1200, 1600, 1920])}
+               sizes="100vw"
                alt="Background" 
                className="w-full h-full object-cover" 
                width="1920"
                height="1080"
+               decoding="async"
              />
         </div>
         <div className="relative max-w-7xl mx-auto text-center">
@@ -108,12 +112,15 @@ const AboutPage: React.FC = () => {
            </div>
            <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl bg-stone-200">
                <img 
-                 src={MISSION_IMAGE} 
+                src={cloudinaryTransform(MISSION_IMAGE, { w: 1000 })}
+                srcSet={cloudinarySrcSet(MISSION_IMAGE, [600, 800, 1000, 1200])}
+                sizes="(min-width: 768px) 40vw, 100vw"
                  alt="Natural Jute Texture" 
                  className="w-full h-full object-cover"
                  loading="lazy"
                  width="800"
                  height="600"
+                decoding="async"
                />
            </div>
         </div>

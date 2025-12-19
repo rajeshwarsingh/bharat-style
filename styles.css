@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Premium micro-interactions ---------- */
+.bs-coupon-pop {
+  animation: bs-pop 360ms ease-out;
+}
+
+.bs-rating-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.bs-rating-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: bs-shimmer 1200ms ease-out 1;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-coupon-pop {
+    animation: none !important;
+  }
+  .bs-rating-shimmer::after {
+    animation: none !important;
+  }
+}
+
+/* ---------- Hero Ken Burns (subtle) ---------- */
+@keyframes bs-kenburns {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.04) translate3d(-1%, -1%, 0); }
+}
+.bs-kenburns {
+  transform-origin: center;
+  animation: bs-kenburns 14s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bs-kenburns { animation: none !important; transform: none !important; }
+}
+
+/* ---------- Seasonal animations (snow / flag) ---------- */
+@keyframes bs-snow-fall {
+  0% { transform: translate3d(var(--x), -18px, 0); opacity: 0; }
+  10% { opacity: .9; }
+  100% { transform: translate3d(calc(var(--x) + var(--drift)), 34px, 0); opacity: 0; }
+}
+@keyframes bs-snow-fall-long {
+  0% { transform: translate3d(var(--x), -22px, 0); opacity: 0; }
+  10% { opacity: .9; }
+  100% { transform: translate3d(calc(var(--x) + var(--drift)), var(--fallDistance), 0); opacity: 0; }
+}
+@keyframes bs-snow-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.bs-snowfall {
+  position: absolute;
+  inset: -6px -10px;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bs-snowflake {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+  animation: bs-snow-fall var(--dur) linear infinite;
+}
+.bs-snowflake::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.35);
+  animation: bs-snow-spin var(--spin) linear infinite;
+}
+
+.bs-snow-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--snowTop, 64px); /* navbar height (mobile default) */
+  height: var(--bannerHeight);
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .bs-snow-banner {
+    top: var(--snowTopSm, var(--snowTop, 64px));
+  }
+}
+.bs-snow-banner .bs-snowflake {
+  animation: bs-snow-fall-long var(--dur) linear infinite;
+}
+
+@keyframes bs-flag-wave {
+  0% { transform: perspective(500px) rotateY(0deg) translateZ(0); }
+  50% { transform: perspective(500px) rotateY(-10deg) translateZ(0); }
+  100% { transform: perspective(500px) rotateY(0deg) translateZ(0); }
+}
+.bs-flag-wave {
+  transform-origin: left center;
+  animation: bs-flag-wave 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-snowflake,
+  .bs-snowflake::after,
+  .bs-flag-wave {
+    animation: none !important;
+  }
+}
+
+

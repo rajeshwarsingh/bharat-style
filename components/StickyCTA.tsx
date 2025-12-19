@@ -46,7 +46,7 @@ const StickyCTA: React.FC<StickyCTAProps> = ({ appliedCoupon }) => {
         <button 
           type="button"
           onClick={handleBuy}
-          className="flex-1 bg-brand-green text-white py-3 px-6 rounded-xl font-bold shadow-lg shadow-green-100 active:scale-95 transition-transform"
+          className="flex-1 bg-brand-green text-white py-3 px-6 rounded-xl font-bold shadow-lg shadow-green-100 active:scale-[0.99] transition-transform"
         >
           Buy Now
         </button>

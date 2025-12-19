@@ -9,6 +9,8 @@ import Reviews from './Reviews';
 import StickyCTA from './StickyCTA';
 import InstagramCTA from './InstagramCTA';
 import IndiaPride from './IndiaPride';
+import Reveal from './Reveal';
+import DesktopWhatsAppCTA from './DesktopWhatsAppCTA';
 import SEO from './SEO';
 import { PRODUCT, LOGO_URL } from '../constants';
 
@@ -111,6 +113,22 @@ const Home: React.FC = () => {
           "@type": "Answer",
           "text": "Absolutely. The bag is made from biodegradable jute and cotton, making it a sustainable choice."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer free delivery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We offer free delivery on prepaid orders across India."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the return policy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer a 10-day return and exchange policy. Message us on WhatsApp with your order ID to initiate."
+        }
       }
     ]
   };
@@ -126,15 +144,16 @@ const Home: React.FC = () => {
         schema={[productSchema, breadcrumbSchema, faqSchema]}
       />
       <Hero appliedCoupon={appliedCoupon} setAppliedCoupon={setAppliedCoupon} />
-      <Features />
-      <ColorPalette />
-      <ProductDetails />
-      <AmazonTrust />
-      <Story />
-      <IndiaPride />
-      <Reviews />
-      <InstagramCTA />
+      <Reveal delayMs={0}><Features /></Reveal>
+      <Reveal delayMs={80}><ColorPalette /></Reveal>
+      <Reveal delayMs={120}><ProductDetails /></Reveal>
+      <Reveal delayMs={160}><AmazonTrust /></Reveal>
+      <Reveal delayMs={200}><Story /></Reveal>
+      <Reveal delayMs={240}><IndiaPride /></Reveal>
+      <Reveal delayMs={280}><Reviews /></Reveal>
+      <Reveal delayMs={320}><InstagramCTA /></Reveal>
       <StickyCTA appliedCoupon={appliedCoupon} />
+      <DesktopWhatsAppCTA />
     </>
   );
 };
