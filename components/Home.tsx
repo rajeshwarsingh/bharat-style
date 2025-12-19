@@ -8,6 +8,7 @@ import Story from './Story';
 import Reviews from './Reviews';
 import StickyCTA from './StickyCTA';
 import InstagramCTA from './InstagramCTA';
+import IndiaPride from './IndiaPride';
 import SEO from './SEO';
 import { PRODUCT, LOGO_URL } from '../constants';
 
@@ -130,6 +131,7 @@ const Home: React.FC = () => {
       <ProductDetails />
       <AmazonTrust />
       <Story />
+      <IndiaPride />
       <Reviews />
       <InstagramCTA />
       <StickyCTA appliedCoupon={appliedCoupon} />
