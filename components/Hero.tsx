@@ -234,9 +234,14 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`h-2 w-2 rounded-full transition-all shadow-sm ${activeImageIndex === idx ? 'bg-brand-green w-6' : 'bg-white/80'}`}
+                      className="h-11 w-11 -m-1 rounded-full flex items-center justify-center transition active:scale-95"
                       aria-label={`View image ${idx + 1}`}
-                    />
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`h-2.5 rounded-full transition-all shadow-sm ${activeImageIndex === idx ? 'bg-brand-green w-7' : 'bg-white/80 w-2.5'}`}
+                      />
+                    </button>
                   ))}
                 </div>
               </div>
@@ -307,11 +312,11 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
               
               {appliedCoupon ? (
                 <div className="flex flex-col mb-1 ml-2">
-                    <p className="text-sm text-stone-400 line-through">₹{PRODUCT.price}</p>
-                    <p className="text-sm text-stone-400 line-through">MRP ₹{PRODUCT.mrp}</p>
+                    <p className="text-sm text-stone-500 line-through">₹{PRODUCT.price}</p>
+                    <p className="text-sm text-stone-500 line-through">MRP ₹{PRODUCT.mrp}</p>
                 </div>
               ) : (
-                <p className="ml-1 text-lg text-stone-400 line-through mb-1">₹{PRODUCT.mrp}</p>
+                <p className="ml-1 text-lg text-stone-500 line-through mb-1">₹{PRODUCT.mrp}</p>
               )}
               
               <p className="ml-2 text-sm font-semibold text-red-600 mb-2">
@@ -324,7 +329,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
             {/* Color Selector */}
             <div className="mt-6">
-              <h3 className="text-sm font-medium text-stone-900">Colour: <span className="text-stone-600 font-normal">{selectedColor.name}</span></h3>
+              <p className="text-sm font-medium text-stone-900">Colour: <span className="text-stone-600 font-normal">{selectedColor.name}</span></p>
               <div className="mt-3 flex items-center space-x-3">
                 {PRODUCT.colors.map((color) => (
                   <button

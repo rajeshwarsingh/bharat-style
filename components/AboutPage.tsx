@@ -129,12 +129,15 @@ const AboutPage: React.FC = () => {
         <div className="mb-24 py-16 bg-white rounded-3xl shadow-sm border border-stone-100 text-center px-6">
            <div className="max-w-3xl mx-auto">
               <img 
-                src={LOGO_URL} 
+                src={cloudinaryTransform(LOGO_URL, { w: 800 })} 
+                srcSet={cloudinarySrcSet(LOGO_URL, [240, 400, 600, 800])}
+                sizes="(min-width: 640px) 360px, 240px"
                 alt="Bharat.style Logo" 
                 className="h-32 sm:h-48 mx-auto mb-8 object-contain"
                 loading="lazy"
                 width="400"
                 height="200"
+                decoding="async"
               />
               <h2 className="text-3xl font-serif font-bold text-stone-900 mb-4">
                 The Symbol of Authenticity

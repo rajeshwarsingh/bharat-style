@@ -2,6 +2,7 @@ import React from 'react';
 import { Sprout, Hand, HeartHandshake, Package, Quote, ArrowRight } from 'lucide-react';
 import { ARTISAN_STORY_IMAGE, ARTISAN_SPOTLIGHT_IMAGE } from '../constants';
 import { Link } from 'react-router-dom';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const Story: React.FC = () => {
   const steps = [
@@ -56,12 +57,15 @@ const Story: React.FC = () => {
              <div className="absolute -inset-1 bg-gradient-to-r from-jute-500 to-brand-green rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
                 <img 
-                  src={ARTISAN_STORY_IMAGE} 
+                  src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1000 })} 
+                  srcSet={cloudinarySrcSet(ARTISAN_STORY_IMAGE, [480, 768, 1000, 1200])}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
                   alt="Artisan weaving" 
                   className="w-full h-full object-cover transform transition duration-700 group-hover:scale-110"
                   loading="lazy"
                   width="800"
                   height="600"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
              </div>
@@ -88,12 +92,15 @@ const Story: React.FC = () => {
             <div className="lg:grid lg:grid-cols-12 gap-8 items-center">
                <div className="lg:col-span-5 relative">
                   <img 
-                    src={ARTISAN_SPOTLIGHT_IMAGE} 
+                    src={cloudinaryTransform(ARTISAN_SPOTLIGHT_IMAGE, { w: 900 })} 
+                    srcSet={cloudinarySrcSet(ARTISAN_SPOTLIGHT_IMAGE, [480, 600, 800, 900])}
+                    sizes="(min-width: 1024px) 30vw, 100vw"
                     alt="Lakshmi, Senior Artisan"
                     className="rounded-xl shadow-xl w-full object-cover aspect-[3/4]"
                     loading="lazy"
                     width="600"
                     height="800"
+                    decoding="async"
                   />
                   <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden sm:block">
                      <p className="font-serif font-bold text-stone-900 text-xl">Lakshmi Devi</p>

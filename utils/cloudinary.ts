@@ -11,7 +11,7 @@ export function cloudinaryTransform(url: string, opts: TransformOpts): string {
 
   const transformParts: string[] = [];
   transformParts.push(`f_${opts.f ?? 'auto'}`);
-  transformParts.push(`q_${opts.q ?? 'auto'}`);
+  transformParts.push(`q_${opts.q ?? 'auto:good'}`);
   if (opts.w) transformParts.push(`w_${opts.w}`);
 
   const transform = transformParts.join(',');

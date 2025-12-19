@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-white text-2xl font-serif font-bold">Bharat<span className="text-brand-green">.style</span></h3>
-              <p className="text-stone-500 text-sm mb-2">by TheTidbit</p>
+              <p className="text-stone-400 text-sm mb-2">by TheTidbit</p>
               <p className="mt-4 max-w-xs text-sm text-stone-400">
                 Sustainable fashion for the conscious soul. Handmade in India 🇮🇳 with love and jute.
               </p>
@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className="mt-12 border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-stone-500">&copy; {new Date().getFullYear()} Bharat.style by TheTidbit. All rights reserved.</p>
+            <p className="text-sm text-stone-400">&copy; {new Date().getFullYear()} Bharat.style by TheTidbit. All rights reserved.</p>
             
             {/* Payment Icons */}
             <div className="flex gap-3 items-center opacity-70 grayscale hover:grayscale-0 transition-all">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Snowflake, X } from 'lucide-react';
 import { HEADER_BADGE, LOGO_URL } from '../constants';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const IndiaFlagIcon = () => {
   return (
@@ -99,7 +100,16 @@ const Navbar: React.FC = () => {
           {/* Logo Section */}
           <div className="flex-1 flex justify-center sm:justify-start">
             <Link to="/" onClick={closeMenu} className="flex items-center gap-3 group focus:outline-none">
-              <img src={LOGO_URL} alt="TheTidbit Logo" className="h-10 w-auto" />
+              <img
+                src={cloudinaryTransform(LOGO_URL, { w: 160 })}
+                srcSet={cloudinarySrcSet(LOGO_URL, [80, 120, 160, 240])}
+                sizes="40px"
+                alt="TheTidbit Logo"
+                className="h-10 w-auto"
+                width="40"
+                height="40"
+                decoding="async"
+              />
               <div className="flex flex-col items-start">
                  <span className="font-serif text-2xl font-bold text-stone-900 tracking-tight leading-none group-hover:text-brand-green transition-colors">
                     Bharat<span className="text-brand-green">.style</span>
@@ -139,7 +149,6 @@ const Navbar: React.FC = () => {
             <div className="flex items-center justify-end w-28 sm:w-auto">
               <div
                 className="relative inline-flex items-center gap-2 select-none"
-                aria-label={HEADER_BADGE.ariaLabel}
                 title={HEADER_BADGE.title ?? HEADER_BADGE.ariaLabel}
               >
                 {/* Festive decorations */}
@@ -193,9 +202,15 @@ const Navbar: React.FC = () => {
                   </div>
                 ) : null}
 
-                <span role="img" aria-hidden="true" className="text-4xl leading-none drop-shadow-sm">
+                <span
+                  role="img"
+                  aria-label={HEADER_BADGE.ariaLabel}
+                  className="text-4xl leading-none drop-shadow-sm"
+                >
                   {HEADER_BADGE.variant === 'svg_india_flag' ? (
-                    <IndiaFlagIcon />
+                    <span aria-hidden="true">
+                      <IndiaFlagIcon />
+                    </span>
                   ) : (
                     HEADER_BADGE.emoji
                   )}

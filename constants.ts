@@ -12,6 +12,9 @@ export const AMAZON_STORE_URL = "https://www.amazon.in/stores/VisitTHETIDBIT/pag
 // GOOGLE ANALYTICS ID - Replace this with your actual Measurement ID (starts with G-)
 export const GA_TRACKING_ID = "G-6ZVW69DQG4"; 
 
+// Meta Pixel
+export const FB_PIXEL_ID = "1924712958256039";
+
 export const VALID_COUPONS = ["SANDY5", "OCEAN5", "NEWYEAR5"];
 
 // Header Badge (right side of navbar)

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PRODUCT, WHATSAPP_NUMBER } from '../constants';
 import { ArrowUpRight } from 'lucide-react';
+import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const ColorPalette: React.FC = () => {
   const handleBuy = (colorName: string) => {
@@ -28,12 +29,15 @@ const ColorPalette: React.FC = () => {
               <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl bg-stone-100 relative shadow-sm transition-all duration-500 group-hover:shadow-xl">
                 {/* Main Image (Model) */}
                 <img
-                  src={color.images[0]}
+                  src={cloudinaryTransform(color.images[0], { w: 900 })}
+                  srcSet={cloudinarySrcSet(color.images[0], [400, 600, 800, 900])}
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
                   alt={`${PRODUCT.name} in ${color.name}`}
                   className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-110"
                   loading="lazy"
                   width="600"
                   height="800"
+                  decoding="async"
                 />
                 
                 {/* Gradient Overlay */}

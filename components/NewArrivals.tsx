@@ -76,7 +76,7 @@ const NewArrivals: React.FC = () => {
                    <p className="text-lg font-bold text-stone-900">₹{product.price}</p>
                    {product.mrp > product.price && (
                      <>
-                       <p className="text-xs text-stone-400 line-through">₹{product.mrp}</p>
+                      <p className="text-xs text-stone-500 line-through">₹{product.mrp}</p>
                        <p className="text-xs text-brand-green font-bold">
                          {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% OFF
                        </p>

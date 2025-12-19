@@ -13,26 +13,60 @@ declare global {
 const GoogleAnalytics = () => {
   const location = useLocation();
 
-  useEffect(() => {
-    // Check if the script exists, if not, create it
-    if (typeof window !== 'undefined' && GA_TRACKING_ID && GA_TRACKING_ID.startsWith('G-')) {
-      const scriptId = 'google-analytics-script';
-      
-      if (!document.getElementById(scriptId)) {
-        // Inject the Google Analytics script tag dynamically
-        const script = document.createElement('script');
-        script.id = scriptId;
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-        document.head.appendChild(script);
+  const loadGtag = () => {
+    if (typeof window === 'undefined') return;
+    if (!GA_TRACKING_ID || !GA_TRACKING_ID.startsWith('G-')) return;
 
-        // Initialize dataLayer
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){window.dataLayer.push(arguments);}
-        window.gtag('js', new Date());
-        window.gtag('config', GA_TRACKING_ID);
-      }
-    }
+    const scriptId = 'google-analytics-script';
+    if (document.getElementById(scriptId)) return;
+
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_TRACKING_ID, {
+      // Avoid blocking the initial render; this also improves Lighthouse.
+      send_page_view: false,
+      transport_type: 'beacon',
+    });
+  };
+
+  useEffect(() => {
+    // Delay GA load to reduce unused JS during initial paint.
+    // Load on idle OR first user interaction (whichever comes first).
+    if (typeof window === 'undefined') return;
+
+    let loaded = false;
+    const trigger = () => {
+      if (loaded) return;
+      loaded = true;
+      loadGtag();
+    };
+
+    const onFirstInteraction = () => trigger();
+    window.addEventListener('pointerdown', onFirstInteraction, { once: true, passive: true });
+    window.addEventListener('keydown', onFirstInteraction, { once: true });
+    window.addEventListener('scroll', onFirstInteraction, { once: true, passive: true });
+
+    const idleId =
+      'requestIdleCallback' in window
+        ? (window as any).requestIdleCallback(trigger, { timeout: 2500 })
+        : window.setTimeout(trigger, 2500);
+
+    return () => {
+      window.removeEventListener('pointerdown', onFirstInteraction);
+      window.removeEventListener('keydown', onFirstInteraction);
+      window.removeEventListener('scroll', onFirstInteraction);
+      if ('cancelIdleCallback' in window) (window as any).cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
+    };
   }, []);
 
   useEffect(() => {
@@ -40,6 +74,7 @@ const GoogleAnalytics = () => {
     if (typeof window.gtag !== 'undefined' && GA_TRACKING_ID && GA_TRACKING_ID.startsWith('G-')) {
       window.gtag('config', GA_TRACKING_ID, {
         page_path: location.pathname + location.search,
+        send_page_view: true,
       });
     }
   }, [location]);
