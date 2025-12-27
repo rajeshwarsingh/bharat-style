@@ -140,6 +140,12 @@ const Navbar: React.FC = () => {
               Track Order
             </Link>
             <Link 
+              to="/stories"
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname.startsWith('/stories') ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
+            >
+              Stories
+            </Link>
+            <Link 
               to="/about"
               className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/about' ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
             >
@@ -296,6 +302,13 @@ const Navbar: React.FC = () => {
               className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 rounded-md transition-colors"
             >
               Track Order
+            </Link>
+            <Link 
+              to="/stories"
+              onClick={closeMenu}
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 rounded-md transition-colors"
+            >
+              Stories
             </Link>
             <Link 
               to="/about"

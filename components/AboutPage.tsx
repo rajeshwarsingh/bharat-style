@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
-import { ArrowLeft, Users, Globe, Heart, Leaf } from 'lucide-react';
+import React from 'react';
+import { ArrowLeft, Quote, Heart, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ARTISAN_STORY_IMAGE, MISSION_IMAGE, LOGO_URL, WHATSAPP_NUMBER, INSTAGRAM_HANDLE } from '../constants';
+import { ARTISAN_STORY_IMAGE, ARTISAN_SPOTLIGHT_IMAGE, MISSION_IMAGE, LOGO_URL } from '../constants';
 import SEO from './SEO';
 import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
 
 const AboutPage: React.FC = () => {
-  // Scroll to top handled by ScrollToTop component in App.tsx
-
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -15,178 +13,266 @@ const AboutPage: React.FC = () => {
     "alternateName": "Bharat.style",
     "url": "https://bharat.style",
     "logo": LOGO_URL,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": `+${WHATSAPP_NUMBER}`,
-      "contactType": "customer service",
-      "areaServed": "IN",
-      "availableLanguage": "en"
+    "founder": {
+      "@type": "Organization",
+      "name": "TheTidbit"
     },
-    "sameAs": [
-      `https://instagram.com/${INSTAGRAM_HANDLE}`,
-      "https://facebook.com/thetidbit"
-    ]
+    "knowsAbout": ["Sustainable Fashion", "Handmade Crafts", "Indian Handicrafts", "Jute Products"],
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    }
   };
 
-  const values = [
-    {
-      icon: Leaf,
-      title: "Sustainability First",
-      desc: "We believe fashion shouldn't cost the Earth. Our primary material, Jute, is 100% biodegradable and requires minimal water to grow."
-    },
-    {
-      icon: Users,
-      title: "Artisan Empowerment",
-      desc: "We work directly with rural artisans in West Bengal, eliminating middlemen to ensure fair wages and dignified working conditions."
-    },
-    {
-      icon: Heart,
-      title: "Handmade with Love",
-      desc: "In a world of mass production, we celebrate the imperfect perfection of handmade goods. Every stitch tells a story."
-    },
-    {
-      icon: Globe,
-      title: "Indian Roots, Global Spirit",
-      desc: "Proudly 'Make in India', we aim to showcase the rich heritage of Indian craftsmanship to the modern global consumer."
-    }
-  ];
-
   return (
-    <div className="bg-stone-50 dark:bg-stone-950 min-h-screen transition-colors duration-300">
+    <div className="bg-white min-h-screen">
       <SEO 
-        title="About Us - Sustainable Fashion Mission"
-        description="Discover the story behind Bharat.style by TheTidbit. Connecting rural Indian artisans with the modern world through sustainable, handmade jute fashion."
+        title="Our Story - Bharat.style by TheTidbit"
+        description="The real story behind Bharat.style. How we connect rural Indian artisans with urban homes through beautiful, handmade jute bags. A journey of craft, care, and connection."
         canonicalUrl="https://bharat.style/about"
         type="website"
         image={MISSION_IMAGE}
         schema={organizationSchema}
       />
-      {/* Hero Section */}
-      <div className="relative bg-stone-900 dark:bg-stone-950 text-white dark:text-stone-100 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden transition-colors duration-300">
-        <div className="absolute inset-0 opacity-20">
-             <img 
-               src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1600 })}
-               srcSet={cloudinarySrcSet(ARTISAN_STORY_IMAGE, [768, 1200, 1600, 1920])}
-               sizes="100vw"
-               alt="Background" 
-               className="w-full h-full object-cover" 
-               width="1920"
-               height="1080"
-               decoding="async"
-             />
-        </div>
-        <div className="relative max-w-7xl mx-auto text-center">
-           <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-6 text-white dark:text-stone-100">Welcome to Bharat<span className="text-brand-green-100 dark:text-brand-green">.style</span></h1>
-           <p className="text-xl text-stone-200 dark:text-stone-200 max-w-2xl mx-auto">
-             The exclusive online destination for <strong className="text-white dark:text-stone-100">TheTidbit</strong>'s handcrafted sustainable fashion.
-           </p>
-        </div>
+
+      {/* Hero Section - Clean, no overlay */}
+      <div className="relative w-full aspect-video overflow-hidden bg-stone-50">
+        <img
+          src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1920 })}
+          srcSet={cloudinarySrcSet(ARTISAN_STORY_IMAGE, [1200, 1600, 1920])}
+          sizes="100vw"
+          alt="Artisan crafting handmade jute bag in West Bengal"
+          className="w-full h-full object-cover"
+          width="1920"
+          height="1080"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Story Content */}
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         
-        {/* Navigation Back */}
+        {/* Back Link */}
         <Link 
           to="/"
-          className="flex items-center text-stone-500 dark:text-stone-400 hover:text-brand-green dark:hover:text-brand-green mb-12 transition group w-fit"
+          className="inline-flex items-center gap-2 text-stone-600 hover:text-stone-900 mb-12 transition font-medium"
         >
-          <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-          Back to Shop
+          <ArrowLeft size={18} />
+          <span>Back to Home</span>
         </Link>
 
-        {/* Mission Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
-           <div>
-              <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-6">Our Mission</h2>
-              <div className="space-y-4 text-lg leading-relaxed">
-                <p className="text-stone-700 dark:text-stone-200">
-                  <strong className="text-stone-900 dark:text-stone-100 font-semibold">Bharat.style</strong> is an initiative by the makers at <strong className="text-stone-900 dark:text-stone-100 font-semibold">TheTidbit</strong>. We started with a simple question: <em className="text-stone-700 dark:text-stone-200 italic">Why must sustainable fashion be boring?</em>
-                </p>
-                <p className="text-stone-700 dark:text-stone-200">
-                  We noticed that while the world was waking up to eco-friendly living, the options for stylish, affordable, and sustainable accessories were limited. At the same time, the incredible skill of traditional jute artisans in India was fighting to survive against plastic and fast fashion.
-                </p>
-                <p className="text-stone-700 dark:text-stone-200">
-                  Through Bharat.style, we connect these two worlds. We curate TheTidbit's designs that appeal to the modern aesthetic—minimal, functional, and chic—while staying true to the raw, earthy beauty of jute.
-                </p>
-              </div>
-           </div>
-           <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl bg-stone-200 dark:bg-stone-800">
-               <img 
-                src={cloudinaryTransform(MISSION_IMAGE, { w: 1000 })}
-                srcSet={cloudinarySrcSet(MISSION_IMAGE, [600, 800, 1000, 1200])}
-                sizes="(min-width: 768px) 40vw, 100vw"
-                 alt="Natural Jute Texture" 
-                 className="w-full h-full object-cover"
-                 loading="lazy"
-                 width="800"
-                 height="600"
-                decoding="async"
-               />
-           </div>
-        </div>
+        {/* Main Story */}
+        <div className="space-y-8 text-lg leading-relaxed text-stone-700">
+          
+          {/* Opening */}
+          <div className="space-y-6">
+            <h1 className="font-serif text-5xl sm:text-6xl font-bold text-stone-900 leading-tight">
+              Our Story
+            </h1>
+            
+            <p className="text-xl text-stone-700 leading-relaxed">
+              This story doesn't start in a boardroom or a marketing meeting. It starts in a small village in West Bengal, where Lakshmi sits on her porch, needle in hand, creating something beautiful.
+            </p>
+          </div>
 
-        {/* Brand Identity Section (New) */}
-        <div className="mb-24 py-16 bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl shadow-sm dark:shadow-stone-900/50 border border-stone-100 dark:border-stone-700/50 text-center px-6 transition-colors duration-300">
-           <div className="max-w-3xl mx-auto">
+          {/* The Beginning */}
+          <section className="space-y-6">
+            <h2 className="font-serif text-3xl font-bold text-stone-900 mt-12">
+              How It Began
+            </h2>
+            
+            <p>
+              We're a small team of people who love beautiful things. Simple, honest things. Things made by human hands, not machines. We noticed something—there was a gap. On one side, incredible artisans in rural India with skills passed down through generations, struggling to find markets for their craft. On the other side, women in cities looking for sustainable, meaningful fashion but finding mostly mass-produced options.
+            </p>
+            
+            <p>
+              So we decided to do something about it. Not because it was a "market opportunity" or a "business model." Because it felt right. Because we believed that beautiful, handmade things should have a place in modern life. Because we wanted to connect these two worlds.
+            </p>
+          </section>
+
+          {/* Artisan Story */}
+          <section className="space-y-6">
+            <div className="my-12 bg-stone-50 rounded-2xl p-8 sm:p-10 border border-stone-200">
+              <div className="flex flex-col sm:flex-row gap-6 items-start">
+                <img 
+                  src={cloudinaryTransform(ARTISAN_SPOTLIGHT_IMAGE, { w: 200 })}
+                  srcSet={cloudinarySrcSet(ARTISAN_SPOTLIGHT_IMAGE, [150, 200, 300])}
+                  sizes="(min-width: 640px) 150px, 100px"
+                  alt="Lakshmi Devi, master artisan" 
+                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-md"
+                  loading="lazy"
+                  width="128"
+                  height="128"
+                  decoding="async"
+                />
+                <div className="flex-1">
+                  <Quote className="text-stone-400 mb-3" size={32} />
+                  <p className="text-xl font-serif font-medium text-stone-800 italic mb-4">
+                    "When you buy a bag, you are not just buying an object. You are buying hundreds of hours of care. You are buying a piece of a heart, a part of a soul."
+                  </p>
+                  <p className="font-semibold text-stone-900">
+                    — Lakshmi Devi, Master Artisan, West Bengal
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h2 className="font-serif text-3xl font-bold text-stone-900 mt-12">
+              The Hands Behind Every Bag
+            </h2>
+            
+            <p>
+              Our bags are made in small workshops and homes across West Bengal. These aren't factories. They're spaces where craft lives. Where mothers teach daughters. Where neighbors work together. Where creating something beautiful is still an act of love, not just a job.
+            </p>
+            
+            <p>
+              We work directly with these artisans. No middlemen. No complicated supply chains. Just direct relationships. This means they earn fair wages. It means they have dignity in their work. It means when you buy a bag, you're not just supporting a brand—you're supporting a family, a community, a craft.
+            </p>
+            
+            <p>
+              Many of these artisans are women. Women who've been weaving and embroidering since they were young. Women who've kept these traditions alive through decades of change. Women who are now able to earn a living doing what they love, from their homes, on their own terms.
+            </p>
+          </section>
+
+          {/* The Craft */}
+          <section className="space-y-6">
+            <h2 className="font-serif text-3xl font-bold text-stone-900 mt-12">
+              The Craft
+            </h2>
+            
+            <div className="relative h-96 rounded-2xl overflow-hidden bg-stone-100 my-8">
               <img 
-                src={cloudinaryTransform(LOGO_URL, { w: 800 })} 
-                srcSet={cloudinarySrcSet(LOGO_URL, [240, 400, 600, 800])}
-                sizes="(min-width: 640px) 360px, 240px"
-                alt="Bharat.style Logo" 
-                className="h-32 sm:h-48 mx-auto mb-8 object-contain"
+                src={cloudinaryTransform(MISSION_IMAGE, { w: 1200 })}
+                srcSet={cloudinarySrcSet(MISSION_IMAGE, [800, 1200, 1600])}
+                sizes="(min-width: 768px) 100vw, 100vw"
+                alt="Handcrafted jute bag with natural materials" 
+                className="w-full h-full object-cover"
                 loading="lazy"
-                width="400"
-                height="200"
+                width="1200"
+                height="800"
                 decoding="async"
               />
-              <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4">
-                The Symbol of Authenticity
-              </h2>
-              <p className="text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
-                Our logo reflects the core of who we are. <strong className="text-stone-900 dark:text-stone-100">Bharat.style</strong> stands for the timeless elegance of India wrapped in modern sustainability. 
-                Every product bearing this mark is a pledge—to the planet, to the artisan, and to you.
-              </p>
-           </div>
-        </div>
+            </div>
+            
+            <p>
+              Every bag starts with jute—India's golden fiber. It's grown by local farmers, processed by hand, and then transformed into fabric. The embroidery? That's done stitch by stitch, thread by thread. No machines. No automation. Just skill, patience, and care.
+            </p>
+            
+            <p>
+              This means every bag is unique. The slight variations in the embroidery, the texture of the jute, the way the colors settle—these aren't flaws. They're proof that this was made by a person, not a machine. They're what make your bag yours and yours alone.
+            </p>
+            
+            <p>
+              It also means it takes time. Real time. Hours of work go into every bag. But we think that's beautiful. In a world of instant everything, there's something deeply satisfying about something that took time to make, that was made with care, that was made to last.
+            </p>
+          </section>
 
-        {/* Values Grid */}
-        <div className="mb-24">
-           <div className="text-center mb-16">
-             <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100">Our Core Values</h2>
-           </div>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((v, idx) => (
-                <div key={idx} className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm p-8 rounded-xl shadow-sm dark:shadow-stone-900/50 hover:shadow-md dark:hover:shadow-stone-900/70 transition border border-stone-100 dark:border-stone-700/50">
-                   <div className="w-12 h-12 bg-jute-100 dark:bg-jute-800 rounded-full flex items-center justify-center text-stone-800 dark:text-stone-200 mb-6">
-                     <v.icon size={24} />
-                   </div>
-                   <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-3">{v.title}</h3>
-                   <p className="text-stone-600 dark:text-stone-400 leading-relaxed">{v.desc}</p>
+          {/* Our Values */}
+          <section className="space-y-6">
+            <h2 className="font-serif text-3xl font-bold text-stone-900 mt-12">
+              What We Believe
+            </h2>
+            
+            <p>
+              We're not perfect. We're a small team trying to do something good. But here's what we believe in, what guides us:
+            </p>
+            
+            <div className="space-y-6 my-8">
+              <div className="flex gap-4">
+                <Heart className="text-stone-400 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-stone-900 mb-2">Craft Matters</h3>
+                  <p className="text-stone-700">
+                    We believe that things made by human hands have value beyond their function. They carry stories. They connect us. They remind us of what's possible when we take time, when we care, when we create with intention.
+                  </p>
                 </div>
-              ))}
-           </div>
-        </div>
+              </div>
+              
+              <div className="flex gap-4">
+                <MapPin className="text-stone-400 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-stone-900 mb-2">India's Heritage Is Worth Preserving</h3>
+                  <p className="text-stone-700">
+                    Indian craftsmanship is among the finest in the world. But it's fading. As fast fashion grows, traditional crafts struggle. We believe these skills deserve to survive, to thrive, to be part of modern life. We're proud to be part of the "Make in India" story.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4">
+                <Heart className="text-stone-400 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-stone-900 mb-2">Sustainability Isn't a Trend</h3>
+                  <p className="text-stone-700">
+                    Jute is 100% biodegradable. It requires minimal water to grow. It returns to the earth when its life is over. We believe fashion shouldn't cost the planet. Every choice we make, we try to make with the earth in mind.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4">
+                <Heart className="text-stone-400 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-stone-900 mb-2">Fairness Matters</h3>
+                  <p className="text-stone-700">
+                    The people who make our bags deserve to be paid fairly, to work in good conditions, to have dignity. It's that simple. We work directly with artisans, no middlemen. Every bag sold means a fair wage for the person who made it.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
 
-        {/* CTA */}
-        <div className="bg-brand-green dark:bg-brand-green/90 rounded-3xl p-12 text-center text-white relative overflow-hidden transition-colors duration-300">
-           <div className="relative z-10">
-             <h2 className="text-3xl font-serif font-bold mb-6">Join Our Journey</h2>
-             <p className="text-brand-green-100 dark:text-stone-200 max-w-2xl mx-auto mb-8 text-lg">
-               Be a part of the slow fashion movement. Carry a bag that looks good and does good.
-             </p>
-             <Link 
-               to="/"
-               className="inline-block bg-white dark:bg-stone-100 text-brand-green dark:text-brand-green px-8 py-3 rounded-xl font-bold hover:bg-stone-100 dark:hover:bg-stone-200 transition shadow-lg"
-             >
-               Shop the Collection
-             </Link>
-           </div>
-           {/* Decorative circles */}
-           <div className="absolute top-0 left-0 -ml-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-5 dark:opacity-10"></div>
-           <div className="absolute bottom-0 right-0 -mr-20 -mb-20 w-80 h-80 rounded-full bg-white opacity-5 dark:opacity-10"></div>
-        </div>
+          {/* Who We Are */}
+          <section className="space-y-6">
+            <h2 className="font-serif text-3xl font-bold text-stone-900 mt-12">
+              Who We Are
+            </h2>
+            
+            <p>
+              We're TheTidbit—a small team based in India, passionate about connecting rural craftsmanship with urban lives. Bharat.style is our way of sharing these beautiful, handmade pieces with women who appreciate them.
+            </p>
+            
+            <p>
+              We're not a big corporation. We're not trying to scale fast or dominate markets. We're trying to do something good, something meaningful, something that connects people and supports craft. That's it. That's our ambition.
+            </p>
+            
+            <p>
+              When you buy from us, you're supporting a small team trying to make a difference. You're supporting artisans who deserve to earn a living from their craft. You're choosing something that's made to last, that's made with care, that's made in India.
+            </p>
+          </section>
 
-      </div>
+          {/* Closing */}
+          <section className="space-y-6 mt-16 pt-12 border-t border-stone-200">
+            <p className="text-xl text-stone-800 leading-relaxed">
+              So that's our story. Not a corporate mission statement or a marketing pitch. Just the truth. We love beautiful, handmade things. We believe they deserve a place in modern life. We're trying to make that happen.
+            </p>
+            
+            <p className="text-xl text-stone-800 leading-relaxed">
+              If this resonates with you, if you believe in supporting craft and making thoughtful choices, then we're grateful you're here. Thank you for being part of our story.
+            </p>
+          </section>
+
+          {/* Soft Links to Other Sections */}
+          <nav className="mt-16 pt-12 border-t border-stone-200" aria-label="Related pages">
+            <div className="flex flex-wrap justify-center gap-4 text-sm mb-8">
+              <Link
+                to="/stories"
+                className="text-stone-600 hover:text-stone-900 underline underline-offset-4 decoration-stone-300 hover:decoration-stone-600 transition"
+              >
+                Read Our Stories
+              </Link>
+              <span className="text-stone-300">•</span>
+              <Link
+                to="/"
+                className="text-stone-600 hover:text-stone-900 underline underline-offset-4 decoration-stone-300 hover:decoration-stone-600 transition"
+              >
+                Explore Collection
+              </Link>
+            </div>
+          </nav>
+
+        </div>
+      </article>
     </div>
   );
 };

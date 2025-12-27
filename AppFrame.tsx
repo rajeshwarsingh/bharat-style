@@ -15,6 +15,8 @@ const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
 const TrackPage = React.lazy(() => import('./components/TrackPage'));
 const AdminTrackingGate = React.lazy(() => import('./components/AdminTrackingGate'));
+const StoriesPage = React.lazy(() => import('./components/StoriesPage'));
+const StoryDetailPage = React.lazy(() => import('./components/StoryDetailPage'));
 
 // Component to ensure page scrolls to top on route change
 const ScrollToTop = () => {
@@ -49,6 +51,8 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/story" element={<BlogPage />} />
+                <Route path="/stories" element={<StoriesPage />} />
+                <Route path="/stories/:slug" element={<StoryDetailPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/track" element={<TrackPage />} />
                 <Route path="/ops/tracking" element={<AdminTrackingGate />} />
