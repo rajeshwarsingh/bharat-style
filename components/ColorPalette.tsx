@@ -11,14 +11,14 @@ const ColorPalette: React.FC = () => {
   };
 
   return (
-    <section id="collection" className="bg-white py-16 sm:py-24 border-t border-stone-100">
+    <section id="collection" className="bg-white dark:bg-stone-950 py-16 sm:py-24 border-t border-stone-100 dark:border-stone-800/50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="text-brand-green font-bold text-sm tracking-wider uppercase">The Collection</span>
-          <h2 className="mt-2 text-3xl font-serif font-bold text-stone-900 sm:text-4xl">
+          <span className="text-brand-green dark:text-brand-green/80 font-bold text-sm tracking-wider uppercase">The Collection</span>
+          <h2 className="mt-2 text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 sm:text-4xl">
             Find Your Shade
           </h2>
-          <p className="mt-4 text-stone-500 max-w-2xl mx-auto text-lg">
+          <p className="mt-4 text-stone-500 dark:text-stone-400 max-w-2xl mx-auto text-lg">
             Each color tells a different story. Choose the one that resonates with your vibe.
           </p>
         </div>
@@ -26,7 +26,7 @@ const ColorPalette: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {PRODUCT.colors.map((color) => (
             <div key={color.id} className="group relative cursor-pointer" onClick={() => handleBuy(color.name)}>
-              <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl bg-stone-100 relative shadow-sm transition-all duration-500 group-hover:shadow-xl">
+              <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl bg-stone-100 dark:bg-stone-800 relative shadow-sm dark:shadow-stone-900/50 transition-all duration-500 group-hover:shadow-xl dark:group-hover:shadow-stone-900/70">
                 {/* Main Image (Model) */}
                 <img
                   src={cloudinaryTransform(color.images[0], { w: 900 })}

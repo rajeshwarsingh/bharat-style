@@ -158,28 +158,39 @@ const TrackPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-stone-50 to-white min-h-screen">
+    <div className="bg-gradient-to-b from-stone-50 via-white to-stone-50 dark:from-stone-950 dark:via-stone-900 dark:to-stone-950 min-h-screen transition-colors duration-300 relative">
       <SEO
         title="Track Order"
         description="Track your Bharat.style order using your courier tracking number (Doc ID)."
         canonicalUrl="https://bharat.style/track"
       />
 
+      {/* Dark mode background pattern */}
+      <div className="hidden dark:block absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
+
       {/* Hero Section - Split Layout */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-pink-50/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-pink-50/50 dark:from-indigo-950/50 dark:via-purple-950/40 dark:to-pink-950/30 dark:via-indigo-900/30" />
+        {/* Dark mode glow effects */}
+        <div className="hidden dark:block absolute -top-24 -right-28 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="hidden dark:block absolute -bottom-24 -left-28 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left: Tracking Form */}
             <div className="order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
-                <Truck size={16} className="text-indigo-600" />
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm border border-stone-200 dark:border-stone-700 px-4 py-2 text-xs font-semibold text-stone-700 dark:text-stone-300 mb-6">
+                <Truck size={16} className="text-indigo-600 dark:text-indigo-400" />
                 Real-time tracking
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
                 Track your order
               </h1>
-              <p className="text-lg text-stone-600 mb-8 leading-relaxed">
+              <p className="text-lg text-stone-600 dark:text-stone-400 mb-8 leading-relaxed">
                 Enter your mobile number to see live courier updates for your Bharat.style order.
               </p>
 
@@ -190,12 +201,12 @@ const TrackPage: React.FC = () => {
                     onChange={(e) => setMobile(e.target.value)}
                     placeholder="10-digit mobile number"
                     inputMode="numeric"
-                    className="flex-1 rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-sm"
+                    className="flex-1 rounded-2xl border-2 border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 px-5 py-4 text-base text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/30 focus:border-indigo-500 dark:focus:border-indigo-400 transition-all shadow-sm"
                   />
                   <button
                     type="submit"
                     disabled={loading}
-                    className="sm:w-auto rounded-2xl bg-stone-900 text-white px-8 py-4 text-base font-bold hover:bg-stone-800 disabled:opacity-60 disabled:cursor-not-allowed transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                    className="sm:w-auto rounded-2xl bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 px-8 py-4 text-base font-bold hover:bg-stone-800 dark:hover:bg-stone-200 disabled:opacity-60 disabled:cursor-not-allowed transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                   >
                     <Truck size={20} className={loading ? 'bs-pulse-soft' : ''} />
                     {loading ? 'Tracking…' : 'Track'}
@@ -203,23 +214,23 @@ const TrackPage: React.FC = () => {
                 </div>
 
                 {error ? (
-                  <div className="rounded-2xl border-2 border-red-200 bg-red-50 px-5 py-4 text-red-900 flex gap-3 items-start">
-                    <AlertTriangle size={20} className="mt-0.5 text-red-700 flex-shrink-0" />
+                  <div className="rounded-2xl border-2 border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/30 px-5 py-4 text-red-900 dark:text-red-200 flex gap-3 items-start">
+                    <AlertTriangle size={20} className="mt-0.5 text-red-700 dark:text-red-400 flex-shrink-0" />
                     <div className="text-sm">
                       <div className="font-semibold mb-1">Couldn't fetch tracking</div>
-                      <div className="text-red-800">{error}</div>
+                      <div className="text-red-800 dark:text-red-300">{error}</div>
                     </div>
                   </div>
                 ) : null}
 
-                <div className="flex items-center gap-2 text-sm text-stone-600 pt-2">
-                  <Phone size={16} className="text-green-600" />
+                <div className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400 pt-2">
+                  <Phone size={16} className="text-green-600 dark:text-green-500" />
                   <span>Need help?</span>
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-green-700 hover:text-green-800 underline decoration-green-300 underline-offset-2 transition-colors"
+                    className="font-semibold text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 underline decoration-green-300 dark:decoration-green-600 underline-offset-2 transition-colors"
                   >
                     WhatsApp support
                   </a>
@@ -229,7 +240,7 @@ const TrackPage: React.FC = () => {
 
             {/* Right: Product Image */}
             <div className="order-1 lg:order-2">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
                 <img
                   src={cloudinaryTransform(heroImage, { w: 800 })}
                   alt="Bharat.style handmade jute sling bag"
@@ -249,7 +260,7 @@ const TrackPage: React.FC = () => {
         {loading ? (
           <div className="mt-12 space-y-6">
             {[0, 1].map((i) => (
-              <div key={i} className="bg-white rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
+              <div key={i} className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 overflow-hidden">
                 <div className="px-6 py-5 border-b border-stone-100 flex items-center justify-between gap-3">
                   <div className="w-40 h-4 rounded-full bs-skeleton" />
                   <div className="w-28 h-7 rounded-full bs-skeleton" />
@@ -276,21 +287,21 @@ const TrackPage: React.FC = () => {
         {results ? (
           <div className="mt-12 space-y-6">
             {results.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-10 text-center">
-                <Package size={48} className="text-stone-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-stone-900 mb-2">No shipments found</h3>
-                <p className="text-stone-600">
+              <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-10 text-center">
+                <Package size={48} className="text-stone-400 dark:text-stone-500 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">No shipments found</h3>
+                <p className="text-stone-600 dark:text-stone-400">
                   If you placed an order recently, tracking may take a few hours to appear.
                 </p>
               </div>
             ) : null}
 
             {results.map((r) => (
-              <div key={r.docId} className="bg-white rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
-                <div className="px-6 py-5 bg-gradient-to-r from-stone-50 to-white border-b border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div key={r.docId} className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 overflow-hidden">
+                <div className="px-6 py-5 bg-gradient-to-r from-stone-50 to-white dark:from-stone-800/80 dark:to-stone-700/80 border-b border-stone-100 dark:border-stone-700/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
-                    <div className="text-xs text-stone-500 uppercase tracking-wide mb-1">Tracking Number</div>
-                    <div className="text-xl font-bold text-stone-900 font-mono">{r.docId}</div>
+                    <div className="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1">Tracking Number</div>
+                    <div className="text-xl font-bold text-stone-900 dark:text-stone-100 font-mono">{r.docId}</div>
                   </div>
                   <div>
                     {r.ok ? (
@@ -298,12 +309,12 @@ const TrackPage: React.FC = () => {
                         const st = statusTone(r.data?.MostRecentStatus || r.data?.ShipmentState);
                         const cls =
                           st.tone === 'success'
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/50'
                             : st.tone === 'progress'
-                              ? 'bg-indigo-50 text-indigo-800 border-indigo-200'
+                              ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50'
                               : st.tone === 'danger'
-                                ? 'bg-red-50 text-red-800 border-red-200'
-                                : 'bg-stone-50 text-stone-800 border-stone-200';
+                                ? 'bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800/50'
+                                : 'bg-stone-50 dark:bg-stone-800/50 text-stone-800 dark:text-stone-300 border-stone-200 dark:border-stone-700/50';
                         return (
                           <span
                             className={`inline-flex items-center gap-2 rounded-full px-4 py-2 border font-semibold transition-all ${cls} ${
@@ -316,7 +327,7 @@ const TrackPage: React.FC = () => {
                         );
                       })()
                     ) : (
-                      <span className="inline-flex items-center gap-2 rounded-full bg-red-50 text-red-900 px-4 py-2 border border-red-200 font-semibold">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-300 px-4 py-2 border border-red-200 dark:border-red-800/50 font-semibold">
                         <AlertTriangle size={18} />
                         Failed
                       </span>
@@ -328,43 +339,43 @@ const TrackPage: React.FC = () => {
                   {r.ok ? (
                     <>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
-                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white dark:from-stone-700/50 dark:to-stone-800/50 border border-stone-100 dark:border-stone-700/50 p-4 transition-all hover:shadow-md dark:hover:shadow-stone-900/50">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-2">
                             <Package size={14} />
                             Courier
                           </div>
-                          <div className="font-bold text-stone-900">{r.data?.CourierSlug || 'anjani-courier'}</div>
+                          <div className="font-bold text-stone-900 dark:text-stone-100">{r.data?.CourierSlug || 'anjani-courier'}</div>
                         </div>
-                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
-                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white dark:from-stone-700/50 dark:to-stone-800/50 border border-stone-100 dark:border-stone-700/50 p-4 transition-all hover:shadow-md dark:hover:shadow-stone-900/50">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-2">
                             <Truck size={14} />
                             Status
                           </div>
-                          <div className="font-bold text-stone-900">{r.data?.ShipmentState || '—'}</div>
+                          <div className="font-bold text-stone-900 dark:text-stone-100">{r.data?.ShipmentState || '—'}</div>
                         </div>
-                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
-                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white dark:from-stone-700/50 dark:to-stone-800/50 border border-stone-100 dark:border-stone-700/50 p-4 transition-all hover:shadow-md dark:hover:shadow-stone-900/50">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-2">
                             <Clock3 size={14} />
                             Latest Update
                           </div>
-                          <div className="font-bold text-stone-900">{r.data?.MostRecentStatus || '—'}</div>
+                          <div className="font-bold text-stone-900 dark:text-stone-100">{r.data?.MostRecentStatus || '—'}</div>
                         </div>
                       </div>
 
                       {r.data?.AdditionalInfo ? (
-                        <div className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-100 text-sm text-blue-900">
+                        <div className="mb-6 p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 text-sm text-blue-900 dark:text-blue-200">
                           {r.data.AdditionalInfo}
                         </div>
                       ) : null}
 
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-bold text-stone-900">Shipment Journey</h3>
-                          <span className="text-xs text-stone-500">Newest first</span>
+                          <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100">Shipment Journey</h3>
+                          <span className="text-xs text-stone-500 dark:text-stone-400">Newest first</span>
                         </div>
 
                         {(r.data?.Checkpoints ?? []).length === 0 ? (
-                          <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-6 text-center text-stone-700">
+                          <div className="rounded-2xl border border-stone-200 dark:border-stone-700/50 bg-stone-50 dark:bg-stone-800/30 px-5 py-6 text-center text-stone-700 dark:text-stone-300">
                             No checkpoints yet. Please check again in a few hours.
                           </div>
                         ) : (
@@ -375,20 +386,20 @@ const TrackPage: React.FC = () => {
                                 className="relative pl-12 bs-reveal-up"
                                 style={{ animationDelay: `${Math.min(idx * 60, 420)}ms` }}
                               >
-                                <span aria-hidden="true" className="absolute left-5 top-6 bottom-0 w-0.5 bg-stone-200" />
+                                <span aria-hidden="true" className="absolute left-5 top-6 bottom-0 w-0.5 bg-stone-200 dark:bg-stone-700" />
                                 <span
                                   aria-hidden="true"
-                                  className={`absolute left-4 top-6 h-4 w-4 rounded-full border-2 border-white transition-all ${
+                                  className={`absolute left-4 top-6 h-4 w-4 rounded-full border-2 border-white dark:border-stone-800 transition-all ${
                                     idx === 0
-                                      ? 'bg-indigo-600 shadow-[0_0_0_4px_rgba(99,102,241,0.2)]'
-                                      : 'bg-stone-400'
+                                      ? 'bg-indigo-600 dark:bg-indigo-500 shadow-[0_0_0_4px_rgba(99,102,241,0.15)] dark:shadow-[0_0_0_4px_rgba(99,102,241,0.3)]'
+                                      : 'bg-stone-400 dark:bg-stone-600'
                                   }`}
                                 />
 
-                                <div className="rounded-2xl border border-stone-100 bg-white shadow-sm px-5 py-4 hover:shadow-md transition-all">
+                                <div className="rounded-2xl border border-stone-100 dark:border-stone-700/50 bg-white dark:bg-stone-800/50 shadow-sm dark:shadow-stone-900/50 px-5 py-4 hover:shadow-md dark:hover:shadow-stone-900/70 transition-all">
                                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                                    <div className="font-bold text-stone-900">{formatCheckpointTitle(c)}</div>
-                                    <div className="text-xs text-stone-500 inline-flex items-center gap-2">
+                                    <div className="font-bold text-stone-900 dark:text-stone-100">{formatCheckpointTitle(c)}</div>
+                                    <div className="text-xs text-stone-500 dark:text-stone-400 inline-flex items-center gap-2">
                                       <Clock3 size={14} />
                                       <span>
                                         {c.Date || '—'} {c.Time ? `• ${c.Time}` : ''}
@@ -396,8 +407,8 @@ const TrackPage: React.FC = () => {
                                     </div>
                                   </div>
                                   {c.Location ? (
-                                    <div className="inline-flex items-start gap-2 text-sm text-stone-700">
-                                      <MapPin size={16} className="text-stone-500 mt-0.5 flex-shrink-0" />
+                                    <div className="inline-flex items-start gap-2 text-sm text-stone-700 dark:text-stone-300">
+                                      <MapPin size={16} className="text-stone-500 dark:text-stone-400 mt-0.5 flex-shrink-0" />
                                       <span>{c.Location}</span>
                                     </div>
                                   ) : null}
@@ -409,11 +420,11 @@ const TrackPage: React.FC = () => {
                       </div>
                     </>
                   ) : (
-                    <div className="rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-red-900 flex gap-3 items-start">
-                      <AlertTriangle size={20} className="mt-0.5 text-red-700 flex-shrink-0" />
+                    <div className="rounded-2xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/30 px-5 py-4 text-red-900 dark:text-red-200 flex gap-3 items-start">
+                      <AlertTriangle size={20} className="mt-0.5 text-red-700 dark:text-red-400 flex-shrink-0" />
                       <div>
                         <div className="font-semibold mb-1">Couldn't fetch this shipment</div>
-                        <div className="text-sm text-red-800">{r.error}</div>
+                        <div className="text-sm text-red-800 dark:text-red-300">{r.error}</div>
                       </div>
                     </div>
                   )}
@@ -427,18 +438,20 @@ const TrackPage: React.FC = () => {
         {!loading && !results ? (
           <div className="mt-16 space-y-12">
             {/* Share Section */}
-            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border-2 border-pink-200/50 shadow-xl overflow-hidden">
-              <div className="p-8 sm:p-10 lg:p-12">
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-950/40 dark:via-purple-950/40 dark:to-indigo-950/40 rounded-3xl border-2 border-pink-200/50 dark:border-pink-800/30 shadow-xl dark:shadow-stone-900/50 overflow-hidden relative">
+              {/* Dark mode glow */}
+              <div className="hidden dark:block absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-indigo-600/20 rounded-3xl blur-xl opacity-50" />
+              <div className="p-8 sm:p-10 lg:p-12 relative">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-pink-200 px-4 py-2 text-xs font-semibold text-pink-700 mb-6">
-                      <Users size={16} className="text-pink-600" />
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm border border-pink-200 dark:border-pink-800/50 px-4 py-2 text-xs font-semibold text-pink-700 dark:text-pink-300 mb-6">
+                      <Users size={16} className="text-pink-600 dark:text-pink-400" />
                       Spread the love
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
                       Share with family & friends! 💝
                     </h2>
-                    <p className="text-lg text-stone-700 mb-8 leading-relaxed">
+                    <p className="text-lg text-stone-700 dark:text-stone-300 mb-8 leading-relaxed">
                       Love our handmade jute bags? Share Bharat.style with your loved ones! They'll thank you for introducing them to sustainable, eco-friendly fashion.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
@@ -467,7 +480,7 @@ const TrackPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="relative">
-                    <div className="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                    <div className="rounded-2xl overflow-hidden border-4 border-white dark:border-stone-800 shadow-2xl">
                       <img
                         src={cloudinaryTransform(shareImage, { w: 600 })}
                         alt="Family and friends sharing Bharat.style bags"
@@ -484,7 +497,7 @@ const TrackPage: React.FC = () => {
             {/* Product & Shop Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Product Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
                 <img
                   src={cloudinaryTransform(shopImage, { w: 600 })}
                   alt="Excited customer with Bharat.style bag"
@@ -495,20 +508,20 @@ const TrackPage: React.FC = () => {
               </div>
 
               {/* Product Info & CTAs */}
-              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-8">
-                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
-                  <ShoppingBag size={16} className="text-indigo-600" />
+              <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/50 px-4 py-2 text-xs font-semibold text-stone-700 dark:text-stone-300 mb-6">
+                  <ShoppingBag size={16} className="text-indigo-600 dark:text-indigo-400" />
                   Shop now
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
                   {PRODUCT.name}
                 </h2>
                 <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-3xl font-bold text-stone-900">₹{PRODUCT.price}</span>
-                  <span className="text-xl text-stone-500 line-through">₹{PRODUCT.mrp}</span>
-                  <span className="text-sm font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full">Free Delivery</span>
+                  <span className="text-3xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
+                  <span className="text-xl text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                  <span className="text-sm font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-3 py-1 rounded-full">Free Delivery</span>
                 </div>
-                <p className="text-stone-700 mb-8 text-lg leading-relaxed">
+                <p className="text-stone-700 dark:text-stone-300 mb-8 text-lg leading-relaxed">
                   Each bag is unique, crafted by skilled artisans. Choose from 4 beautiful colors, all eco-friendly and perfect for everyday use.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -535,18 +548,18 @@ const TrackPage: React.FC = () => {
                     Shop on Amazon
                   </a>
                 </div>
-                <div className="pt-6 border-t border-stone-200">
+                <div className="pt-6 border-t border-stone-200 dark:border-stone-700/50">
                   <div className="flex items-center gap-2 mb-3">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={18} className="text-yellow-400 fill-current" />
+                      <Star key={i} size={18} className="text-yellow-400 dark:text-yellow-500 fill-current" />
                     ))}
-                    <span className="text-base font-bold text-stone-900 ml-2">4.8</span>
-                    <span className="text-base text-stone-500">(48 reviews)</span>
+                    <span className="text-base font-bold text-stone-900 dark:text-stone-100 ml-2">4.8</span>
+                    <span className="text-base text-stone-500 dark:text-stone-400">(48 reviews)</span>
                   </div>
-                  <p className="text-stone-700 italic text-base leading-relaxed">
+                  <p className="text-stone-700 dark:text-stone-300 italic text-base leading-relaxed">
                     "{REVIEWS[0]?.text || 'Love my sling bag! Perfect size and the embroidery is so beautiful.'}"
                   </p>
-                  <p className="text-sm font-semibold text-stone-900 mt-2">— {REVIEWS[0]?.author || 'Priya S.'}</p>
+                  <p className="text-sm font-semibold text-stone-900 dark:text-stone-100 mt-2">— {REVIEWS[0]?.author || 'Priya S.'}</p>
                 </div>
               </div>
             </div>
@@ -557,18 +570,20 @@ const TrackPage: React.FC = () => {
         {results && results.length > 0 && results.some((r) => r.ok) ? (
           <div className="mt-16 space-y-12">
             {/* Share Section */}
-            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border-2 border-pink-200/50 shadow-xl overflow-hidden">
-              <div className="p-8 sm:p-10 lg:p-12">
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-950/40 dark:via-purple-950/40 dark:to-indigo-950/40 rounded-3xl border-2 border-pink-200/50 dark:border-pink-800/30 shadow-xl dark:shadow-stone-900/50 overflow-hidden relative">
+              {/* Dark mode glow */}
+              <div className="hidden dark:block absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-indigo-600/20 rounded-3xl blur-xl opacity-50" />
+              <div className="p-8 sm:p-10 lg:p-12 relative">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-pink-200 px-4 py-2 text-xs font-semibold text-pink-700 mb-6">
-                      <Users size={16} className="text-pink-600" />
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm border border-pink-200 dark:border-pink-800/50 px-4 py-2 text-xs font-semibold text-pink-700 dark:text-pink-300 mb-6">
+                      <Users size={16} className="text-pink-600 dark:text-pink-400" />
                       Spread the love
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
                       Share with family & friends! 💝
                     </h2>
-                    <p className="text-lg text-stone-700 mb-8 leading-relaxed">
+                    <p className="text-lg text-stone-700 dark:text-stone-300 mb-8 leading-relaxed">
                       Love your order? Share Bharat.style with your loved ones! They'll thank you for introducing them to sustainable, handmade fashion.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
@@ -597,7 +612,7 @@ const TrackPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="relative">
-                    <div className="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                    <div className="rounded-2xl overflow-hidden border-4 border-white dark:border-stone-800 shadow-2xl">
                       <img
                         src={cloudinaryTransform(shareImage, { w: 600 })}
                         alt="Family and friends sharing Bharat.style bags"
@@ -614,7 +629,7 @@ const TrackPage: React.FC = () => {
             {/* Product & Shop Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Product Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
                 <img
                   src={cloudinaryTransform(shopImage, { w: 600 })}
                   alt="Excited customer with Bharat.style bag"
@@ -625,7 +640,7 @@ const TrackPage: React.FC = () => {
               </div>
 
               {/* Product Info & CTAs */}
-              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-8">
+              <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-8">
                 <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
                   <ShoppingBag size={16} className="text-indigo-600" />
                   Shop more
@@ -668,13 +683,13 @@ const TrackPage: React.FC = () => {
 
                 {/* Color Variants */}
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-stone-900 mb-4">Available Colors</h3>
+                  <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100 mb-4">Available Colors</h3>
                   <div className="grid grid-cols-4 gap-3">
                     {PRODUCT.colors.slice(0, 4).map((color) => (
                       <Link
                         key={color.id}
                         to="/"
-                        className="group relative rounded-2xl overflow-hidden border-2 border-stone-200 bg-white shadow-sm hover:shadow-md hover:border-stone-300 transition-all"
+                        className="group relative rounded-2xl overflow-hidden border-2 border-stone-200 dark:border-stone-700/50 bg-white dark:bg-stone-800/50 shadow-sm dark:shadow-stone-900/50 hover:shadow-md dark:hover:shadow-stone-900/70 hover:border-stone-300 dark:hover:border-stone-600 transition-all"
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
@@ -690,58 +705,60 @@ const TrackPage: React.FC = () => {
                         <div className="p-2 text-center">
                           <div className="flex items-center justify-center gap-1.5 mb-1">
                             <span
-                              className="h-3 w-3 rounded-full border border-stone-300"
+                              className="h-3 w-3 rounded-full border border-stone-300 dark:border-stone-600"
                               style={{ backgroundColor: color.hex }}
                             />
-                            <span className="text-xs font-semibold text-stone-900">{color.name}</span>
+                            <span className="text-xs font-semibold text-stone-900 dark:text-stone-100">{color.name}</span>
                           </div>
-                          <div className="text-xs font-bold text-stone-900">₹{PRODUCT.price}</div>
+                          <div className="text-xs font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</div>
                         </div>
                       </Link>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-stone-200">
+                <div className="pt-6 border-t border-stone-200 dark:border-stone-700/50">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={16} className="text-yellow-400 fill-current" />
+                        <Star key={i} size={16} className="text-yellow-400 dark:text-yellow-500 fill-current" />
                       ))}
-                      <span className="text-sm font-bold text-stone-900 ml-2">4.8</span>
-                      <span className="text-sm text-stone-500">(48 reviews)</span>
+                      <span className="text-sm font-bold text-stone-900 dark:text-stone-100 ml-2">4.8</span>
+                      <span className="text-sm text-stone-500 dark:text-stone-400">(48 reviews)</span>
                     </div>
                     <Link
                       to="/"
-                      className="text-sm font-semibold text-indigo-700 hover:text-indigo-800 underline decoration-indigo-300 underline-offset-2 inline-flex items-center gap-1 transition-colors"
+                      className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 underline decoration-indigo-300 dark:decoration-indigo-600 underline-offset-2 inline-flex items-center gap-1 transition-colors"
                     >
                       View all <ArrowRight size={14} />
                     </Link>
                   </div>
-                  <p className="text-stone-600 text-sm">
-                    <span className="font-semibold text-stone-900">Tip:</span> Use coupon code{' '}
-                    <span className="font-bold text-stone-900">SANDY5</span> for extra 5% off!
+                  <p className="text-stone-600 dark:text-stone-400 text-sm">
+                    <span className="font-semibold text-stone-900 dark:text-stone-100">Tip:</span> Use coupon code{' '}
+                    <span className="font-bold text-stone-900 dark:text-stone-100">SANDY5</span> for extra 5% off!
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Instagram CTA */}
-            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-950/40 dark:via-purple-950/40 dark:to-indigo-950/40 rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 overflow-hidden relative">
+              {/* Dark mode glow */}
+              <div className="hidden dark:block absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-indigo-600/20 rounded-3xl blur-xl opacity-50" />
               <div className="p-8 sm:p-10">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-white rounded-full p-4 shadow-md">
-                      <Instagram size={28} className="text-pink-600" />
+                    <div className="bg-white dark:bg-stone-800/50 rounded-full p-4 shadow-md">
+                      <Instagram size={28} className="text-pink-600 dark:text-pink-400" />
                     </div>
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mb-2 leading-tight">
+                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-2 leading-tight">
                         Share your unboxing!
                       </h3>
-                      <p className="text-stone-700 text-lg mb-1">
+                      <p className="text-stone-700 dark:text-stone-300 text-lg mb-1">
                         Tag us <span className="font-bold">@{INSTAGRAM_HANDLE}</span> when your bag arrives.
                       </p>
-                      <p className="text-stone-600 text-sm">
+                      <p className="text-stone-600 dark:text-stone-400 text-sm">
                         Follow us for new arrivals, styling tips, and behind-the-scenes stories.
                       </p>
                     </div>
@@ -769,10 +786,10 @@ const TrackPage: React.FC = () => {
 
         {/* Empty State */}
         {results && results.length === 0 ? (
-          <div className="mt-16 bg-white rounded-3xl border border-stone-100 shadow-lg p-12 text-center">
-            <Package size={64} className="text-stone-400 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-stone-900 mb-3">No tracking found yet?</h3>
-            <p className="text-stone-600 mb-8 max-w-md mx-auto text-lg leading-relaxed">
+          <div className="mt-16 bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-12 text-center">
+            <Package size={64} className="text-stone-400 dark:text-stone-500 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-3">No tracking found yet?</h3>
+            <p className="text-stone-600 dark:text-stone-400 mb-8 max-w-md mx-auto text-lg leading-relaxed">
               While you wait, explore our collection of handmade jute bags. Each piece is unique and crafted with love.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -800,14 +817,14 @@ const TrackPage: React.FC = () => {
         {/* Available Products Showcase - Always Visible */}
         <div className="mt-20 mb-16">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200 px-4 py-2 text-xs font-semibold text-stone-700 mb-4">
-              <Sparkles size={16} className="text-indigo-600" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm border border-stone-200 dark:border-stone-700 px-4 py-2 text-xs font-semibold text-stone-700 dark:text-stone-300 mb-4">
+              <Sparkles size={16} className="text-indigo-600 dark:text-indigo-400" />
               Shop our collection
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
               Available Colors
             </h2>
-            <p className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto leading-relaxed">
               Choose from 4 beautiful color variants of our handmade jute sling bag. Each piece is unique and crafted with love.
             </p>
           </div>
@@ -818,7 +835,7 @@ const TrackPage: React.FC = () => {
               <Link
                 key={color.id}
                 to="/"
-                className="group relative bg-white rounded-3xl border-2 border-stone-200 shadow-lg hover:shadow-xl overflow-hidden transition-all"
+                className="group relative bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border-2 border-stone-200 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 hover:shadow-xl dark:hover:shadow-stone-900/70 overflow-hidden transition-all"
               >
                 <div className="aspect-[3/4] relative overflow-hidden">
                   <img
@@ -845,19 +862,19 @@ const TrackPage: React.FC = () => {
                       className="h-5 w-5 rounded-full border-2 border-stone-300 shadow-sm"
                       style={{ backgroundColor: color.hex }}
                     />
-                    <h3 className="font-serif font-bold text-stone-900 text-lg group-hover:text-indigo-700 transition-colors">
+                    <h3 className="font-serif font-bold text-stone-900 dark:text-stone-100 text-lg group-hover:text-indigo-700 dark:group-hover:text-indigo-400 transition-colors">
                       {color.name}
                     </h3>
                   </div>
-                  <p className="text-sm text-stone-600 mb-3 line-clamp-2">{PRODUCT.name}</p>
+                  <p className="text-sm text-stone-600 dark:text-stone-400 mb-3 line-clamp-2">{PRODUCT.name}</p>
                   <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-xl font-bold text-stone-900">₹{PRODUCT.price}</span>
-                    <span className="text-sm text-stone-500 line-through">₹{PRODUCT.mrp}</span>
-                    <span className="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full">
+                    <span className="text-xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
+                    <span className="text-sm text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                    <span className="text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded-full">
                       {PRODUCT.discountPercentage}% OFF
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-stone-600">
+                  <div className="flex items-center gap-2 text-xs text-stone-600 dark:text-stone-400">
                     <Truck size={14} />
                     <span>Free Delivery</span>
                   </div>
@@ -891,7 +908,7 @@ const TrackPage: React.FC = () => {
                 Shop on Amazon
               </a>
             </div>
-            <p className="text-sm text-stone-600 mt-4">
+            <p className="text-sm text-stone-600 dark:text-stone-400 mt-4">
               All products are handmade, eco-friendly, and come with free delivery across India
             </p>
           </div>

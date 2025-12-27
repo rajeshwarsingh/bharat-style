@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Theme Transitions ---------- */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Exclude images and other elements that shouldn't transition */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  transition-property: opacity, transform;
+}
+
 /* ---------- Premium micro-interactions ---------- */
 .bs-coupon-pop {
   animation: bs-pop 360ms ease-out;

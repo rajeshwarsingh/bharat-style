@@ -8,6 +8,7 @@ import GoogleAnalytics from './components/GoogleAnalytics';
 import MetaPixel from './components/MetaPixel';
 import SlingTryModal from './components/SlingTryModal';
 import { SlingTryProvider } from './components/SlingTryContext';
+import { ThemeProvider } from './components/ThemeContext';
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
@@ -29,39 +30,41 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
   const [isSlingTryOpen, setIsSlingTryOpen] = useState(false);
 
   return (
-    <SlingTryProvider value={{ openSlingTry: () => setIsSlingTryOpen(true) }}>
-      <ScrollToTop />
-      {enableAnalytics ? <GoogleAnalytics /> : null}
-      {enableAnalytics ? <MetaPixel /> : null}
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Suspense
-            fallback={
-              <div className="min-h-[40vh] flex items-center justify-center text-stone-500">
-                Loading…
-              </div>
-            }
-          >
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/story" element={<BlogPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/track" element={<TrackPage />} />
-              <Route path="/ops/tracking" element={<AdminTrackingGate />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-      </div>
+    <ThemeProvider>
+      <SlingTryProvider value={{ openSlingTry: () => setIsSlingTryOpen(true) }}>
+        <ScrollToTop />
+        {enableAnalytics ? <GoogleAnalytics /> : null}
+        {enableAnalytics ? <MetaPixel /> : null}
+        <div className="min-h-screen flex flex-col bg-white dark:bg-stone-900 transition-colors duration-300">
+          <Navbar />
+          <main className="flex-grow">
+            <Suspense
+              fallback={
+                <div className="min-h-[40vh] flex items-center justify-center text-stone-500 dark:text-stone-400">
+                  Loading…
+                </div>
+              }
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/story" element={<BlogPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/track" element={<TrackPage />} />
+                <Route path="/ops/tracking" element={<AdminTrackingGate />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
 
-      <SlingTryModal
-        open={isSlingTryOpen}
-        onClose={() => setIsSlingTryOpen(false)}
-        iframeSrc="https://slingtry-ai-virtual-try-on-955247528706.us-west1.run.app/"
-      />
-    </SlingTryProvider>
+        <SlingTryModal
+          open={isSlingTryOpen}
+          onClose={() => setIsSlingTryOpen(false)}
+          iframeSrc="https://slingtry-ai-virtual-try-on-955247528706.us-west1.run.app/"
+        />
+      </SlingTryProvider>
+    </ThemeProvider>
   );
 }
 

@@ -158,7 +158,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
   };
 
   return (
-    <div className="bg-stone-50 pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pb-24">
+    <div className="bg-stone-50 dark:bg-stone-950 pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pb-24 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-12">
           
@@ -173,7 +173,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                      key={idx}
                      onClick={() => setActiveImageIndex(idx)}
                      className={`
-                       aspect-square rounded-lg bg-stone-200 overflow-hidden cursor-pointer relative
+                       aspect-square rounded-lg bg-stone-200 dark:bg-stone-800 overflow-hidden cursor-pointer relative
                        transition-all duration-300 border-2
                        ${activeImageIndex === idx 
                          ? 'border-brand-green opacity-100 ring-1 ring-brand-green/50' 
@@ -199,7 +199,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
               </div>
 
               {/* Main Image Area */}
-              <div className="flex-1 relative aspect-square sm:aspect-[4/3] lg:aspect-[1/1] overflow-hidden rounded-2xl bg-stone-200 shadow-xl group">
+              <div className="flex-1 relative aspect-square sm:aspect-[4/3] lg:aspect-[1/1] overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-800 shadow-xl dark:shadow-stone-900/50 group">
                 <div className="w-full h-full bs-kenburns motion-reduce:transform-none motion-reduce:animate-none">
                   <img
                     src={cloudinaryTransform(selectedColor.images[activeImageIndex], { w: 900 })}
@@ -225,7 +225,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                 <button
                   type="button"
                   aria-label="Add to wishlist"
-                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-stone-600 hover:text-red-500 transition shadow-sm"
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 dark:bg-stone-800/80 hover:bg-white dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-red-500 dark:hover:text-red-400 transition shadow-sm"
                 >
                   <Heart size={20} />
                 </button>
@@ -258,8 +258,8 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                      className={`
                        flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-medium border
                        ${activeImageIndex === idx 
-                         ? 'bg-stone-900 text-white border-stone-900' 
-                         : 'bg-white text-stone-600 border-stone-200'}
+                         ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 border-stone-900 dark:border-stone-100' 
+                         : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-700'}
                      `}
                    >
                       {getImageIcon(idx)}
@@ -272,26 +272,26 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
           {/* Product Info Section */}
           <div className="lg:col-span-5 mt-10 lg:mt-0">
             {/* Breadcrumbs */}
-            <nav className="flex text-sm text-stone-500 mb-4">
+            <nav className="flex text-sm text-stone-500 dark:text-stone-400 mb-4">
               <ol className="flex items-center space-x-2">
                 <li>
-                  <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="hover:text-stone-900 transition font-serif font-bold">
+                  <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="hover:text-stone-900 dark:hover:text-stone-100 transition font-serif font-bold">
                     Bharat.style
                   </a>
                 </li>
                 <li>/</li>
                 <li>
-                  <span className="text-stone-500 cursor-default">Women</span>
+                  <span className="text-stone-500 dark:text-stone-400 cursor-default">Women</span>
                 </li>
                 <li>/</li>
-                <li className="text-stone-900 font-medium">Sling Bags</li>
+                <li className="text-stone-900 dark:text-stone-100 font-medium">Sling Bags</li>
               </ol>
             </nav>
 
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
               {PRODUCT.name}
             </h1>
-            <p className="mt-2 text-lg text-stone-600 font-medium">{PRODUCT.tagline}</p>
+            <p className="mt-2 text-lg text-stone-600 dark:text-stone-400 font-medium">{PRODUCT.tagline}</p>
 
             {/* Ratings */}
             <div className="mt-3 flex items-center bs-rating-shimmer">
@@ -302,7 +302,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
               </div>
               <p 
                 onClick={() => scrollToSection('reviews')}
-                className="ml-3 text-sm text-stone-500 hover:text-stone-700 cursor-pointer underline decoration-stone-300 hover:decoration-stone-500 underline-offset-2 transition"
+                className="ml-3 text-sm text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-300 cursor-pointer underline decoration-stone-300 dark:decoration-stone-600 hover:decoration-stone-500 dark:hover:decoration-stone-400 underline-offset-2 transition"
               >
                 48 reviews
               </p>
@@ -323,28 +323,28 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
             {/* Price */}
             <div className="mt-6 flex items-end flex-wrap gap-2">
-              <p className="text-4xl font-serif font-bold text-stone-900 tracking-tight">₹{currentPrice}</p>
+              <p className="text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 tracking-tight">₹{currentPrice}</p>
               
               {appliedCoupon ? (
                 <div className="flex flex-col mb-1 ml-2">
-                    <p className="text-sm text-stone-500 line-through">₹{PRODUCT.price}</p>
-                    <p className="text-sm text-stone-500 line-through">MRP ₹{PRODUCT.mrp}</p>
+                    <p className="text-sm text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.price}</p>
+                    <p className="text-sm text-stone-500 dark:text-stone-500 line-through">MRP ₹{PRODUCT.mrp}</p>
                 </div>
               ) : (
-                <p className="ml-1 text-lg text-stone-500 line-through mb-1">₹{PRODUCT.mrp}</p>
+                <p className="ml-1 text-lg text-stone-500 dark:text-stone-500 line-through mb-1">₹{PRODUCT.mrp}</p>
               )}
               
               <p className="ml-2 text-sm font-semibold text-red-600 mb-2">
                 (Save ₹{savings})
               </p>
             </div>
-            <p className="mt-1 text-sm text-stone-500">Inclusive of all taxes</p>
+            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">Inclusive of all taxes</p>
 
-            <hr className="my-6 border-stone-200" />
+            <hr className="my-6 border-stone-200 dark:border-stone-700/50" />
 
             {/* Color Selector */}
             <div className="mt-6">
-              <p className="text-sm font-medium text-stone-900">Colour:</p>
+              <p className="text-sm font-medium text-stone-900 dark:text-stone-100">Colour:</p>
               <div className="mt-3 flex flex-wrap items-start gap-4">
                 {PRODUCT.colors.map((color) => (
                   <button
@@ -358,7 +358,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                       aria-hidden="true"
                       className={`
                         relative h-12 w-12 rounded-full overflow-hidden border shadow-sm ring-offset-2 transition
-                        ${selectedColor.name === color.name ? 'ring-2 ring-stone-900 border-stone-900/20' : 'border-stone-200 hover:ring-1 hover:ring-stone-300'}
+                        ${selectedColor.name === color.name ? 'ring-2 ring-stone-900 dark:ring-stone-100 border-stone-900/20 dark:border-stone-100/20' : 'border-stone-200 dark:border-stone-700 hover:ring-1 hover:ring-stone-300 dark:hover:ring-stone-600'}
                       `}
                       style={{ backgroundColor: color.hex }}
                     >
@@ -374,7 +374,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                         height="48"
                       />
                     </span>
-                    <span className={`text-xs font-semibold ${selectedColor.name === color.name ? 'text-stone-900' : 'text-stone-600'}`}>
+                    <span className={`text-xs font-semibold ${selectedColor.name === color.name ? 'text-stone-900 dark:text-stone-100' : 'text-stone-600 dark:text-stone-400'}`}>
                       {color.name}
                     </span>
                   </button>
@@ -383,10 +383,10 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
             </div>
 
             {/* Coupon Section */}
-            <div className="mt-6 bg-stone-100/50 p-4 rounded-xl border border-stone-200">
+            <div className="mt-6 bg-stone-100/50 dark:bg-stone-800/50 p-4 rounded-xl border border-stone-200 dark:border-stone-700/50">
                <div className="flex items-center gap-2 mb-2">
-                 <Tag size={16} className="text-stone-500" />
-                 <span className="text-sm font-bold text-stone-800">Have a coupon?</span>
+                 <Tag size={16} className="text-stone-500 dark:text-stone-400" />
+                 <span className="text-sm font-bold text-stone-800 dark:text-stone-200">Have a coupon?</span>
                </div>
                
                {appliedCoupon ? (
@@ -402,7 +402,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                     </div>
                     <button 
                       onClick={handleRemoveCoupon} 
-                      className="text-stone-400 hover:text-stone-600 p-1"
+                      className="text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-400 p-1"
                       title="Remove coupon"
                     >
                       <X size={18} />
@@ -419,13 +419,13 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                            setCouponError('');
                          }}
                          placeholder="Enter code" 
-                         className={`w-full text-sm px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-stone-400 uppercase ${couponError ? 'border-red-300 bg-red-50' : 'border-stone-300'}`}
+                         className={`w-full text-sm px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-stone-400 dark:focus:ring-stone-500 uppercase bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 ${couponError ? 'border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30' : 'border-stone-300 dark:border-stone-700'}`}
                        />
                        {couponError && <p className="absolute -bottom-5 left-0 text-xs text-red-500">{couponError}</p>}
                     </div>
                     <button 
                       onClick={handleApplyCoupon}
-                      className="bg-stone-800 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-stone-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-stone-800 dark:bg-stone-100 text-white dark:text-stone-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-stone-900 dark:hover:bg-stone-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={!couponInput}
                     >
                       Apply
@@ -447,7 +447,7 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
                 type="button"
                 aria-label="Share this product"
                 onClick={handleShare}
-                className="flex-0.5 bg-white border border-stone-300 rounded-xl py-4 px-4 flex items-center justify-center text-stone-700 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition"
+                className="flex-0.5 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl py-4 px-4 flex items-center justify-center text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 dark:focus:ring-stone-400 transition"
               >
                 <Share2 size={20} />
               </button>
@@ -455,46 +455,46 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
             {/* WhatsApp Order Steps */}
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
+              <div className="flex items-center gap-3 bg-white dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/50 rounded-xl px-4 py-3 shadow-sm dark:shadow-stone-900/50">
                 <div className="h-9 w-9 rounded-full bg-green-50 flex items-center justify-center text-green-700">
                   <MessageCircle size={18} />
                 </div>
                 <div>
-                  <p className="font-bold text-stone-900 leading-tight">Message us</p>
-                  <p className="text-xs text-stone-500">Tap WhatsApp to start</p>
+                  <p className="font-bold text-stone-900 dark:text-stone-100 leading-tight">Message us</p>
+                  <p className="text-xs text-stone-500 dark:text-stone-400">Tap WhatsApp to start</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
-                <div className="h-9 w-9 rounded-full bg-stone-50 flex items-center justify-center text-stone-700">
+              <div className="flex items-center gap-3 bg-white dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/50 rounded-xl px-4 py-3 shadow-sm dark:shadow-stone-900/50">
+                <div className="h-9 w-9 rounded-full bg-stone-50 dark:bg-stone-800 flex items-center justify-center text-stone-700 dark:text-stone-300">
                   <ClipboardCheck size={18} />
                 </div>
                 <div>
-                  <p className="font-bold text-stone-900 leading-tight">Confirm details</p>
-                  <p className="text-xs text-stone-500">Address + color</p>
+                  <p className="font-bold text-stone-900 dark:text-stone-100 leading-tight">Confirm details</p>
+                  <p className="text-xs text-stone-500 dark:text-stone-400">Address + color</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-white border border-stone-200 rounded-xl px-4 py-3 shadow-sm">
-                <div className="h-9 w-9 rounded-full bg-jute-100 flex items-center justify-center text-stone-800">
+              <div className="flex items-center gap-3 bg-white dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/50 rounded-xl px-4 py-3 shadow-sm dark:shadow-stone-900/50">
+                <div className="h-9 w-9 rounded-full bg-jute-100 dark:bg-jute-800 flex items-center justify-center text-stone-800 dark:text-stone-200">
                   <Truck size={18} />
                 </div>
                 <div>
-                  <p className="font-bold text-stone-900 leading-tight">Delivered</p>
-                  <p className="text-xs text-stone-500">Fast & tracked</p>
+                  <p className="font-bold text-stone-900 dark:text-stone-100 leading-tight">Delivered</p>
+                  <p className="text-xs text-stone-500 dark:text-stone-400">Fast & tracked</p>
                 </div>
               </div>
             </div>
 
             {/* Features / Trust Badges */}
             <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-              <div className="flex items-center gap-2 text-sm text-stone-600">
+              <div className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400">
                 <Truck size={18} className="text-brand-green" />
                 <span>Free Delivery</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-stone-600">
+              <div className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400">
                 <RefreshCcw size={18} className="text-brand-green" />
                 <span>10-Day Returns</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-stone-600">
+              <div className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400">
                 <ShieldCheck size={18} className="text-brand-green" />
                 <span>Secure Payment</span>
               </div>

@@ -25,7 +25,7 @@ const DesktopWhatsAppCTA: React.FC = () => {
             window.gtag('event', 'desktop_cta_click', { target: 'buy_now_scroll' });
           }
         }}
-        className="inline-flex items-center gap-2 rounded-2xl bg-stone-900 text-white px-4 py-3 font-bold shadow-lg shadow-black/10 hover:bg-stone-800 transition active:scale-[0.99]"
+        className="inline-flex items-center gap-2 rounded-2xl bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 px-4 py-3 font-bold shadow-lg shadow-black/10 dark:shadow-stone-900/50 hover:bg-stone-800 dark:hover:bg-stone-200 transition active:scale-[0.99]"
       >
         <MessageCircle size={18} />
         Buy on WhatsApp

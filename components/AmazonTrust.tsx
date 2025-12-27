@@ -10,9 +10,9 @@ const AmazonIcon = ({ className }: { className?: string }) => (
 
 const AmazonTrust: React.FC = () => {
   return (
-    <section className="bg-gradient-to-br from-stone-50 to-white py-12 border-y border-stone-200">
+    <section className="bg-gradient-to-br from-stone-50 to-white dark:from-stone-950 dark:to-stone-900 py-12 border-y border-stone-200 dark:border-stone-800/50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 bg-white p-8 rounded-2xl shadow-sm border border-stone-100">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm p-8 rounded-2xl shadow-sm dark:shadow-stone-900/50 border border-stone-100 dark:border-stone-700/50 transition-colors duration-300">
           
           {/* Left Content */}
           <div className="flex-1 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
@@ -27,14 +27,14 @@ const AmazonTrust: React.FC = () => {
             </div>
             
             <div>
-              <h3 className="text-xl font-serif font-bold text-stone-900">
+              <h3 className="text-xl font-serif font-bold text-stone-900 dark:text-stone-100">
                 Shop on Amazon
               </h3>
-              <p className="text-stone-500 mt-1 max-w-lg">
+              <p className="text-stone-500 dark:text-stone-400 mt-1 max-w-lg">
                 Prefer to shop on Amazon? We are a verified genuine brand. 
                 Enjoy Prime delivery and the same great quality.
               </p>
-              <div className="flex items-center gap-2 mt-2 text-xs font-semibold text-green-600 bg-green-50 w-fit px-2 py-1 rounded-md">
+              <div className="flex items-center gap-2 mt-2 text-xs font-semibold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/40 w-fit px-2 py-1 rounded-md">
                 <ShieldCheck size={14} />
                 <span>100% Authentic Product</span>
               </div>
@@ -66,7 +66,7 @@ const AmazonTrust: React.FC = () => {
                   window.gtag('event', 'amazon_click', { placement: 'amazon_trust', target: 'store' });
                 }
               }}
-              className="flex items-center justify-center gap-2 bg-white border border-stone-300 text-stone-700 px-6 py-3 rounded-xl font-bold hover:bg-stone-50 transition whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-6 py-3 rounded-xl font-bold hover:bg-stone-50 dark:hover:bg-stone-700 transition whitespace-nowrap"
             >
               Visit Store <ExternalLink size={18} />
             </a>

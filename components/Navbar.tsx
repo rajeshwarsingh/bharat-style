@@ -3,6 +3,7 @@ import { Menu, Snowflake, X } from 'lucide-react';
 import { HEADER_BADGE, LOGO_URL } from '../constants';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
+import ThemeToggle from './ThemeToggle';
 
 const IndiaFlagIcon = () => {
   return (
@@ -71,7 +72,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Trust bar */}
-      <div className="hidden sm:block sticky top-0 z-[41] bg-stone-900 text-white">
+      <div className="hidden sm:block sticky top-0 z-[41] bg-stone-900 dark:bg-stone-950 text-white dark:text-stone-200 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex items-center justify-center gap-3 text-[12px] font-semibold tracking-wide">
             <span>Free Delivery</span>
@@ -83,14 +84,14 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <nav className="sticky top-0 sm:top-[36px] z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
+      <nav className="sticky top-0 sm:top-[36px] z-40 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-700 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Mobile Menu Button */}
           <div className="flex items-center sm:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-stone-600 hover:text-stone-900 p-2"
+              className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 p-2 transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -111,10 +112,10 @@ const Navbar: React.FC = () => {
                 decoding="async"
               />
               <div className="flex flex-col items-start">
-                 <span className="font-serif text-2xl font-bold text-stone-900 tracking-tight leading-none group-hover:text-brand-green transition-colors">
+                 <span className="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 tracking-tight leading-none group-hover:text-brand-green transition-colors">
                     Bharat<span className="text-brand-green">.style</span>
                  </span>
-                 <span className="text-[11px] text-stone-500 font-medium tracking-wide leading-none mt-0.5">
+                 <span className="text-[11px] text-stone-500 dark:text-stone-400 font-medium tracking-wide leading-none mt-0.5">
                     by TheTidbit
                  </span>
               </div>
@@ -126,32 +127,34 @@ const Navbar: React.FC = () => {
             <a 
               href="#collection"
               onClick={handleScrollToCollection}
-              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/' ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
             >
               Shop
             </a>
             <Link
               to="/track"
-              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/track' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/track' ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
             >
               Track Order
             </Link>
             <Link 
               to="/about"
-              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/about' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/about' ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
             >
               About Bharat.style
             </Link>
             <Link 
               to="/story"
-              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/story' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/story' ? 'text-stone-900 dark:text-stone-100 border-brand-green' : 'text-stone-600 dark:text-stone-400 border-transparent hover:text-stone-900 dark:hover:text-stone-100'}`}
             >
               Our Story
             </Link>
           </div>
 
-          {/* Right-side badge (shows on mobile + desktop) */}
-          {HEADER_BADGE?.enabled ? (
+          {/* Right-side: Theme Toggle + Badge */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            {HEADER_BADGE?.enabled ? (
             <div className="flex items-center justify-end w-28 sm:w-auto">
               <div
                 className="relative inline-flex items-center gap-2 select-none"
@@ -222,13 +225,14 @@ const Navbar: React.FC = () => {
                   )}
                 </span>
                 {HEADER_BADGE.label ? (
-                  <span className="hidden sm:inline text-xs font-semibold text-stone-600 leading-none">
+                  <span className="hidden sm:inline text-xs font-semibold text-stone-600 dark:text-stone-400 leading-none">
                     {HEADER_BADGE.label}
                   </span>
                 ) : null}
               </div>
             </div>
           ) : null}
+          </div>
         </div>
       </div>
 
@@ -277,33 +281,33 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="sm:hidden bg-white border-t border-stone-100 absolute w-full left-0 shadow-lg">
+        <div className="sm:hidden bg-white dark:bg-stone-900 border-t border-stone-100 dark:border-stone-700 absolute w-full left-0 shadow-lg transition-colors duration-300">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <a 
               href="#collection"
               onClick={handleScrollToCollection} 
-              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-900 bg-stone-50 rounded-md"
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-900 dark:text-stone-100 bg-stone-50 dark:bg-stone-800 rounded-md transition-colors"
             >
               Shop
             </a>
             <Link
               to="/track"
               onClick={closeMenu}
-              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 rounded-md"
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 rounded-md transition-colors"
             >
               Track Order
             </Link>
             <Link 
               to="/about"
               onClick={closeMenu}
-              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 rounded-md"
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 rounded-md transition-colors"
             >
               About Bharat.style
             </Link>
             <Link 
               to="/story"
               onClick={closeMenu}
-              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 rounded-md"
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 rounded-md transition-colors"
             >
               Our Story
             </Link>

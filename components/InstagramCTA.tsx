@@ -12,21 +12,21 @@ const InstagramCTA: React.FC = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-stone-50 to-white border-y border-stone-200 py-14">
+    <section className="bg-gradient-to-br from-stone-50 to-white dark:from-stone-950 dark:to-stone-900 border-y border-stone-200 dark:border-stone-800/50 py-14 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-2xl border border-stone-100 dark:border-stone-700/50 shadow-sm dark:shadow-stone-900/50 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8 transition-colors duration-300">
           <div className="flex items-start gap-4">
-            <div className="bg-pink-50 text-pink-600 rounded-full p-3">
+            <div className="bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 rounded-full p-3">
               <Instagram size={22} />
             </div>
             <div>
-              <h3 className="text-2xl font-serif font-bold text-stone-900">
+              <h3 className="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100">
                 Follow us on Instagram
               </h3>
-              <p className="mt-2 text-stone-600 max-w-2xl">
+              <p className="mt-2 text-stone-600 dark:text-stone-400 max-w-2xl">
                 New drops, real customer photos, styling ideas, and behind-the-scenes artisan stories.
               </p>
-              <p className="mt-2 text-sm text-stone-500">
+              <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
                 @{INSTAGRAM_HANDLE}
               </p>
             </div>
@@ -43,7 +43,7 @@ const InstagramCTA: React.FC = () => {
               <span>Follow @{INSTAGRAM_HANDLE}</span>
               <ExternalLink size={18} />
             </a>
-            <p className="mt-2 text-xs text-stone-500 text-center md:text-left">
+            <p className="mt-2 text-xs text-stone-500 dark:text-stone-400 text-center md:text-left">
               Opens in Instagram
             </p>
           </div>

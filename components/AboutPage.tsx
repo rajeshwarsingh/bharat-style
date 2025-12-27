@@ -52,7 +52,7 @@ const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-stone-50 min-h-screen">
+    <div className="bg-stone-50 dark:bg-stone-950 min-h-screen transition-colors duration-300">
       <SEO 
         title="About Us - Sustainable Fashion Mission"
         description="Discover the story behind Bharat.style by TheTidbit. Connecting rural Indian artisans with the modern world through sustainable, handmade jute fashion."
@@ -62,7 +62,7 @@ const AboutPage: React.FC = () => {
         schema={organizationSchema}
       />
       {/* Hero Section */}
-      <div className="relative bg-stone-900 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="relative bg-stone-900 dark:bg-stone-950 text-white dark:text-stone-100 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden transition-colors duration-300">
         <div className="absolute inset-0 opacity-20">
              <img 
                src={cloudinaryTransform(ARTISAN_STORY_IMAGE, { w: 1600 })}
@@ -76,8 +76,8 @@ const AboutPage: React.FC = () => {
              />
         </div>
         <div className="relative max-w-7xl mx-auto text-center">
-           <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-6">Welcome to Bharat<span className="text-brand-green-100">.style</span></h1>
-           <p className="text-xl text-stone-200 max-w-2xl mx-auto">
+           <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-6">Welcome to Bharat<span className="text-brand-green-100 dark:text-brand-green">.style</span></h1>
+           <p className="text-xl text-stone-200 dark:text-stone-300 max-w-2xl mx-auto">
              The exclusive online destination for <strong>TheTidbit</strong>'s handcrafted sustainable fashion.
            </p>
         </div>
@@ -88,7 +88,7 @@ const AboutPage: React.FC = () => {
         {/* Navigation Back */}
         <Link 
           to="/"
-          className="flex items-center text-stone-500 hover:text-brand-green mb-12 transition group w-fit"
+          className="flex items-center text-stone-500 dark:text-stone-400 hover:text-brand-green dark:hover:text-brand-green mb-12 transition group w-fit"
         >
           <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Shop
@@ -97,8 +97,8 @@ const AboutPage: React.FC = () => {
         {/* Mission Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
            <div>
-              <h2 className="text-3xl font-serif font-bold text-stone-900 mb-6">Our Mission</h2>
-              <div className="prose prose-stone prose-lg">
+              <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-6">Our Mission</h2>
+              <div className="prose prose-stone dark:prose-invert prose-lg max-w-none">
                 <p>
                   <strong>Bharat.style</strong> is an initiative by the makers at <strong>TheTidbit</strong>. We started with a simple question: <em>Why must sustainable fashion be boring?</em>
                 </p>
@@ -110,7 +110,7 @@ const AboutPage: React.FC = () => {
                 </p>
               </div>
            </div>
-           <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl bg-stone-200">
+           <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl bg-stone-200 dark:bg-stone-800">
                <img 
                 src={cloudinaryTransform(MISSION_IMAGE, { w: 1000 })}
                 srcSet={cloudinarySrcSet(MISSION_IMAGE, [600, 800, 1000, 1200])}
@@ -126,7 +126,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Brand Identity Section (New) */}
-        <div className="mb-24 py-16 bg-white rounded-3xl shadow-sm border border-stone-100 text-center px-6">
+        <div className="mb-24 py-16 bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl shadow-sm dark:shadow-stone-900/50 border border-stone-100 dark:border-stone-700/50 text-center px-6 transition-colors duration-300">
            <div className="max-w-3xl mx-auto">
               <img 
                 src={cloudinaryTransform(LOGO_URL, { w: 800 })} 
@@ -139,11 +139,11 @@ const AboutPage: React.FC = () => {
                 height="200"
                 decoding="async"
               />
-              <h2 className="text-3xl font-serif font-bold text-stone-900 mb-4">
+              <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4">
                 The Symbol of Authenticity
               </h2>
-              <p className="text-lg text-stone-600 leading-relaxed">
-                Our logo reflects the core of who we are. <strong>Bharat.style</strong> stands for the timeless elegance of India wrapped in modern sustainability. 
+              <p className="text-lg text-stone-600 dark:text-stone-400 leading-relaxed">
+                Our logo reflects the core of who we are. <strong className="text-stone-900 dark:text-stone-100">Bharat.style</strong> stands for the timeless elegance of India wrapped in modern sustainability. 
                 Every product bearing this mark is a pledge—to the planet, to the artisan, and to you.
               </p>
            </div>
@@ -152,38 +152,38 @@ const AboutPage: React.FC = () => {
         {/* Values Grid */}
         <div className="mb-24">
            <div className="text-center mb-16">
-             <h2 className="text-3xl font-serif font-bold text-stone-900">Our Core Values</h2>
+             <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100">Our Core Values</h2>
            </div>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((v, idx) => (
-                <div key={idx} className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-stone-100">
-                   <div className="w-12 h-12 bg-jute-100 rounded-full flex items-center justify-center text-stone-800 mb-6">
+                <div key={idx} className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm p-8 rounded-xl shadow-sm dark:shadow-stone-900/50 hover:shadow-md dark:hover:shadow-stone-900/70 transition border border-stone-100 dark:border-stone-700/50">
+                   <div className="w-12 h-12 bg-jute-100 dark:bg-jute-800 rounded-full flex items-center justify-center text-stone-800 dark:text-stone-200 mb-6">
                      <v.icon size={24} />
                    </div>
-                   <h3 className="text-xl font-bold text-stone-900 mb-3">{v.title}</h3>
-                   <p className="text-stone-600 leading-relaxed">{v.desc}</p>
+                   <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-3">{v.title}</h3>
+                   <p className="text-stone-600 dark:text-stone-400 leading-relaxed">{v.desc}</p>
                 </div>
               ))}
            </div>
         </div>
 
         {/* CTA */}
-        <div className="bg-brand-green rounded-3xl p-12 text-center text-white relative overflow-hidden">
+        <div className="bg-brand-green dark:bg-brand-green/90 rounded-3xl p-12 text-center text-white relative overflow-hidden transition-colors duration-300">
            <div className="relative z-10">
              <h2 className="text-3xl font-serif font-bold mb-6">Join Our Journey</h2>
-             <p className="text-brand-green-100 max-w-2xl mx-auto mb-8 text-lg">
+             <p className="text-brand-green-100 dark:text-stone-200 max-w-2xl mx-auto mb-8 text-lg">
                Be a part of the slow fashion movement. Carry a bag that looks good and does good.
              </p>
              <Link 
                to="/"
-               className="inline-block bg-white text-brand-green px-8 py-3 rounded-xl font-bold hover:bg-stone-100 transition shadow-lg"
+               className="inline-block bg-white dark:bg-stone-100 text-brand-green dark:text-brand-green px-8 py-3 rounded-xl font-bold hover:bg-stone-100 dark:hover:bg-stone-200 transition shadow-lg"
              >
                Shop the Collection
              </Link>
            </div>
            {/* Decorative circles */}
-           <div className="absolute top-0 left-0 -ml-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-5"></div>
-           <div className="absolute bottom-0 right-0 -mr-20 -mb-20 w-80 h-80 rounded-full bg-white opacity-5"></div>
+           <div className="absolute top-0 left-0 -ml-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-5 dark:opacity-10"></div>
+           <div className="absolute bottom-0 right-0 -mr-20 -mb-20 w-80 h-80 rounded-full bg-white opacity-5 dark:opacity-10"></div>
         </div>
 
       </div>
