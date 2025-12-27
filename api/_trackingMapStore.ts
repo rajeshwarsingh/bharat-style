@@ -1,4 +1,12 @@
 export type TrackingMap = Record<string, string[]>;
+const KV_KEY = 'bharat_style_tracking_map_v1';
+
+function getKvConfig(): { url: string; token: string } | null {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  return { url: String(url).replace(/\/$/, ''), token: String(token) };
+}
 
 function normalizeMobile(mobile: string): string {
   // Keep digits only; last 10 digits (India-friendly) to reduce formatting differences.
@@ -23,6 +31,36 @@ function normalizeDocIds(docIds: unknown): string[] {
     out.push(id);
   }
   return out;
+}
+
+async function kvGetJson(key: string): Promise<any | null> {
+  const cfg = getKvConfig();
+  if (!cfg) return null;
+  const r = await fetch(`${cfg.url}/get/${encodeURIComponent(key)}`, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${cfg.token}` },
+  });
+  if (!r.ok) return null;
+  const json = await r.json().catch(() => null);
+  // Upstash REST returns { result: "<string|null>" }
+  const raw = json?.result;
+  if (!raw || typeof raw !== 'string') return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+async function kvSetJson(key: string, value: any): Promise<boolean> {
+  const cfg = getKvConfig();
+  if (!cfg) return false;
+  const raw = JSON.stringify(value);
+  const r = await fetch(`${cfg.url}/set/${encodeURIComponent(key)}/${encodeURIComponent(raw)}`, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${cfg.token}` },
+  });
+  return r.ok;
 }
 
 async function safeReadJsonFromFs(filePath: string): Promise<any | null> {
@@ -54,6 +92,22 @@ function inferBaseUrl(): string {
 }
 
 export async function readTrackingMap(): Promise<TrackingMap> {
+  const kvCfg = getKvConfig();
+  if (kvCfg) {
+    const fromKv = await kvGetJson(KV_KEY);
+    if (fromKv && typeof fromKv === 'object') {
+      const base = fromKv as TrackingMap;
+      const normalized: TrackingMap = {};
+      for (const [k, v] of Object.entries(base)) {
+        const mobile = normalizeMobile(k);
+        const ids = normalizeDocIds(v as any);
+        if (!mobile || ids.length === 0) continue;
+        normalized[mobile] = ids;
+      }
+      return normalized;
+    }
+  }
+
   // Production: prefer fetching the deployed JSON (functions don't reliably have /public on disk).
   // Local/dev: read from filesystem.
   const baseUrl = inferBaseUrl();
@@ -88,13 +142,22 @@ export async function upsertTrackingMapEntry(params: {
   if (!mobile) throw new Error('Invalid mobile number');
   if (docIds.length === 0) throw new Error('Provide at least one docId');
 
+  const kvCfg = getKvConfig();
+  if (kvCfg) {
+    const map = (await kvGetJson(KV_KEY)) ?? {};
+    map[mobile] = docIds;
+    const ok = await kvSetJson(KV_KEY, map);
+    if (!ok) throw new Error('Failed to write tracking map to KV');
+    return { mobile, docIds };
+  }
+
   const map = await readTrackingMap();
   map[mobile] = docIds;
 
-  // Writing is only reliable in local/dev. Production serverless FS is read-only.
+  // Writing is only reliable in local/dev. Production serverless FS is read-only unless KV is configured.
   if (process.env.NODE_ENV === 'production') {
     throw new Error(
-      'Updating tracking-map.json is not supported in production (serverless filesystem is read-only). Update the JSON in git, or connect a KV/DB store.'
+      'Updating tracking-map.json is not supported in production (serverless filesystem is read-only). Add Upstash/Vercel KV env vars to enable saving.'
     );
   }
 
