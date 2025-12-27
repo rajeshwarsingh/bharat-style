@@ -1,4 +1,4 @@
-const textEncoder = new TextEncoder();
+import { createHash } from 'node:crypto';
 
 function bytesToHex(bytes: Uint8Array): string {
   let out = '';
@@ -22,14 +22,13 @@ function countLeadingZeroBits(bytes: Uint8Array): number {
   return bits;
 }
 
-async function sha256Bytes(input: string): Promise<Uint8Array> {
-  const data = textEncoder.encode(input);
-  const digest = await crypto.subtle.digest('SHA-256', data);
-  return new Uint8Array(digest);
+function sha256Bytes(input: string): Uint8Array {
+  const buf = createHash('sha256').update(input).digest();
+  return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
 }
 
 export async function sha256Hex(input: string): Promise<string> {
-  const bytes = await sha256Bytes(input);
+  const bytes = sha256Bytes(input);
   return bytesToHex(bytes);
 }
 
@@ -42,7 +41,7 @@ export async function solveTrackCourierPow(params: {
   const { challenge, difficulty, startNonce = 0, maxNonce = 10_000_000 } = params;
 
   for (let nonce = startNonce; nonce <= maxNonce; nonce++) {
-    const bytes = await sha256Bytes(`${challenge}${nonce}`);
+    const bytes = sha256Bytes(`${challenge}${nonce}`);
     if (countLeadingZeroBits(bytes) >= difficulty) {
       return { nonce, hash: bytesToHex(bytes) };
     }

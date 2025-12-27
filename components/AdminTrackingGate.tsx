@@ -25,10 +25,7 @@ const AdminTrackingGate: React.FC = () => {
 
         // If we have a password (saved or newly entered), verify it once against the API.
         const verify = async (pw: string) => {
-          const r = await fetch('/api/admin/tracking-map', {
-            method: 'GET',
-            headers: { 'x-admin-password': pw },
-          });
+          const r = await fetch(`/api/admin/tracking-map?password=${encodeURIComponent(pw)}`, { method: 'GET' });
           return r.ok;
         };
 

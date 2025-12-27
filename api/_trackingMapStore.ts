@@ -1,10 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import path from 'node:path';
-
 export type TrackingMap = Record<string, string[]>;
-
-const DATA_PATH = path.resolve(process.cwd(), 'data', 'tracking-map.json');
-const PUBLIC_PATH = path.resolve(process.cwd(), 'public', 'tracking-map.json');
 
 function normalizeMobile(mobile: string): string {
   // Keep digits only; last 10 digits (India-friendly) to reduce formatting differences.
@@ -31,8 +25,9 @@ function normalizeDocIds(docIds: unknown): string[] {
   return out;
 }
 
-async function safeReadJson(filePath: string): Promise<any | null> {
+async function safeReadJsonFromFs(filePath: string): Promise<any | null> {
   try {
+    const { readFile } = await import('node:fs/promises');
     const raw = await readFile(filePath, 'utf8');
     return JSON.parse(raw);
   } catch {
@@ -40,10 +35,38 @@ async function safeReadJson(filePath: string): Promise<any | null> {
   }
 }
 
+async function safeReadJsonFromHttp(url: string): Promise<any | null> {
+  try {
+    const r = await fetch(url, { headers: { accept: 'application/json' } });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch {
+    return null;
+  }
+}
+
+function inferBaseUrl(): string {
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl) return `https://${vercelUrl}`;
+  const publicBase = process.env.PUBLIC_BASE_URL;
+  if (publicBase) return publicBase.replace(/\/$/, '');
+  return 'https://bharat.style';
+}
+
 export async function readTrackingMap(): Promise<TrackingMap> {
-  const fromData = await safeReadJson(DATA_PATH);
-  const fromPublic = await safeReadJson(PUBLIC_PATH);
-  const base = (fromData ?? fromPublic ?? {}) as TrackingMap;
+  // Production: prefer fetching the deployed JSON (functions don't reliably have /public on disk).
+  // Local/dev: read from filesystem.
+  const baseUrl = inferBaseUrl();
+  const fromHttp = process.env.NODE_ENV === 'production' ? await safeReadJsonFromHttp(`${baseUrl}/tracking-map.json`) : null;
+
+  const { default: path } = await import('node:path');
+  const DATA_PATH = path.resolve(process.cwd(), 'data', 'tracking-map.json');
+  const PUBLIC_PATH = path.resolve(process.cwd(), 'public', 'tracking-map.json');
+
+  const fromData = await safeReadJsonFromFs(DATA_PATH);
+  const fromPublic = await safeReadJsonFromFs(PUBLIC_PATH);
+
+  const base = (fromHttp ?? fromData ?? fromPublic ?? {}) as TrackingMap;
 
   // Normalize to { mobile: string[] }
   const normalized: TrackingMap = {};
@@ -74,6 +97,11 @@ export async function upsertTrackingMapEntry(params: {
       'Updating tracking-map.json is not supported in production (serverless filesystem is read-only). Update the JSON in git, or connect a KV/DB store.'
     );
   }
+
+  const { default: path } = await import('node:path');
+  const { mkdir, writeFile } = await import('node:fs/promises');
+  const DATA_PATH = path.resolve(process.cwd(), 'data', 'tracking-map.json');
+  const PUBLIC_PATH = path.resolve(process.cwd(), 'public', 'tracking-map.json');
 
   await mkdir(path.dirname(DATA_PATH), { recursive: true });
   const json = JSON.stringify(map, null, 2) + '\n';
