@@ -238,15 +238,17 @@ const TrackPage: React.FC = () => {
               </form>
             </div>
 
-            {/* Right: Product Image */}
+            {/* Right: Product Video */}
             <div className="order-1 lg:order-2">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
-                <img
-                  src={cloudinaryTransform(heroImage, { w: 800 })}
-                  alt="Bharat.style handmade jute sling bag"
+                <video
+                  src="https://res.cloudinary.com/thetidbit23024/video/upload/v1766855488/track_ic99vu.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover"
-                  loading="eager"
-                  decoding="async"
+                  aria-label="Bharat.style handmade jute sling bag tracking video"
                 />
               </div>
             </div>
