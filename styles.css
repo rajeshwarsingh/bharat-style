@@ -7,6 +7,31 @@
   animation: bs-pop 360ms ease-out;
 }
 
+.bs-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.08) 45%,
+    rgba(0, 0, 0, 0.04) 100%
+  );
+  background-size: 240% 100%;
+  animation: bs-skeleton 1100ms ease-in-out infinite;
+}
+
+.bs-pulse-soft {
+  animation: bs-pulse-soft 1400ms ease-in-out infinite;
+}
+
+.bs-reveal-up {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  animation: bs-reveal-up 420ms ease-out forwards;
+}
+
+.bs-float {
+  animation: bs-float 2800ms ease-in-out infinite;
+}
+
 .bs-rating-shimmer {
   position: relative;
   overflow: hidden;
@@ -33,6 +58,33 @@
   .bs-rating-shimmer::after {
     animation: none !important;
   }
+  .bs-skeleton,
+  .bs-pulse-soft,
+  .bs-reveal-up,
+  .bs-float {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes bs-skeleton {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+@keyframes bs-pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes bs-reveal-up {
+  0% { opacity: 0; transform: translate3d(0, 8px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes bs-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
 }
 
 /* ---------- Hero Ken Burns (subtle) ---------- */
