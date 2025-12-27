@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -8,10 +8,18 @@ import {
   Phone,
   Sparkles,
   Truck,
+  ShoppingBag,
+  Star,
+  Instagram,
+  ExternalLink,
+  ArrowRight,
+  Share2,
+  Users,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SEO from './SEO';
-import { PRODUCT, WHATSAPP_NUMBER } from '../constants';
-import { cloudinaryTransform } from '../utils/cloudinary';
+import { WHATSAPP_NUMBER, PRODUCT, INSTAGRAM_HANDLE, REVIEWS, AMAZON_STORE_URL } from '../constants';
+import { cloudinaryTransform, cloudinarySrcSet } from '../utils/cloudinary';
 
 type TrackCourierCheckpoint = {
   Time?: string;
@@ -64,11 +72,49 @@ const TrackPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<ApiResultItem[] | null>(null);
 
-  const heroImage = useMemo(() => {
-    // Prefer the lifestyle/model shot so it feels more “for women” and less “admin”.
-    const firstColor = PRODUCT.colors?.[0];
-    return firstColor?.images?.[0] || firstColor?.images?.[1] || null;
-  }, []);
+  const heroImage = 'https://res.cloudinary.com/thetidbit23024/image/upload/v1766823240/ChatGPT_Image_Dec_27_2025_01_43_41_PM_ledlfa.png';
+  const shareImage = 'https://res.cloudinary.com/thetidbit23024/image/upload/v1766824107/ChatGPT_Image_Dec_27_2025_01_58_14_PM_jlerff.png';
+  const shopImage = 'https://res.cloudinary.com/thetidbit23024/image/upload/v1766825911/exicting_tidbi_girl_p7zicn.png';
+
+  const handleShare = async () => {
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://bharat.style/';
+    const shareText = `Check out this beautiful handmade jute sling bag from Bharat.style! ✨ Eco-friendly, artistic, and perfect for everyday use.`;
+    const nav = typeof window !== 'undefined' ? window.navigator : undefined;
+
+    try {
+      if (nav && 'share' in nav) {
+        await (nav as any).share({
+          title: 'Bharat.style - Handmade Jute Sling Bag',
+          text: shareText,
+          url: shareUrl,
+        });
+        if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'share', { method: 'web_share', placement: 'track_page' });
+        }
+        return;
+      }
+
+      if (nav?.clipboard?.writeText) {
+        await nav.clipboard.writeText(shareUrl);
+        if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'share', { method: 'copy_link', placement: 'track_page' });
+        }
+        alert('Link copied! Share it with your family and friends.');
+        return;
+      }
+    } catch {
+      // fall through
+    }
+
+    try {
+      window.prompt('Copy this link to share:', shareUrl);
+      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'share', { method: 'prompt_copy', placement: 'track_page' });
+      }
+    } catch {
+      // ignore
+    }
+  };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,107 +158,98 @@ const TrackPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-stone-50 relative overflow-hidden">
+    <div className="bg-gradient-to-b from-stone-50 to-white min-h-screen">
       <SEO
         title="Track Order"
         description="Track your Bharat.style order using your courier tracking number (Doc ID)."
         canonicalUrl="https://bharat.style/track"
       />
 
-      {/* soft background blobs */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-28 h-72 w-72 rounded-full bg-indigo-200/45 blur-3xl" />
-        <div className="absolute -bottom-24 -left-28 h-72 w-72 rounded-full bg-rose-200/45 blur-3xl" />
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
-        <div className="bg-white rounded-3xl border border-stone-100 shadow-sm overflow-hidden">
-          <div className="p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
-              <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-3 py-1 text-xs font-semibold text-stone-700">
-                  <Sparkles size={14} className="text-indigo-600" />
-                  Order tracking
-                </div>
-                <h1 className="mt-3 text-3xl sm:text-4xl font-serif font-bold text-stone-900">
-                  Track your order
-                </h1>
-                <p className="mt-2 text-stone-600">
-                  Enter the <strong>mobile number used in your order</strong> to see courier updates.
-                </p>
+      {/* Hero Section - Split Layout */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-pink-50/50" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left: Tracking Form */}
+            <div className="order-2 lg:order-1">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
+                <Truck size={16} className="text-indigo-600" />
+                Real-time tracking
               </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                Track your order
+              </h1>
+              <p className="text-lg text-stone-600 mb-8 leading-relaxed">
+                Enter your mobile number to see live courier updates for your Bharat.style order.
+              </p>
 
-              {heroImage ? (
-                <div className="w-full sm:w-auto">
-                  <div className="relative w-full sm:w-48 aspect-[4/3] rounded-2xl overflow-hidden border border-stone-200 shadow-sm bs-float">
-                    <img
-                      src={cloudinaryTransform(heroImage, { w: 520 })}
-                      alt="Bharat.style order preview"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      width="520"
-                      height="390"
-                    />
-                    <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-white/10" />
-                  </div>
+              <form onSubmit={onSubmit} className="space-y-4">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    placeholder="10-digit mobile number"
+                    inputMode="numeric"
+                    className="flex-1 rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-sm"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="sm:w-auto rounded-2xl bg-stone-900 text-white px-8 py-4 text-base font-bold hover:bg-stone-800 disabled:opacity-60 disabled:cursor-not-allowed transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  >
+                    <Truck size={20} className={loading ? 'bs-pulse-soft' : ''} />
+                    {loading ? 'Tracking…' : 'Track'}
+                  </button>
                 </div>
-              ) : null}
+
+                {error ? (
+                  <div className="rounded-2xl border-2 border-red-200 bg-red-50 px-5 py-4 text-red-900 flex gap-3 items-start">
+                    <AlertTriangle size={20} className="mt-0.5 text-red-700 flex-shrink-0" />
+                    <div className="text-sm">
+                      <div className="font-semibold mb-1">Couldn't fetch tracking</div>
+                      <div className="text-red-800">{error}</div>
+                    </div>
+                  </div>
+                ) : null}
+
+                <div className="flex items-center gap-2 text-sm text-stone-600 pt-2">
+                  <Phone size={16} className="text-green-600" />
+                  <span>Need help?</span>
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-green-700 hover:text-green-800 underline decoration-green-300 underline-offset-2 transition-colors"
+                  >
+                    WhatsApp support
+                  </a>
+                </div>
+              </form>
             </div>
 
-            <form onSubmit={onSubmit} className="mt-6 space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-start">
-                <input
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  placeholder="10-digit mobile number"
-                  inputMode="numeric"
-                  className="w-full rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900/15 focus:border-stone-300"
+            {/* Right: Product Image */}
+            <div className="order-1 lg:order-2">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img
+                  src={cloudinaryTransform(heroImage, { w: 800 })}
+                  alt="Bharat.style handmade jute sling bag"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
                 />
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full sm:w-auto rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 disabled:opacity-60 disabled:cursor-not-allowed transition inline-flex items-center justify-center gap-2"
-                >
-                  <Truck size={18} className={loading ? 'bs-pulse-soft' : ''} />
-                  {loading ? 'Tracking…' : 'Track'}
-                </button>
               </div>
-
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <div className="text-sm text-stone-500">
-                  Tip: If you can’t find tracking, message us on WhatsApp and we’ll help.
-                </div>
-
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold text-green-700 hover:text-green-800 underline decoration-green-300 hover:decoration-green-400 underline-offset-2 inline-flex items-center gap-2"
-                >
-                  <Phone size={16} />
-                  WhatsApp support
-                </a>
-              </div>
-
-              {error ? (
-                <div className="mt-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-red-900 text-sm flex gap-3 items-start">
-                  <AlertTriangle size={18} className="mt-0.5 text-red-700" />
-                  <div>
-                    <div className="font-semibold">We couldn’t fetch tracking</div>
-                    <div className="text-red-800">{error}</div>
-                  </div>
-                </div>
-              ) : null}
-            </form>
+            </div>
           </div>
         </div>
+      </div>
 
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        {/* Loading State */}
         {loading ? (
-          <div className="mt-8 space-y-4">
+          <div className="mt-12 space-y-6">
             {[0, 1].map((i) => (
-              <div key={i} className="bg-white rounded-3xl border border-stone-100 shadow-sm overflow-hidden">
+              <div key={i} className="bg-white rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
                 <div className="px-6 py-5 border-b border-stone-100 flex items-center justify-between gap-3">
                   <div className="w-40 h-4 rounded-full bs-skeleton" />
                   <div className="w-28 h-7 rounded-full bs-skeleton" />
@@ -235,30 +272,27 @@ const TrackPage: React.FC = () => {
           </div>
         ) : null}
 
+        {/* Tracking Results */}
         {results ? (
-          <div className="mt-8 space-y-4">
+          <div className="mt-12 space-y-6">
             {results.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-stone-100 shadow-sm p-6 sm:p-8">
-                <div className="flex items-start gap-3">
-                  <Package size={20} className="text-stone-700 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-stone-900">No shipments found</div>
-                    <div className="text-stone-600 text-sm mt-1">
-                      If you placed an order recently, tracking may take a few hours to appear.
-                    </div>
-                  </div>
-                </div>
+              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-10 text-center">
+                <Package size={48} className="text-stone-400 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-stone-900 mb-2">No shipments found</h3>
+                <p className="text-stone-600">
+                  If you placed an order recently, tracking may take a few hours to appear.
+                </p>
               </div>
             ) : null}
 
             {results.map((r) => (
-              <div key={r.docId} className="bg-white rounded-3xl border border-stone-100 shadow-sm overflow-hidden">
-                <div className="px-6 py-5 border-b border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div key={r.docId} className="bg-white rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
+                <div className="px-6 py-5 bg-gradient-to-r from-stone-50 to-white border-b border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
-                    <div className="text-sm text-stone-500">Doc ID</div>
-                    <div className="text-lg font-bold text-stone-900">{r.docId}</div>
+                    <div className="text-xs text-stone-500 uppercase tracking-wide mb-1">Tracking Number</div>
+                    <div className="text-xl font-bold text-stone-900 font-mono">{r.docId}</div>
                   </div>
-                  <div className="text-sm">
+                  <div>
                     {r.ok ? (
                       (() => {
                         const st = statusTone(r.data?.MostRecentStatus || r.data?.ShipmentState);
@@ -272,18 +306,18 @@ const TrackPage: React.FC = () => {
                                 : 'bg-stone-50 text-stone-800 border-stone-200';
                         return (
                           <span
-                            className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 border ${cls} ${
+                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 border font-semibold transition-all ${cls} ${
                               st.tone === 'progress' ? 'bs-pulse-soft' : ''
                             }`}
                           >
-                            {st.tone === 'success' ? <CheckCircle2 size={16} /> : <Truck size={16} />}
+                            {st.tone === 'success' ? <CheckCircle2 size={18} /> : <Truck size={18} />}
                             {st.label}
                           </span>
                         );
                       })()
                     ) : (
-                      <span className="inline-flex items-center gap-2 rounded-full bg-red-50 text-red-900 px-3 py-1.5 border border-red-200">
-                        <AlertTriangle size={16} />
+                      <span className="inline-flex items-center gap-2 rounded-full bg-red-50 text-red-900 px-4 py-2 border border-red-200 font-semibold">
+                        <AlertTriangle size={18} />
                         Failed
                       </span>
                     )}
@@ -293,65 +327,67 @@ const TrackPage: React.FC = () => {
                 <div className="p-6">
                   {r.ok ? (
                     <>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="rounded-2xl bg-stone-50 border border-stone-100 p-4">
-                          <div className="flex items-center gap-2 text-xs text-stone-500">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
                             <Package size={14} />
                             Courier
                           </div>
-                          <div className="mt-1 font-semibold text-stone-900">{r.data?.CourierSlug || 'anjani-courier'}</div>
+                          <div className="font-bold text-stone-900">{r.data?.CourierSlug || 'anjani-courier'}</div>
                         </div>
-                        <div className="rounded-2xl bg-stone-50 border border-stone-100 p-4">
-                          <div className="flex items-center gap-2 text-xs text-stone-500">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
                             <Truck size={14} />
-                            Shipment state
+                            Status
                           </div>
-                          <div className="mt-1 font-semibold text-stone-900">{r.data?.ShipmentState || '—'}</div>
+                          <div className="font-bold text-stone-900">{r.data?.ShipmentState || '—'}</div>
                         </div>
-                        <div className="rounded-2xl bg-stone-50 border border-stone-100 p-4">
-                          <div className="flex items-center gap-2 text-xs text-stone-500">
+                        <div className="rounded-2xl bg-gradient-to-br from-stone-50 to-white border border-stone-100 p-4 transition-all hover:shadow-md">
+                          <div className="flex items-center gap-2 text-xs text-stone-500 mb-2">
                             <Clock3 size={14} />
-                            Most recent
+                            Latest Update
                           </div>
-                          <div className="mt-1 font-semibold text-stone-900">{r.data?.MostRecentStatus || '—'}</div>
+                          <div className="font-bold text-stone-900">{r.data?.MostRecentStatus || '—'}</div>
                         </div>
                       </div>
 
                       {r.data?.AdditionalInfo ? (
-                        <div className="mt-4 text-sm text-stone-600">{r.data.AdditionalInfo}</div>
+                        <div className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-100 text-sm text-blue-900">
+                          {r.data.AdditionalInfo}
+                        </div>
                       ) : null}
 
-                      <div className="mt-6">
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="text-sm font-semibold text-stone-900">Shipment journey</div>
-                          <div className="text-xs text-stone-500">Newest updates appear first</div>
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-bold text-stone-900">Shipment Journey</h3>
+                          <span className="text-xs text-stone-500">Newest first</span>
                         </div>
 
                         {(r.data?.Checkpoints ?? []).length === 0 ? (
-                          <div className="mt-3 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 text-sm text-stone-700">
+                          <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-6 text-center text-stone-700">
                             No checkpoints yet. Please check again in a few hours.
                           </div>
                         ) : (
-                          <ol className="mt-4 space-y-3">
+                          <ol className="space-y-4">
                             {(r.data?.Checkpoints ?? []).map((c, idx) => (
                               <li
                                 key={idx}
-                                className="relative pl-10 bs-reveal-up"
+                                className="relative pl-12 bs-reveal-up"
                                 style={{ animationDelay: `${Math.min(idx * 60, 420)}ms` }}
                               >
-                                <span aria-hidden="true" className="absolute left-[18px] top-0 bottom-0 w-px bg-stone-200" />
+                                <span aria-hidden="true" className="absolute left-5 top-6 bottom-0 w-0.5 bg-stone-200" />
                                 <span
                                   aria-hidden="true"
-                                  className={`absolute left-3 top-4 h-3 w-3 rounded-full ${
+                                  className={`absolute left-4 top-6 h-4 w-4 rounded-full border-2 border-white transition-all ${
                                     idx === 0
-                                      ? 'bg-indigo-600 shadow-[0_0_0_6px_rgba(99,102,241,0.15)]'
+                                      ? 'bg-indigo-600 shadow-[0_0_0_4px_rgba(99,102,241,0.2)]'
                                       : 'bg-stone-400'
                                   }`}
                                 />
 
-                                <div className="rounded-2xl border border-stone-100 bg-white shadow-sm px-4 py-3">
-                                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                    <div className="font-semibold text-stone-900">{formatCheckpointTitle(c)}</div>
+                                <div className="rounded-2xl border border-stone-100 bg-white shadow-sm px-5 py-4 hover:shadow-md transition-all">
+                                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                                    <div className="font-bold text-stone-900">{formatCheckpointTitle(c)}</div>
                                     <div className="text-xs text-stone-500 inline-flex items-center gap-2">
                                       <Clock3 size={14} />
                                       <span>
@@ -359,12 +395,12 @@ const TrackPage: React.FC = () => {
                                       </span>
                                     </div>
                                   </div>
-                                  <div className="mt-2 flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-stone-700">
-                                    <div className="inline-flex items-start gap-2">
-                                      <MapPin size={16} className="text-stone-500 mt-0.5" />
-                                      <span>{c.Location || '—'}</span>
+                                  {c.Location ? (
+                                    <div className="inline-flex items-start gap-2 text-sm text-stone-700">
+                                      <MapPin size={16} className="text-stone-500 mt-0.5 flex-shrink-0" />
+                                      <span>{c.Location}</span>
                                     </div>
-                                  </div>
+                                  ) : null}
                                 </div>
                               </li>
                             ))}
@@ -373,11 +409,11 @@ const TrackPage: React.FC = () => {
                       </div>
                     </>
                   ) : (
-                    <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-red-900 text-sm flex gap-3 items-start">
-                      <AlertTriangle size={18} className="mt-0.5 text-red-700" />
+                    <div className="rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-red-900 flex gap-3 items-start">
+                      <AlertTriangle size={20} className="mt-0.5 text-red-700 flex-shrink-0" />
                       <div>
-                        <div className="font-semibold">Couldn’t fetch this shipment</div>
-                        <div className="text-red-800">{r.error}</div>
+                        <div className="font-semibold mb-1">Couldn't fetch this shipment</div>
+                        <div className="text-sm text-red-800">{r.error}</div>
                       </div>
                     </div>
                   )}
@@ -386,11 +422,483 @@ const TrackPage: React.FC = () => {
             ))}
           </div>
         ) : null}
+
+        {/* Conversion Sections - Before Tracking */}
+        {!loading && !results ? (
+          <div className="mt-16 space-y-12">
+            {/* Share Section */}
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border-2 border-pink-200/50 shadow-xl overflow-hidden">
+              <div className="p-8 sm:p-10 lg:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-pink-200 px-4 py-2 text-xs font-semibold text-pink-700 mb-6">
+                      <Users size={16} className="text-pink-600" />
+                      Spread the love
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                      Share with family & friends! 💝
+                    </h2>
+                    <p className="text-lg text-stone-700 mb-8 leading-relaxed">
+                      Love our handmade jute bags? Share Bharat.style with your loved ones! They'll thank you for introducing them to sustainable, eco-friendly fashion.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="button"
+                        onClick={handleShare}
+                        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 font-bold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl text-base"
+                      >
+                        <Share2 size={20} />
+                        Share Bharat.style
+                      </button>
+                      <a
+                        href={`https://wa.me/?text=${encodeURIComponent('Check out this beautiful handmade jute sling bag from Bharat.style! ✨ Eco-friendly and perfect for everyday use. https://bharat.style/')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-green-600 text-white px-8 py-4 font-bold hover:bg-green-700 transition-all shadow-lg hover:shadow-xl text-base"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                            window.gtag('event', 'whatsapp_share', { placement: 'track_page_before' });
+                          }
+                        }}
+                      >
+                        <Phone size={20} />
+                        Share on WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                      <img
+                        src={cloudinaryTransform(shareImage, { w: 600 })}
+                        alt="Family and friends sharing Bharat.style bags"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Product & Shop Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Product Image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img
+                  src={cloudinaryTransform(shopImage, { w: 600 })}
+                  alt="Excited customer with Bharat.style bag"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              {/* Product Info & CTAs */}
+              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
+                  <ShoppingBag size={16} className="text-indigo-600" />
+                  Shop now
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                  {PRODUCT.name}
+                </h2>
+                <div className="flex items-baseline gap-3 mb-6">
+                  <span className="text-3xl font-bold text-stone-900">₹{PRODUCT.price}</span>
+                  <span className="text-xl text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                  <span className="text-sm font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full">Free Delivery</span>
+                </div>
+                <p className="text-stone-700 mb-8 text-lg leading-relaxed">
+                  Each bag is unique, crafted by skilled artisans. Choose from 4 beautiful colors, all eco-friendly and perfect for everyday use.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                  <Link
+                    to="/"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
+                  >
+                    <ShoppingBag size={20} />
+                    Shop on Bharat.style
+                    <ArrowRight size={18} />
+                  </Link>
+                  <a
+                    href={AMAZON_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 text-white px-6 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                        window.gtag('event', 'amazon_store_click', { placement: 'track_page_before' });
+                      }
+                    }}
+                  >
+                    <ExternalLink size={20} />
+                    Shop on Amazon
+                  </a>
+                </div>
+                <div className="pt-6 border-t border-stone-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={18} className="text-yellow-400 fill-current" />
+                    ))}
+                    <span className="text-base font-bold text-stone-900 ml-2">4.8</span>
+                    <span className="text-base text-stone-500">(48 reviews)</span>
+                  </div>
+                  <p className="text-stone-700 italic text-base leading-relaxed">
+                    "{REVIEWS[0]?.text || 'Love my sling bag! Perfect size and the embroidery is so beautiful.'}"
+                  </p>
+                  <p className="text-sm font-semibold text-stone-900 mt-2">— {REVIEWS[0]?.author || 'Priya S.'}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Conversion Sections - After Tracking */}
+        {results && results.length > 0 && results.some((r) => r.ok) ? (
+          <div className="mt-16 space-y-12">
+            {/* Share Section */}
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border-2 border-pink-200/50 shadow-xl overflow-hidden">
+              <div className="p-8 sm:p-10 lg:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-pink-200 px-4 py-2 text-xs font-semibold text-pink-700 mb-6">
+                      <Users size={16} className="text-pink-600" />
+                      Spread the love
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                      Share with family & friends! 💝
+                    </h2>
+                    <p className="text-lg text-stone-700 mb-8 leading-relaxed">
+                      Love your order? Share Bharat.style with your loved ones! They'll thank you for introducing them to sustainable, handmade fashion.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="button"
+                        onClick={handleShare}
+                        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 font-bold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl text-base"
+                      >
+                        <Share2 size={20} />
+                        Share Bharat.style
+                      </button>
+                      <a
+                        href={`https://wa.me/?text=${encodeURIComponent('Check out this beautiful handmade jute sling bag from Bharat.style! ✨ Eco-friendly and perfect for everyday use. https://bharat.style/')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-2xl bg-green-600 text-white px-8 py-4 font-bold hover:bg-green-700 transition-all shadow-lg hover:shadow-xl text-base"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                            window.gtag('event', 'whatsapp_share', { placement: 'track_page_after' });
+                          }
+                        }}
+                      >
+                        <Phone size={20} />
+                        Share on WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                      <img
+                        src={cloudinaryTransform(shareImage, { w: 600 })}
+                        alt="Family and friends sharing Bharat.style bags"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Product & Shop Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Product Image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img
+                  src={cloudinaryTransform(shopImage, { w: 600 })}
+                  alt="Excited customer with Bharat.style bag"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              {/* Product Info & CTAs */}
+              <div className="bg-white rounded-3xl border border-stone-100 shadow-lg p-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
+                  <ShoppingBag size={16} className="text-indigo-600" />
+                  Shop more
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+                  {PRODUCT.name}
+                </h2>
+                <div className="flex items-baseline gap-3 mb-6">
+                  <span className="text-3xl font-bold text-stone-900">₹{PRODUCT.price}</span>
+                  <span className="text-xl text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                  <span className="text-sm font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full">Free Delivery</span>
+                </div>
+                <p className="text-stone-700 mb-8 text-lg leading-relaxed">
+                  Our handmade jute sling bag comes in 4 beautiful colors. Each one is unique, eco-friendly, and perfect for everyday use.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 mb-8">
+                  <Link
+                    to="/"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
+                  >
+                    <ShoppingBag size={20} />
+                    Shop on Bharat.style
+                    <ArrowRight size={18} />
+                  </Link>
+                  <a
+                    href={AMAZON_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 text-white px-6 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                        window.gtag('event', 'amazon_store_click', { placement: 'track_page_after' });
+                      }
+                    }}
+                  >
+                    <ExternalLink size={20} />
+                    Shop on Amazon
+                  </a>
+                </div>
+
+                {/* Color Variants */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-stone-900 mb-4">Available Colors</h3>
+                  <div className="grid grid-cols-4 gap-3">
+                    {PRODUCT.colors.slice(0, 4).map((color) => (
+                      <Link
+                        key={color.id}
+                        to="/"
+                        className="group relative rounded-2xl overflow-hidden border-2 border-stone-200 bg-white shadow-sm hover:shadow-md hover:border-stone-300 transition-all"
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={cloudinaryTransform(color.images[0], { w: 200 })}
+                            srcSet={cloudinarySrcSet(color.images[0], [150, 200, 250])}
+                            sizes="(min-width: 640px) 25vw, 25vw"
+                            alt={`${PRODUCT.name} - ${color.name}`}
+                            className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                        <div className="p-2 text-center">
+                          <div className="flex items-center justify-center gap-1.5 mb-1">
+                            <span
+                              className="h-3 w-3 rounded-full border border-stone-300"
+                              style={{ backgroundColor: color.hex }}
+                            />
+                            <span className="text-xs font-semibold text-stone-900">{color.name}</span>
+                          </div>
+                          <div className="text-xs font-bold text-stone-900">₹{PRODUCT.price}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-stone-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={16} className="text-yellow-400 fill-current" />
+                      ))}
+                      <span className="text-sm font-bold text-stone-900 ml-2">4.8</span>
+                      <span className="text-sm text-stone-500">(48 reviews)</span>
+                    </div>
+                    <Link
+                      to="/"
+                      className="text-sm font-semibold text-indigo-700 hover:text-indigo-800 underline decoration-indigo-300 underline-offset-2 inline-flex items-center gap-1 transition-colors"
+                    >
+                      View all <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                  <p className="text-stone-600 text-sm">
+                    <span className="font-semibold text-stone-900">Tip:</span> Use coupon code{' '}
+                    <span className="font-bold text-stone-900">SANDY5</span> for extra 5% off!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Instagram CTA */}
+            <div className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-3xl border border-stone-100 shadow-lg overflow-hidden">
+              <div className="p-8 sm:p-10">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-white rounded-full p-4 shadow-md">
+                      <Instagram size={28} className="text-pink-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mb-2 leading-tight">
+                        Share your unboxing!
+                      </h3>
+                      <p className="text-stone-700 text-lg mb-1">
+                        Tag us <span className="font-bold">@{INSTAGRAM_HANDLE}</span> when your bag arrives.
+                      </p>
+                      <p className="text-stone-600 text-sm">
+                        Follow us for new arrivals, styling tips, and behind-the-scenes stories.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                        window.gtag('event', 'instagram_click', { placement: 'track_page' });
+                      }
+                    }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl text-base"
+                  >
+                    <Instagram size={20} />
+                    Follow @{INSTAGRAM_HANDLE}
+                    <ExternalLink size={18} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Empty State */}
+        {results && results.length === 0 ? (
+          <div className="mt-16 bg-white rounded-3xl border border-stone-100 shadow-lg p-12 text-center">
+            <Package size={64} className="text-stone-400 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-stone-900 mb-3">No tracking found yet?</h3>
+            <p className="text-stone-600 mb-8 max-w-md mx-auto text-lg leading-relaxed">
+              While you wait, explore our collection of handmade jute bags. Each piece is unique and crafted with love.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 rounded-2xl bg-stone-900 text-white px-8 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
+              >
+                <ShoppingBag size={20} />
+                Shop Now
+                <ArrowRight size={18} />
+              </Link>
+              <a
+                href={AMAZON_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 text-white px-8 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
+              >
+                <ExternalLink size={20} />
+                Shop on Amazon
+              </a>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Available Products Showcase - Always Visible */}
+        <div className="mt-20 mb-16">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200 px-4 py-2 text-xs font-semibold text-stone-700 mb-4">
+              <Sparkles size={16} className="text-indigo-600" />
+              Shop our collection
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 mb-4 leading-tight">
+              Available Colors
+            </h2>
+            <p className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed">
+              Choose from 4 beautiful color variants of our handmade jute sling bag. Each piece is unique and crafted with love.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* All 4 Color Variants */}
+            {PRODUCT.colors.map((color, index) => (
+              <Link
+                key={color.id}
+                to="/"
+                className="group relative bg-white rounded-3xl border-2 border-stone-200 shadow-lg hover:shadow-xl overflow-hidden transition-all"
+              >
+                <div className="aspect-[3/4] relative overflow-hidden">
+                  <img
+                    src={cloudinaryTransform(color.images[0], { w: 400 })}
+                    srcSet={cloudinarySrcSet(color.images[0], [300, 400, 500])}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    alt={`${PRODUCT.name} - ${color.name}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition" />
+                  {index === 0 && (
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white shadow-md">
+                        Featured
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span
+                      className="h-5 w-5 rounded-full border-2 border-stone-300 shadow-sm"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    <h3 className="font-serif font-bold text-stone-900 text-lg group-hover:text-indigo-700 transition-colors">
+                      {color.name}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-stone-600 mb-3 line-clamp-2">{PRODUCT.name}</p>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-xl font-bold text-stone-900">₹{PRODUCT.price}</span>
+                    <span className="text-sm text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                    <span className="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full">
+                      {PRODUCT.discountPercentage}% OFF
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-stone-600">
+                    <Truck size={14} />
+                    <span>Free Delivery</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 rounded-2xl bg-stone-900 text-white px-8 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
+              >
+                <ShoppingBag size={20} />
+                View All Products
+                <ArrowRight size={18} />
+              </Link>
+              <a
+                href={AMAZON_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 text-white px-8 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                    window.gtag('event', 'amazon_store_click', { placement: 'track_page_products' });
+                  }
+                }}
+              >
+                <ExternalLink size={20} />
+                Shop on Amazon
+              </a>
+            </div>
+            <p className="text-sm text-stone-600 mt-4">
+              All products are handmade, eco-friendly, and come with free delivery across India
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default TrackPage;
-
-
