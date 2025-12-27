@@ -71,20 +71,22 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Trust bar */}
-      <div className="hidden sm:block sticky top-0 z-[41] bg-stone-900 dark:bg-stone-950 text-white dark:text-stone-200 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <div className="flex items-center justify-center gap-3 text-[12px] font-semibold tracking-wide">
-            <span>Free Delivery</span>
-            <span className="opacity-40">•</span>
-            <span>100% Genuine Brand</span>
-            <span className="opacity-40">•</span>
-            <span>Handmade in India</span>
+      {/* Header Container - Wraps both trust bar and nav */}
+      <div className="sticky top-0 z-40">
+        {/* Trust bar */}
+        <div className="hidden sm:block bg-stone-900 dark:bg-stone-950 text-white dark:text-stone-200 transition-colors duration-300">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+            <div className="flex items-center justify-center gap-3 text-[12px] font-semibold tracking-wide">
+              <span>Free Delivery</span>
+              <span className="opacity-40">•</span>
+              <span>100% Genuine Brand</span>
+              <span className="opacity-40">•</span>
+              <span>Handmade in India</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <nav className="sticky top-0 sm:top-[36px] z-40 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-700 transition-colors duration-300">
+        <nav className="bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-700 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Mobile Menu Button */}
@@ -311,8 +313,9 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
         </div>
-      )}
-      </nav>
+        )}
+        </nav>
+      </div>
     </>
   );
 };
