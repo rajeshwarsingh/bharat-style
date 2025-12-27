@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Star, ShieldCheck, Truck, RefreshCcw, Share2, Heart, User, Package, Camera, Tag, X, Check, MessageCircle, ClipboardCheck } from 'lucide-react';
+import { Star, ShieldCheck, Truck, RefreshCcw, Share2, Heart, User, Package, Camera, Tag, X, Check, MessageCircle, ClipboardCheck, Sparkles } from 'lucide-react';
 import { PRODUCT, WHATSAPP_NUMBER, VALID_COUPONS } from '../constants';
 import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
+import { useSlingTry } from './SlingTryContext';
 
 interface HeroProps {
   appliedCoupon: string | null;
@@ -9,6 +10,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
+  const { openSlingTry } = useSlingTry();
   const [selectedColor, setSelectedColor] = useState(PRODUCT.colors[0]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [couponInput, setCouponInput] = useState('');
@@ -304,6 +306,19 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
               >
                 48 reviews
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                    window.gtag('event', 'slingtry_open_modal', { placement: 'hero' });
+                  }
+                  openSlingTry();
+                }}
+                className="ml-4 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-700 hover:text-indigo-800 underline decoration-indigo-300 hover:decoration-indigo-400 underline-offset-2 transition"
+              >
+                <Sparkles size={16} className="text-indigo-600" />
+                See how it looks on you
+              </button>
             </div>
 
             {/* Price */}
@@ -329,23 +344,39 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
             {/* Color Selector */}
             <div className="mt-6">
-              <p className="text-sm font-medium text-stone-900">Colour: <span className="text-stone-600 font-normal">{selectedColor.name}</span></p>
-              <div className="mt-3 flex items-center space-x-3">
+              <p className="text-sm font-medium text-stone-900">Colour:</p>
+              <div className="mt-3 flex flex-wrap items-start gap-4">
                 {PRODUCT.colors.map((color) => (
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color)}
-                    className={`
-                      relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-offset-2
-                      ${selectedColor.name === color.name ? 'ring-2 ring-stone-900' : 'ring-transparent hover:ring-1 hover:ring-stone-300'}
-                    `}
-                    aria-label={color.name}
+                    className="flex flex-col items-center gap-2 focus:outline-none"
+                    aria-label={`Select colour: ${color.name}`}
+                    title={color.name}
                   >
                     <span
                       aria-hidden="true"
-                      className="h-8 w-8 rounded-full border border-black border-opacity-10"
+                      className={`
+                        relative h-12 w-12 rounded-full overflow-hidden border shadow-sm ring-offset-2 transition
+                        ${selectedColor.name === color.name ? 'ring-2 ring-stone-900 border-stone-900/20' : 'border-stone-200 hover:ring-1 hover:ring-stone-300'}
+                      `}
                       style={{ backgroundColor: color.hex }}
-                    />
+                    >
+                      <img
+                        src={cloudinaryTransform((color.images?.[1] || color.images?.[0]) as string, { w: 120 })}
+                        srcSet={cloudinarySrcSet((color.images?.[1] || color.images?.[0]) as string, [64, 96, 120])}
+                        sizes="48px"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        width="48"
+                        height="48"
+                      />
+                    </span>
+                    <span className={`text-xs font-semibold ${selectedColor.name === color.name ? 'text-stone-900' : 'text-stone-600'}`}>
+                      {color.name}
+                    </span>
                   </button>
                 ))}
               </div>

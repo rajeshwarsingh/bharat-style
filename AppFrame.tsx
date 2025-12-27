@@ -7,7 +7,6 @@ import NotFound from './components/NotFound';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import MetaPixel from './components/MetaPixel';
 import SlingTryModal from './components/SlingTryModal';
-import SlingTryFloatingButton from './components/SlingTryFloatingButton';
 import { SlingTryProvider } from './components/SlingTryContext';
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
@@ -57,7 +56,6 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
         <Footer />
       </div>
 
-      <SlingTryFloatingButton onClick={() => setIsSlingTryOpen(true)} />
       <SlingTryModal
         open={isSlingTryOpen}
         onClose={() => setIsSlingTryOpen(false)}
