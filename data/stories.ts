@@ -42,7 +42,7 @@ export const stories: Story[] = [
       name: 'Priya Sharma',
       role: 'Lifestyle Writer',
     },
-    publishDate: '2025-01-20',
+    publishDate: '2024-12-20',
     readTime: 8,
     featured: true,
     content: [
@@ -85,7 +85,7 @@ export const stories: Story[] = [
       name: 'TheTidbit Team',
       role: 'Storytellers',
     },
-    publishDate: '2025-01-18',
+    publishDate: '2024-12-18',
     readTime: 9,
     featured: false,
     content: [
@@ -132,7 +132,7 @@ export const stories: Story[] = [
       name: 'Radha Krishnan',
       role: 'Culture Writer',
     },
-    publishDate: '2025-01-16',
+    publishDate: '2024-12-16',
     readTime: 10,
     featured: false,
     content: [
@@ -187,7 +187,7 @@ export const stories: Story[] = [
       name: 'TheTidbit Team',
       role: 'Storytellers',
     },
-    publishDate: '2025-01-14',
+    publishDate: '2024-12-14',
     readTime: 11,
     featured: false,
     content: [
@@ -236,7 +236,7 @@ export const stories: Story[] = [
       name: 'Sneha Patel',
       role: 'Fashion & Lifestyle Writer',
     },
-    publishDate: '2025-01-12',
+    publishDate: '2024-12-12',
     readTime: 9,
     featured: false,
     content: [

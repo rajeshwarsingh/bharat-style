@@ -110,22 +110,22 @@ const StoryDetailPage: React.FC = () => {
           fetchpriority="high"
           decoding="async"
         />
-        
-        {/* Back Button - Positioned above image, no overlay */}
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
-          <Link
-            to="/stories"
-            className="group flex items-center gap-2 bg-white/95 backdrop-blur-sm text-stone-900 px-4 py-2.5 rounded-xl hover:bg-white transition shadow-lg border border-stone-200"
-          >
-            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="font-medium text-sm">Back to Stories</span>
-          </Link>
-        </div>
       </div>
 
       {/* Article Content - Clean white/beige background, editorial layout */}
       <article className="bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          
+          {/* Back Button - Below the image */}
+          <div className="mb-8">
+            <Link
+              to="/stories"
+              className="group inline-flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors font-medium"
+            >
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              <span className="text-sm">Back to Stories</span>
+            </Link>
+          </div>
           
           {/* Article Header */}
           <header className="mb-12">
