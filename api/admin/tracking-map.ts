@@ -12,9 +12,9 @@ function getHeader(req: any, name: string): string {
 }
 
 function getPassword(req: any): string {
-  const fromHeader = getHeader(req, 'x-admin-password');
-  const fromQuery = typeof req.query?.password === 'string' ? req.query.password : '';
-  const fromBody = typeof req.body?.password === 'string' ? req.body.password : '';
+  const fromHeader = getHeader(req, 'x-admin-password').trim();
+  const fromQuery = (typeof req.query?.password === 'string' ? req.query.password : '').trim();
+  const fromBody = (typeof req.body?.password === 'string' ? req.body.password : '').trim();
 
   const auth = getHeader(req, 'authorization');
   const fromBearer = auth.toLowerCase().startsWith('bearer ') ? auth.slice(7).trim() : '';
@@ -23,7 +23,7 @@ function getPassword(req: any): string {
 }
 
 function isAuthed(req: any): boolean {
-  const expected = process.env.TRACKING_ADMIN_PASSWORD || 'thetidbit2026';
+  const expected = (process.env.TRACKING_ADMIN_PASSWORD || 'thetidbit2026').trim();
   return getPassword(req) === expected;
 }
 

@@ -53,10 +53,21 @@ const TrackPage: React.FC = () => {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ courierSlug: 'anjani-courier', mobile: m }),
       });
-      const json = await r.json();
-      if (!r.ok) {
-        throw new Error(json?.error || `Request failed (${r.status})`);
+      const contentType = r.headers.get('content-type') || '';
+      const raw = await r.text();
+      let json: any = null;
+      if (contentType.includes('application/json')) {
+        try {
+          json = raw ? JSON.parse(raw) : null;
+        } catch {
+          // fall through to error below
+        }
       }
+      if (!r.ok) {
+        const extra = raw ? ` — ${raw.slice(0, 180)}` : '';
+        throw new Error((json?.error as string) || `Request failed (${r.status})${extra}`);
+      }
+      if (!json) throw new Error('Unexpected response from server. Please try again.');
       setResults((json?.results ?? []) as ApiResultItem[]);
     } catch (err: any) {
       setError(String(err?.message ?? err));

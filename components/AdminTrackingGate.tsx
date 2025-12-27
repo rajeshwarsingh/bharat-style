@@ -29,9 +29,9 @@ const AdminTrackingGate: React.FC = () => {
           return r.ok;
         };
 
-        if (password && (await verify(password))) {
+        if (password && (await verify(password.trim()))) {
           window.sessionStorage.setItem(SESSION_KEY, '1');
-          window.sessionStorage.setItem(SESSION_PW_KEY, password);
+          window.sessionStorage.setItem(SESSION_PW_KEY, password.trim());
           setReady(true);
           return;
         }
@@ -45,6 +45,7 @@ const AdminTrackingGate: React.FC = () => {
           navigate('/', { replace: true });
           return;
         }
+        password = password.trim();
 
         if (!(await verify(password))) {
           window.alert('Unauthorized');

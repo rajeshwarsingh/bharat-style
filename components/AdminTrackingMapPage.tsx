@@ -19,7 +19,8 @@ const AdminTrackingMapPage: React.FC = () => {
       const r = await fetch('/api/admin/tracking-map', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-admin-password': password },
-        body: JSON.stringify({ mobile, docIds }),
+        // send password in body too (some environments strip custom headers)
+        body: JSON.stringify({ password, mobile, docIds }),
       });
       const json = await r.json();
       if (!r.ok) throw new Error(json?.error || `Request failed (${r.status})`);
