@@ -9,6 +9,7 @@ import MetaPixel from './components/MetaPixel';
 import SlingTryModal from './components/SlingTryModal';
 import { SlingTryProvider } from './components/SlingTryContext';
 import { ThemeProvider } from './components/ThemeContext';
+import Butterfly from './components/Butterfly';
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
@@ -63,6 +64,10 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
           onClose={() => setIsSlingTryOpen(false)}
           iframeSrc="https://slingtry-ai-virtual-try-on-955247528706.us-west1.run.app/"
         />
+        
+        {/* Beautiful Butterfly Animations - Male and Female butterflies */}
+        <Butterfly delay={2000} id={0} gender="male" />
+        <Butterfly delay={4000} id={1} gender="female" />
       </SlingTryProvider>
     </ThemeProvider>
   );

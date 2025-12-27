@@ -197,4 +197,71 @@ object {
   }
 }
 
+/* ---------- Butterfly Animation ---------- */
+@keyframes bs-butterfly-flap-left {
+  0%, 100% { transform: rotate(-20deg) scaleY(1); }
+  50% { transform: rotate(-50deg) scaleY(0.75); }
+}
+@keyframes bs-butterfly-flap-right {
+  0%, 100% { transform: rotate(20deg) scaleY(1); }
+  50% { transform: rotate(50deg) scaleY(0.75); }
+}
+@keyframes bs-butterfly-float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(3px); }
+  50% { transform: translateY(-5px) translateX(0px); }
+  75% { transform: translateY(-12px) translateX(-3px); }
+}
+@keyframes bs-butterfly-glow {
+  0%, 100% { opacity: 0.9; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.2); }
+}
+
+.butterfly-container {
+  opacity: 0;
+  animation: bs-butterfly-fade-in 1.5s ease-out forwards;
+}
+
+@keyframes bs-butterfly-fade-in {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.butterfly-svg {
+  animation: bs-butterfly-float 2.5s ease-in-out infinite, bs-butterfly-glow 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.butterfly-left-wing {
+  transform-origin: 30px 50px;
+  animation: bs-butterfly-flap-left 0.25s ease-in-out infinite;
+}
+
+.butterfly-right-wing {
+  transform-origin: 70px 50px;
+  animation: bs-butterfly-flap-right 0.25s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .butterfly-container,
+  .butterfly-svg,
+  .butterfly-left-wing,
+  .butterfly-right-wing {
+    animation: none !important;
+  }
+  .butterfly-container {
+    opacity: 1;
+  }
+}
+
 
