@@ -1,4 +1,4 @@
-import { solveTrackCourierPow } from '../utils/trackcourierPow';
+import { solveTrackCourierPow } from '../utils/trackcourierPow.js';
 
 const DEFAULT_TABLE_KEY = '99650a6b6645d880782ae9fd1d0d412a';
 

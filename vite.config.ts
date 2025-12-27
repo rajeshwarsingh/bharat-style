@@ -5,9 +5,9 @@ import { processTrackCourierRequest } from './api/trackcourier';
 import { processTrackByMobileRequest } from './api/track-by-mobile';
 import { processAdminTrackingMapRequest } from './api/admin/tracking-map';
 
-export default defineConfig(({ mode, ssrBuild, isSsrBuild }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
     const env = loadEnv(mode, '.', '');
-    const isSSR = Boolean(isSsrBuild ?? ssrBuild);
+    const isSSR = Boolean(isSsrBuild);
     return {
       server: {
         port: 3000,

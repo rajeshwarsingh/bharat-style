@@ -1,5 +1,5 @@
-import { readTrackingMap } from './_trackingMapStore';
-import { trackDocIds } from './trackcourier';
+import { readTrackingMap } from './_trackingMapStore.js';
+import { trackDocIds } from './trackcourier.js';
 
 function normalizeMobile(mobile: string): string {
   const digits = mobile.replace(/[^\d]/g, '');
