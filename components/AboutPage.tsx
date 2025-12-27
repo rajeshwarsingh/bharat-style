@@ -76,9 +76,9 @@ const AboutPage: React.FC = () => {
              />
         </div>
         <div className="relative max-w-7xl mx-auto text-center">
-           <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-6">Welcome to Bharat<span className="text-brand-green-100 dark:text-brand-green">.style</span></h1>
-           <p className="text-xl text-stone-200 dark:text-stone-300 max-w-2xl mx-auto">
-             The exclusive online destination for <strong>TheTidbit</strong>'s handcrafted sustainable fashion.
+           <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-6 text-white dark:text-stone-100">Welcome to Bharat<span className="text-brand-green-100 dark:text-brand-green">.style</span></h1>
+           <p className="text-xl text-stone-200 dark:text-stone-200 max-w-2xl mx-auto">
+             The exclusive online destination for <strong className="text-white dark:text-stone-100">TheTidbit</strong>'s handcrafted sustainable fashion.
            </p>
         </div>
       </div>
@@ -98,14 +98,14 @@ const AboutPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
            <div>
               <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-6">Our Mission</h2>
-              <div className="prose prose-stone dark:prose-invert prose-lg max-w-none">
-                <p>
-                  <strong>Bharat.style</strong> is an initiative by the makers at <strong>TheTidbit</strong>. We started with a simple question: <em>Why must sustainable fashion be boring?</em>
+              <div className="space-y-4 text-lg leading-relaxed">
+                <p className="text-stone-700 dark:text-stone-200">
+                  <strong className="text-stone-900 dark:text-stone-100 font-semibold">Bharat.style</strong> is an initiative by the makers at <strong className="text-stone-900 dark:text-stone-100 font-semibold">TheTidbit</strong>. We started with a simple question: <em className="text-stone-700 dark:text-stone-200 italic">Why must sustainable fashion be boring?</em>
                 </p>
-                <p>
+                <p className="text-stone-700 dark:text-stone-200">
                   We noticed that while the world was waking up to eco-friendly living, the options for stylish, affordable, and sustainable accessories were limited. At the same time, the incredible skill of traditional jute artisans in India was fighting to survive against plastic and fast fashion.
                 </p>
-                <p>
+                <p className="text-stone-700 dark:text-stone-200">
                   Through Bharat.style, we connect these two worlds. We curate TheTidbit's designs that appeal to the modern aesthetic—minimal, functional, and chic—while staying true to the raw, earthy beauty of jute.
                 </p>
               </div>

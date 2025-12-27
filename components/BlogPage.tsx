@@ -85,14 +85,14 @@ const BlogPage: React.FC = () => {
             Back to Shop
           </Link>
 
-          <div className="prose prose-stone dark:prose-invert prose-lg max-w-none">
+          <div className="space-y-6 text-lg leading-relaxed">
             <h2 className="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100">
               The Hands That Weave Magic
             </h2>
-            <p>
-              In a small, sun-drenched village in West Bengal, the rhythmic clatter of handlooms is the music of daily life. This is where <strong>TheTidbit</strong> was born—not in a corporate boardroom, but on the mud porch of Lakshmi Devi's home.
+            <p className="text-stone-700 dark:text-stone-200">
+              In a small, sun-drenched village in West Bengal, the rhythmic clatter of handlooms is the music of daily life. This is where <strong className="text-stone-900 dark:text-stone-100 font-semibold">TheTidbit</strong> was born—not in a corporate boardroom, but on the mud porch of Lakshmi Devi's home.
             </p>
-            <p>
+            <p className="text-stone-700 dark:text-stone-200">
               Jute, known as the "Golden Fiber," has been the lifeline of this region for centuries. However, with the rise of fast fashion and plastic, the traditional art of jute weaving began to fade. Artisans like Lakshmi found themselves with incredible skills but no market.
             </p>
 
@@ -120,11 +120,11 @@ const BlogPage: React.FC = () => {
             <h3 className="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mt-10">
               From Fiber to Fashion
             </h3>
-            <p>
+            <p className="text-stone-700 dark:text-stone-200">
               The journey of your bag begins in the jute fields. The plants are harvested, retted in water, and stripped of their golden fibers. These fibers are then spun into strong, durable yarn.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-10 not-prose">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-10">
               <div className="bg-stone-50 dark:bg-stone-800/50 p-6 rounded-xl text-center">
                 <div className="mx-auto w-12 h-12 bg-jute-200 dark:bg-jute-800 rounded-full flex items-center justify-center text-stone-800 dark:text-stone-200 mb-4">
                   <Sprout size={24} />
@@ -148,17 +148,17 @@ const BlogPage: React.FC = () => {
               </div>
             </div>
 
-            <p>
-              The intricate embroidery you see on the round sling bag is done entirely by hand. No machines, no automation. Just a needle, colorful cotton threads, and a steady hand. This ensures that <strong>no two bags are exactly alike</strong>. Your bag is as unique as your fingerprint.
+            <p className="text-stone-700 dark:text-stone-200">
+              The intricate embroidery you see on the round sling bag is done entirely by hand. No machines, no automation. Just a needle, colorful cotton threads, and a steady hand. This ensures that <strong className="text-stone-900 dark:text-stone-100 font-semibold">no two bags are exactly alike</strong>. Your bag is as unique as your fingerprint.
             </p>
 
             <h3 className="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mt-10">
               Why It Matters
             </h3>
-            <p>
+            <p className="text-stone-700 dark:text-stone-200">
               By choosing TheTidbit, you are making a conscious choice. You are saying NO to mass-produced synthetic leather and plastic that clogs our oceans. You are saying YES to a product that returns to the earth gracefully when its life is over.
             </p>
-            <p>
+            <p className="text-stone-700 dark:text-stone-200">
               We are proud to be a "Make in India" brand, bringing rural craftsmanship to the global stage. Thank you for being part of our story.
             </p>
           </div>
