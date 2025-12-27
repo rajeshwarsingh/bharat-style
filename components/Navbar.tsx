@@ -130,6 +130,12 @@ const Navbar: React.FC = () => {
             >
               Shop
             </a>
+            <Link
+              to="/track"
+              className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/track' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
+            >
+              Track Order
+            </Link>
             <Link 
               to="/about"
               className={`text-sm font-medium border-b-2 transition-colors px-3 py-2 ${location.pathname === '/about' ? 'text-stone-900 border-brand-green' : 'text-stone-600 border-transparent hover:text-stone-900'}`}
@@ -280,6 +286,13 @@ const Navbar: React.FC = () => {
             >
               Shop
             </a>
+            <Link
+              to="/track"
+              onClick={closeMenu}
+              className="block w-full text-left px-3 py-2 text-base font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 rounded-md"
+            >
+              Track Order
+            </Link>
             <Link 
               to="/about"
               onClick={closeMenu}

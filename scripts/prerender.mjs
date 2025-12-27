@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const routes = ['/', '/about', '/story'];
+const routes = ['/', '/about', '/story', '/track'];
 
 const distDir = path.resolve(process.cwd(), 'dist');
 const templatePath = path.join(distDir, 'index.html');

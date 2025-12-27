@@ -12,6 +12,8 @@ import { SlingTryProvider } from './components/SlingTryContext';
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
+const TrackPage = React.lazy(() => import('./components/TrackPage'));
+const AdminTrackingGate = React.lazy(() => import('./components/AdminTrackingGate'));
 
 // Component to ensure page scrolls to top on route change
 const ScrollToTop = () => {
@@ -46,6 +48,8 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
               <Route path="/" element={<Home />} />
               <Route path="/story" element={<BlogPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/track" element={<TrackPage />} />
+              <Route path="/ops/tracking" element={<AdminTrackingGate />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Instagram, Phone, Mail, MapPin, X, CreditCard } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { INSTAGRAM_HANDLE, WHATSAPP_NUMBER } from '../constants';
 
 const Footer: React.FC = () => {
@@ -113,7 +114,20 @@ const Footer: React.FC = () => {
             <div>
               <h4 className="text-sm font-semibold text-white tracking-wider uppercase">Support</h4>
               <ul className="mt-4 space-y-4">
-                <li><a href="#" onClick={(e) => openModal(e, 'track')} className="text-sm hover:text-white transition">Track Order</a></li>
+                <li>
+                  <Link to="/track" className="text-sm hover:text-white transition">
+                    Track Order
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    onClick={(e) => openModal(e, 'track')}
+                    className="text-sm hover:text-white transition"
+                  >
+                    Tracking Info
+                  </a>
+                </li>
                 <li><a href="#" onClick={(e) => openModal(e, 'returns')} className="text-sm hover:text-white transition">Returns & Exchange</a></li>
                 <li><a href="#" onClick={(e) => openModal(e, 'shipping')} className="text-sm hover:text-white transition">Shipping Policy</a></li>
                 <li><a href="#" onClick={(e) => openModal(e, 'faqs')} className="text-sm hover:text-white transition">FAQs</a></li>
@@ -128,6 +142,15 @@ const Footer: React.FC = () => {
                 </li>
                 <li className="flex items-center gap-2 text-sm">
                   <MapPin size={16} /> Mumbai(Ambernath), India
+                </li>
+                <li className="pt-2">
+                  <Link
+                    to="/ops/tracking"
+                    className="text-xs text-stone-500 hover:text-stone-200 transition"
+                    aria-label="Admin tracking map"
+                  >
+                    Admin: Tracking
+                  </Link>
                 </li>
               </ul>
             </div>
