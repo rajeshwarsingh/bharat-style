@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
     <>
       <footer className="bg-stone-900 dark:bg-stone-950 text-stone-300 dark:text-stone-400 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-white dark:text-stone-100 text-2xl font-serif font-bold">Bharat<span className="text-brand-green dark:text-brand-green/80">.style</span></h3>
               <p className="text-stone-400 dark:text-stone-500 text-sm mb-2">by TheTidbit</p>
@@ -131,6 +131,47 @@ const Footer: React.FC = () => {
                 <li><a href="#" onClick={(e) => openModal(e, 'returns')} className="text-sm hover:text-white dark:hover:text-stone-200 transition">Returns & Exchange</a></li>
                 <li><a href="#" onClick={(e) => openModal(e, 'shipping')} className="text-sm hover:text-white dark:hover:text-stone-200 transition">Shipping Policy</a></li>
                 <li><a href="#" onClick={(e) => openModal(e, 'faqs')} className="text-sm hover:text-white dark:hover:text-stone-200 transition">FAQs</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold text-white dark:text-stone-100 tracking-wider uppercase">Resources</h4>
+              <ul className="mt-4 space-y-4">
+                <li>
+                  <Link to="/stories" className="text-sm hover:text-white dark:hover:text-stone-200 transition">
+                    Stories
+                  </Link>
+                </li>
+                <li>
+                  <a 
+                    href="/sitemap.xml" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white dark:hover:text-stone-200 transition"
+                  >
+                    Sitemap
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/feed.xml" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white dark:hover:text-stone-200 transition"
+                  >
+                    RSS Feed
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/sitemap-stories.xml" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white dark:hover:text-stone-200 transition"
+                  >
+                    Stories Sitemap
+                  </a>
+                </li>
               </ul>
             </div>
 
