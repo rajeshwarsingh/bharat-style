@@ -8,9 +8,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemaps.mjs && vite build && vite build --ssr entry-server.tsx --outDir dist/server && node scripts/prerender.mjs",
+    "build": "node scripts/generate-sitemaps.mjs && node scripts/generate-image-sitemap.mjs && node scripts/generate-feed.mjs && vite build && vite build --ssr entry-server.tsx --outDir dist/server && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "generate-sitemaps": "node scripts/generate-sitemaps.mjs"
+    "generate-sitemaps": "node scripts/generate-sitemaps.mjs",
+    "generate-feed": "node scripts/generate-feed.mjs",
+    "generate-image-sitemap": "node scripts/generate-image-sitemap.mjs",
+    "generate-all-seo": "node scripts/generate-sitemaps.mjs && node scripts/generate-image-sitemap.mjs && node scripts/generate-feed.mjs"
   },
   "dependencies": {
     "lucide-react": "0.344.0",

@@ -160,7 +160,7 @@ async function generateStoriesSitemap(stories) {
 }
 
 /**
- * Generate main sitemap.xml with core pages
+ * Generate main sitemap.xml with core pages and product pages
  */
 async function generateMainSitemap() {
   const routes = [
@@ -170,6 +170,16 @@ async function generateMainSitemap() {
     { loc: '/stories', changefreq: 'weekly', priority: '0.9' },
     { loc: '/track', changefreq: 'weekly', priority: '0.7' },
   ];
+
+  // Add product color variant pages
+  const productColors = ['red', 'blue', 'skin-orange', 'pink'];
+  for (const color of productColors) {
+    routes.push({
+      loc: `/?color=${color}`,
+      changefreq: 'weekly',
+      priority: '0.9'
+    });
+  }
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -198,7 +208,7 @@ async function generateMainSitemap() {
 }
 
 /**
- * Generate sitemap index that references both sitemaps
+ * Generate sitemap index that references all sitemaps
  */
 async function generateSitemapIndex() {
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -209,6 +219,10 @@ async function generateSitemapIndex() {
   </sitemap>
   <sitemap>
     <loc>${BASE_URL}/sitemap-stories.xml</loc>
+    <lastmod>${NOW}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${BASE_URL}/sitemap-images.xml</loc>
     <lastmod>${NOW}</lastmod>
   </sitemap>
 </sitemapindex>
