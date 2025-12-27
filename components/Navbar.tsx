@@ -152,10 +152,9 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Right-side: Theme Toggle + Badge */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-end gap-3">
             <ThemeToggle />
             {HEADER_BADGE?.enabled ? (
-            <div className="flex items-center justify-end w-28 sm:w-auto">
               <div
                 className="relative inline-flex items-center gap-2 select-none"
                 title={HEADER_BADGE.title ?? HEADER_BADGE.ariaLabel}
@@ -230,8 +229,7 @@ const Navbar: React.FC = () => {
                   </span>
                 ) : null}
               </div>
-            </div>
-          ) : null}
+            ) : null}
           </div>
         </div>
       </div>
