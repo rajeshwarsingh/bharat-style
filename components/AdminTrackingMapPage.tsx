@@ -24,6 +24,7 @@ const AdminTrackingMapPage: React.FC = () => {
       const json = await r.json();
       if (!r.ok) throw new Error(json?.error || `Request failed (${r.status})`);
       setMsg(`Saved mapping for ${json?.updated?.mobile}`);
+      setMobile('');
       setDocIds('');
     } catch (e: any) {
       setErr(String(e?.message ?? e));
