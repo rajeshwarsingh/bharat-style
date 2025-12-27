@@ -495,76 +495,6 @@ const TrackPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Product & Shop Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Product Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
-                <img
-                  src={cloudinaryTransform(shopImage, { w: 600 })}
-                  alt="Excited customer with Bharat.style bag"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              {/* Product Info & CTAs */}
-              <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-8">
-                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/50 px-4 py-2 text-xs font-semibold text-stone-700 dark:text-stone-300 mb-6">
-                  <ShoppingBag size={16} className="text-indigo-600 dark:text-indigo-400" />
-                  Shop now
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
-                  {PRODUCT.name}
-                </h2>
-                <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-3xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
-                  <span className="text-xl text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
-                  <span className="text-sm font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-3 py-1 rounded-full">Free Delivery</span>
-                </div>
-                <p className="text-stone-700 dark:text-stone-300 mb-8 text-lg leading-relaxed">
-                  Each bag is unique, crafted by skilled artisans. Choose from 4 beautiful colors, all eco-friendly and perfect for everyday use.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                  <Link
-                    to="/"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
-                  >
-                    <ShoppingBag size={20} />
-                    Shop on Bharat.style
-                    <ArrowRight size={18} />
-                  </Link>
-                  <a
-                    href={AMAZON_STORE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 text-white px-6 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
-                        window.gtag('event', 'amazon_store_click', { placement: 'track_page_before' });
-                      }
-                    }}
-                  >
-                    <ExternalLink size={20} />
-                    Shop on Amazon
-                  </a>
-                </div>
-                <div className="pt-6 border-t border-stone-200 dark:border-stone-700/50">
-                  <div className="flex items-center gap-2 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={18} className="text-yellow-400 dark:text-yellow-500 fill-current" />
-                    ))}
-                    <span className="text-base font-bold text-stone-900 dark:text-stone-100 ml-2">4.8</span>
-                    <span className="text-base text-stone-500 dark:text-stone-400">(48 reviews)</span>
-                  </div>
-                  <p className="text-stone-700 dark:text-stone-300 italic text-base leading-relaxed">
-                    "{REVIEWS[0]?.text || 'Love my sling bag! Perfect size and the embroidery is so beautiful.'}"
-                  </p>
-                  <p className="text-sm font-semibold text-stone-900 dark:text-stone-100 mt-2">— {REVIEWS[0]?.author || 'Priya S.'}</p>
-                </div>
-              </div>
-            </div>
           </div>
         ) : null}
 
@@ -624,121 +554,6 @@ const TrackPage: React.FC = () => {
                       />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Product & Shop Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Product Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
-                <img
-                  src={cloudinaryTransform(shopImage, { w: 600 })}
-                  alt="Excited customer with Bharat.style bag"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              {/* Product Info & CTAs */}
-              <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-8">
-                <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-xs font-semibold text-stone-700 mb-6">
-                  <ShoppingBag size={16} className="text-indigo-600" />
-                  Shop more
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 mb-4 leading-tight">
-                  {PRODUCT.name}
-                </h2>
-                <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-3xl font-bold text-stone-900">₹{PRODUCT.price}</span>
-                  <span className="text-xl text-stone-500 line-through">₹{PRODUCT.mrp}</span>
-                  <span className="text-sm font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full">Free Delivery</span>
-                </div>
-                <p className="text-stone-700 mb-8 text-lg leading-relaxed">
-                  Our handmade jute sling bag comes in 4 beautiful colors. Each one is unique, eco-friendly, and perfect for everyday use.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                  <Link
-                    to="/"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
-                  >
-                    <ShoppingBag size={20} />
-                    Shop on Bharat.style
-                    <ArrowRight size={18} />
-                  </Link>
-                  <a
-                    href={AMAZON_STORE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 text-white px-6 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
-                        window.gtag('event', 'amazon_store_click', { placement: 'track_page_after' });
-                      }
-                    }}
-                  >
-                    <ExternalLink size={20} />
-                    Shop on Amazon
-                  </a>
-                </div>
-
-                {/* Color Variants */}
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100 mb-4">Available Colors</h3>
-                  <div className="grid grid-cols-4 gap-3">
-                    {PRODUCT.colors.slice(0, 4).map((color) => (
-                      <Link
-                        key={color.id}
-                        to="/"
-                        className="group relative rounded-2xl overflow-hidden border-2 border-stone-200 dark:border-stone-700/50 bg-white dark:bg-stone-800/50 shadow-sm dark:shadow-stone-900/50 hover:shadow-md dark:hover:shadow-stone-900/70 hover:border-stone-300 dark:hover:border-stone-600 transition-all"
-                      >
-                        <div className="aspect-square relative overflow-hidden">
-                          <img
-                            src={cloudinaryTransform(color.images[0], { w: 200 })}
-                            srcSet={cloudinarySrcSet(color.images[0], [150, 200, 250])}
-                            sizes="(min-width: 640px) 25vw, 25vw"
-                            alt={`${PRODUCT.name} - ${color.name}`}
-                            className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
-                        <div className="p-2 text-center">
-                          <div className="flex items-center justify-center gap-1.5 mb-1">
-                            <span
-                              className="h-3 w-3 rounded-full border border-stone-300 dark:border-stone-600"
-                              style={{ backgroundColor: color.hex }}
-                            />
-                            <span className="text-xs font-semibold text-stone-900 dark:text-stone-100">{color.name}</span>
-                          </div>
-                          <div className="text-xs font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-6 border-t border-stone-200 dark:border-stone-700/50">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={16} className="text-yellow-400 dark:text-yellow-500 fill-current" />
-                      ))}
-                      <span className="text-sm font-bold text-stone-900 dark:text-stone-100 ml-2">4.8</span>
-                      <span className="text-sm text-stone-500 dark:text-stone-400">(48 reviews)</span>
-                    </div>
-                    <Link
-                      to="/"
-                      className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 underline decoration-indigo-300 dark:decoration-indigo-600 underline-offset-2 inline-flex items-center gap-1 transition-colors"
-                    >
-                      View all <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                  <p className="text-stone-600 dark:text-stone-400 text-sm">
-                    <span className="font-semibold text-stone-900 dark:text-stone-100">Tip:</span> Use coupon code{' '}
-                    <span className="font-bold text-stone-900 dark:text-stone-100">SANDY5</span> for extra 5% off!
-                  </p>
                 </div>
               </div>
             </div>
@@ -913,6 +728,78 @@ const TrackPage: React.FC = () => {
             <p className="text-sm text-stone-600 dark:text-stone-400 mt-4">
               All products are handmade, eco-friendly, and come with free delivery across India
             </p>
+          </div>
+        </div>
+
+        {/* Product & Shop Section - At the End */}
+        <div className="mt-20 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Product Image */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800">
+              <img
+                src={cloudinaryTransform(shopImage, { w: 600 })}
+                alt="Excited customer with Bharat.style bag"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            {/* Product Info & CTAs */}
+            <div className="bg-white dark:bg-stone-800/50 dark:backdrop-blur-sm rounded-3xl border border-stone-100 dark:border-stone-700/50 shadow-lg dark:shadow-stone-900/50 p-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/50 px-4 py-2 text-xs font-semibold text-stone-700 dark:text-stone-300 mb-6">
+                <ShoppingBag size={16} className="text-indigo-600 dark:text-indigo-400" />
+                Shop now
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-4 leading-tight">
+                {PRODUCT.name}
+              </h2>
+              <div className="flex items-baseline gap-3 mb-6">
+                <span className="text-3xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
+                <span className="text-xl text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
+                <span className="text-sm font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-3 py-1 rounded-full">Free Delivery</span>
+              </div>
+              <p className="text-stone-700 dark:text-stone-300 mb-8 text-lg leading-relaxed">
+                Each bag is unique, crafted by skilled artisans. Choose from 4 beautiful colors, all eco-friendly and perfect for everyday use.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                <Link
+                  to="/"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 text-white px-6 py-4 font-bold hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl text-base"
+                >
+                  <ShoppingBag size={20} />
+                  Shop on Bharat.style
+                  <ArrowRight size={18} />
+                </Link>
+                <a
+                  href={AMAZON_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 text-white px-6 py-4 font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl text-base"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+                      window.gtag('event', 'amazon_store_click', { placement: 'track_page_end' });
+                    }
+                  }}
+                >
+                  <ExternalLink size={20} />
+                  Shop on Amazon
+                </a>
+              </div>
+              <div className="pt-6 border-t border-stone-200 dark:border-stone-700/50">
+                <div className="flex items-center gap-2 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={18} className="text-yellow-400 dark:text-yellow-500 fill-current" />
+                  ))}
+                  <span className="text-base font-bold text-stone-900 dark:text-stone-100 ml-2">4.8</span>
+                  <span className="text-base text-stone-500 dark:text-stone-400">(48 reviews)</span>
+                </div>
+                <p className="text-stone-700 dark:text-stone-300 italic text-base leading-relaxed">
+                  "{REVIEWS[0]?.text || 'Love my sling bag! Perfect size and the embroidery is so beautiful.'}"
+                </p>
+                <p className="text-sm font-semibold text-stone-900 dark:text-stone-100 mt-2">— {REVIEWS[0]?.author || 'Priya S.'}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
