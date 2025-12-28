@@ -73,7 +73,9 @@ const NewArrivals: React.FC = () => {
                 </h3>
                 <p className="mt-1 text-sm text-stone-500">Natural Jute</p>
                 <div className="mt-2 flex items-baseline gap-2">
-                   <p className="text-lg font-bold text-stone-900">₹{product.price}</p>
+                   <p className="text-lg font-bold text-stone-900">
+                     <span className="text-xs font-medium text-stone-600 mr-1">Only</span>₹{product.price}
+                   </p>
                    {product.mrp > product.price && (
                      <>
                       <p className="text-xs text-stone-500 line-through">₹{product.mrp}</p>

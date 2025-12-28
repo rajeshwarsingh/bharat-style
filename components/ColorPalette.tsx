@@ -49,7 +49,9 @@ const ColorPalette: React.FC = () => {
                      {color.name}
                    </h3>
                    <div className="flex items-center justify-between">
-                      <p className="text-stone-200 font-medium">₹{PRODUCT.price}</p>
+                      <p className="text-stone-200 font-medium">
+                        <span className="text-xs opacity-80">Only</span> ₹{PRODUCT.price}
+                      </p>
                       <button
                         className="bg-white/20 backdrop-blur-md text-white border border-white/30 p-2 rounded-full hover:bg-white hover:text-stone-900 transition-colors"
                         aria-label={`Shop ${color.name}`}

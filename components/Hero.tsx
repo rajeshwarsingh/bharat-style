@@ -323,7 +323,10 @@ const Hero: React.FC<HeroProps> = ({ appliedCoupon, setAppliedCoupon }) => {
 
             {/* Price */}
             <div className="mt-6 flex items-end flex-wrap gap-2">
-              <p className="text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 tracking-tight">₹{currentPrice}</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-sm font-medium text-stone-600 dark:text-stone-400">Only</span>
+                <p className="text-4xl font-serif font-bold text-stone-900 dark:text-stone-100 tracking-tight">₹{currentPrice}</p>
+              </div>
               
               {appliedCoupon ? (
                 <div className="flex flex-col mb-1 ml-2">

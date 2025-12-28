@@ -34,7 +34,9 @@ const StickyCTA: React.FC<StickyCTAProps> = ({ appliedCoupon }) => {
       <div className="flex gap-4 items-center">
         <div className="flex-1">
           <div className="flex items-baseline gap-2">
-            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">₹{currentPrice}</p>
+            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">
+              <span className="text-xs font-medium text-stone-600 dark:text-stone-400 mr-1">Only</span>₹{currentPrice}
+            </p>
             {appliedCoupon && <span className="text-xs bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-400 px-1.5 rounded font-medium">5% OFF</span>}
           </div>
           {appliedCoupon ? (

@@ -685,7 +685,9 @@ const TrackPage: React.FC = () => {
                   </div>
                   <p className="text-sm text-stone-600 dark:text-stone-400 mb-3 line-clamp-2">{PRODUCT.name}</p>
                   <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
+                    <span className="text-xl font-bold text-stone-900 dark:text-stone-100">
+                      <span className="text-xs font-medium text-stone-600 dark:text-stone-400 mr-1">Only</span>₹{PRODUCT.price}
+                    </span>
                     <span className="text-sm text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
                     <span className="text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded-full">
                       {PRODUCT.discountPercentage}% OFF
@@ -755,7 +757,9 @@ const TrackPage: React.FC = () => {
                 {PRODUCT.name}
               </h2>
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-3xl font-bold text-stone-900 dark:text-stone-100">₹{PRODUCT.price}</span>
+                <span className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+                  <span className="text-sm font-medium text-stone-600 dark:text-stone-400 mr-1">Only</span>₹{PRODUCT.price}
+                </span>
                 <span className="text-xl text-stone-500 dark:text-stone-500 line-through">₹{PRODUCT.mrp}</span>
                 <span className="text-sm font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 px-3 py-1 rounded-full">Free Delivery</span>
               </div>

@@ -111,9 +111,9 @@ export const PRODUCT: ProductDetails = {
   brand: "TheTidbit",
   name: "Handmade Jute Embroidered Round Sling Bag",
   tagline: "Eco-Friendly • Artistic • Boho-Inspired Crossbody Bag",
-  price: 399,
+  price: 499,
   mrp: 1199,
-  discountPercentage: 67,
+  discountPercentage: 58,
   category: ["Women", "Handbags", "Sling / Crossbody Bags"],
   material: "Natural Jute with Cotton Lining",
   shape: "Round",
@@ -201,7 +201,7 @@ export const NEW_ARRIVALS: RelatedProduct[] = [
   {
     id: "boho-tote-002",
     name: "Classic Jute Shopper Tote",
-    price: 599,
+    price: 499,
     mrp: 1499,
     image: "https://picsum.photos/seed/tote1/400/500",
     tag: "Bestseller"
@@ -209,7 +209,7 @@ export const NEW_ARRIVALS: RelatedProduct[] = [
   {
     id: "clutch-003",
     name: "Embroidered Evening Clutch",
-    price: 399,
+    price: 499,
     mrp: 899,
     image: "https://picsum.photos/seed/clutch1/400/500",
     tag: "New"
@@ -225,7 +225,7 @@ export const NEW_ARRIVALS: RelatedProduct[] = [
   {
     id: "pouch-005",
     name: "Eco Mini Coin Pouch",
-    price: 149,
+    price: 499,
     mrp: 299,
     image: "https://picsum.photos/seed/pouch1/400/500"
   }
