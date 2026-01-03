@@ -27,7 +27,7 @@ const BlogPage: React.FC = () => {
         "url": LOGO_URL
       }
     },
-    "datePublished": "2025-01-01",
+    "datePublished": "2026-01-01",
     "description": "Learn about the skilled artisans from West Bengal who handcraft our jute bags, preserving traditional techniques and earning fair wages."
   };
 
