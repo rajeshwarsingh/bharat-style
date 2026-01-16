@@ -3,6 +3,7 @@ import { Sprout, Hand, HeartHandshake, Package, Quote, ArrowRight } from 'lucide
 import { ARTISAN_STORY_IMAGE, ARTISAN_SPOTLIGHT_IMAGE } from '../constants';
 import { Link } from 'react-router-dom';
 import { cloudinarySrcSet, cloudinaryTransform } from '../utils/cloudinary';
+import Butterfly from './Butterfly';
 
 const Story: React.FC = () => {
   const steps = [
@@ -35,6 +36,10 @@ const Story: React.FC = () => {
 
       {/* Part 1: Philosophy & Process */}
       <div className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        {/* Butterfly Animations - Only in Our Philosophy section */}
+        <Butterfly delay={2000} id={0} gender="male" />
+        <Butterfly delay={4000} id={1} gender="female" />
+        
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center mb-16">
           <div className="mb-10 lg:mb-0">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-jute-800 border border-jute-500 mb-6">
