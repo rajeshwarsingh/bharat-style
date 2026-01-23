@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -6,10 +6,8 @@ import Footer from './components/Footer';
 import NotFound from './components/NotFound';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import MetaPixel from './components/MetaPixel';
-import SlingTryModal from './components/SlingTryModal';
 import { SlingTryProvider } from './components/SlingTryContext';
 import { ThemeProvider } from './components/ThemeContext';
-import WelcomeModal from './components/WelcomeModal';
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
@@ -30,11 +28,9 @@ const ScrollToTop = () => {
 };
 
 export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean }) {
-  const [isSlingTryOpen, setIsSlingTryOpen] = useState(false);
-
   return (
     <ThemeProvider>
-      <SlingTryProvider value={{ openSlingTry: () => setIsSlingTryOpen(true) }}>
+      <SlingTryProvider value={{ openSlingTry: () => {} }}>
         <ScrollToTop />
         {enableAnalytics ? <GoogleAnalytics /> : null}
         {enableAnalytics ? <MetaPixel /> : null}
@@ -62,15 +58,6 @@ export function AppFrame({ enableAnalytics = true }: { enableAnalytics?: boolean
           </main>
           <Footer />
         </div>
-
-        <SlingTryModal
-          open={isSlingTryOpen}
-          onClose={() => setIsSlingTryOpen(false)}
-          iframeSrc="https://slingtry-ai-virtual-try-on-955247528706.us-west1.run.app/"
-        />
-        
-        {/* Welcome Modal - Shows on first visit */}
-        <WelcomeModal />
       </SlingTryProvider>
     </ThemeProvider>
   );
